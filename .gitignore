@@ -1,0 +1,14 @@
+dist
+out
+build
+node_modules
+
+# MISC
+.turbo
+.DS_Store
+.idea
+.vscode/*
+!.vscode/settings.json
+!.vscode/extensions.json
+.env
+.env.local

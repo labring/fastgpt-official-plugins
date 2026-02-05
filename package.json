@@ -1,0 +1,29 @@
+{
+  "name": "@fastgpt/official-plugins",
+  "version": "1.0.0",
+  "description": "Official plugins for FastGPT",
+  "scripts": {
+    "build": "turbo run build",
+    "pack": "turbo run pack",
+    "postinstall": "lefthook install"
+  },
+  "keywords": [
+    "fastgpt",
+    "plugins",
+    "official"
+  ],
+  "author": "FastGPT Team",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22",
+    "pnpm": ">=10"
+  },
+  "packageManager": "pnpm@10.28.2",
+  "devDependencies": {
+    "@biomejs/biome": "catalog:",
+    "@fastgpt-plugin/cli": "catalog:",
+    "lefthook": "catalog:",
+    "turbo": "catalog:",
+    "vitest": "catalog:"
+  }
+}

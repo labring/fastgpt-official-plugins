@@ -1,0 +1,22 @@
+{
+  "name": "get-time",
+  "version": "0.0.1",
+  "description": "This is a FastGPT plugin",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/helpers": "link:/Users/chuanhu9/projects/fastgpt-plugin/packages/helpers",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
