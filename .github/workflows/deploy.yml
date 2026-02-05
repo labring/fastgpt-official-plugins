@@ -1,0 +1,47 @@
+name: Build, Pack and Upload to Object Storage
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-pack-and-upload:
+    runs-on: ubuntu-latest
+    environment: BuildPackAndUpload
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install PNPM
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Install, Build and Pack
+        run: |
+          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm run build
+          pnpm run pack
+
+      - name: Upload to Object Storage
+        id: upload
+        uses: redfoxrr/minio-upload-action@v2
+        with:
+          endpoint: ${{ secrets.STORAGE_ENDPOINT }}
+          access-key: ${{ secrets.STORAGE_ACCESS_KEY }}
+          secret-key: ${{ secrets.STORAGE_SECRET_KEY }}
+          bucket: ${{ secrets.STORAGE_BUCKET }}
+          source: './packages/**/*.pkg'
+          target: '/pkgs-2'
+
+      - name: Use outputs
+        run: |
+          echo "Total pkgs uploaded: ${{ steps.upload.outputs.uploaded-count }}"
+          echo "All paths:"
+          echo "${{ steps.upload.outputs.uploaded-paths }}"

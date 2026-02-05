@@ -12,3 +12,5 @@ node_modules
 !.vscode/extensions.json
 .env
 .env.local
+
+*.pkg
