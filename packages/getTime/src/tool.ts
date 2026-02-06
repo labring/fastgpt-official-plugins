@@ -1,11 +1,7 @@
 import type { ToolContextType } from "@fastgpt-plugin/helpers/tools/schemas/req";
-import type { z } from "zod";
-import type { InputType, OutputType } from "./schemas";
+import type { Input, Output } from "./schemas";
 
-export async function handler(
-  _: z.infer<typeof InputType>,
-  ctx: ToolContextType,
-): Promise<z.infer<typeof OutputType>> {
+export async function handler(_: Input, ctx: ToolContextType): Promise<Output> {
   const { systemVar } = ctx;
 
   return { time: systemVar.time };
