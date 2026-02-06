@@ -4,6 +4,8 @@ packages:
 catalog:
   '@biomejs/biome': 2.3.13
   '@fastgpt-plugin/cli': 0.1.0-beta.1
+  '@fastgpt-plugin/helpers': 0.0.1-alpha.3
+  '@types/node': ^22
   lefthook: ^2.1.0
   tsx: ^4.21.0
   turbo: 2.8.3

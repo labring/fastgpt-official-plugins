@@ -15,7 +15,8 @@
   },
   "devDependencies": {
     "@fastgpt-plugin/cli": "catalog:",
-    "@fastgpt-plugin/helpers": "link:/Users/chuanhu9/projects/fastgpt-plugin/packages/helpers",
+    "@fastgpt-plugin/helpers": "catalog:",
+    "@types/node": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:"
   }

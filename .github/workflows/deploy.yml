@@ -18,7 +18,7 @@ jobs:
         with:
           node-version: 22
 
-      - name: Install PNPM
+      - name: Install Pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10.28.2
@@ -38,7 +38,7 @@ jobs:
           secret-key: ${{ secrets.STORAGE_SECRET_KEY }}
           bucket: ${{ secrets.STORAGE_BUCKET }}
           source: './packages/**/*.pkg'
-          target: '/pkgs-2'
+          target: 'pkgs'
 
       - name: Use outputs
         run: |

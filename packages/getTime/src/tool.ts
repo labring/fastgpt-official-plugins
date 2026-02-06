@@ -1,10 +1,12 @@
-import type { RunToolSecondParamsType } from "@fastgpt-plugin/helpers/tools/schemas/req";
+import type { ToolContextType } from "@fastgpt-plugin/helpers/tools/schemas/req";
 import type { z } from "zod";
 import type { InputType, OutputType } from "./schemas";
 
 export async function tool(
-  _input: z.infer<typeof InputType>,
-  _ctx: RunToolSecondParamsType,
+  _: z.infer<typeof InputType>,
+  ctx: ToolContextType,
 ): Promise<z.infer<typeof OutputType>> {
-  return { message: "Hello from get-time" };
+  const { systemVar } = ctx;
+
+  return { time: systemVar.time };
 }

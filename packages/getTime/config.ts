@@ -7,25 +7,25 @@ import {
 export default defineTool({
   tags: [ToolTagEnum.enum.tools],
   name: {
-    "zh-CN": "get-time",
-    en: "get-time",
+    "zh-CN": "获取当前时间",
+    en: "Get current time",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "获取当前时间",
+    en: "Get current time",
   },
-  icon: "core/workflow/template/get-time",
+  icon: "core/workflow/template/getTime",
   versionList: [
     {
-      value: "0.0.1",
-      description: "Initial version",
+      value: "0.1.1",
+      description: "Default version",
       inputs: [],
       outputs: [
         {
-          key: "message",
+          key: "time",
           valueType: WorkflowIOValueTypeEnum.enum.string,
-          label: "Message",
-          description: "Tool output message",
+          label: "时间",
+          description: "当前时间",
         },
       ],
     },

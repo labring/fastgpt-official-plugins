@@ -24,14 +24,13 @@ describe("get-time", () => {
           id: "test",
           version: "0.0.1",
         },
-        time: new Date().toISOString(),
+        time: "2026-02-06 10:00:00",
       },
-      streamResponse: () => {
-        // noop
-      },
+
+      emitter: {},
     });
 
     const output = OutputType.parse(result);
-    expect(output).toBeDefined();
+    expect(output.time).toEqual("2026-02-06 10:00:00");
   });
 });

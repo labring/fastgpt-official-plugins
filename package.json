@@ -5,7 +5,8 @@
   "scripts": {
     "build": "turbo run build",
     "pack": "turbo run pack",
-    "postinstall": "lefthook install"
+    "postinstall": "lefthook install",
+    "clean:node_modules": "tsx scripts/clean-node-modules.ts"
   },
   "keywords": [
     "fastgpt",
@@ -22,7 +23,9 @@
   "devDependencies": {
     "@biomejs/biome": "catalog:",
     "@fastgpt-plugin/cli": "catalog:",
+    "@types/node": "catalog:",
     "lefthook": "catalog:",
+    "tsx": "catalog:",
     "turbo": "catalog:",
     "vitest": "catalog:"
   }
