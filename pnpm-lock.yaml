@@ -13,8 +13,8 @@ catalogs:
       specifier: 0.1.0-beta.1
       version: 0.1.0-beta.1
     '@fastgpt-plugin/helpers':
-      specifier: 0.0.1-alpha.3
-      version: 0.0.1-alpha.3
+      specifier: 0.0.1-alpha.6
+      version: 0.0.1-alpha.6
     '@types/node':
       specifier: ^22
       version: 22.19.9
@@ -74,7 +74,7 @@ importers:
         version: 0.1.0-beta.1(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.3(@types/node@22.19.9)(tsx@4.21.0)
+        version: 0.0.1-alpha.6(@types/node@22.19.9)(tsx@4.21.0)
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.9
@@ -111,7 +111,7 @@ importers:
         version: 0.1.0-beta.1(@types/node@24.10.11)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.3(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.6(@types/node@24.10.11)(tsx@4.21.0)
       '@types/markdown-it':
         specifier: ^13.0.7
         version: 13.0.9
@@ -375,8 +375,8 @@ packages:
     engines: {node: '>=22.12.0'}
     hasBin: true
 
-  '@fastgpt-plugin/helpers@0.0.1-alpha.3':
-    resolution: {integrity: sha512-HII2f9Bdo35GqfBw740RO9wwNXXiYi0F4o92F3B+ma/p+eXzbMDFJL+CtDbaMHGVR0xEHgQ/NM970o1Bg9X6ug==}
+  '@fastgpt-plugin/helpers@0.0.1-alpha.6':
+    resolution: {integrity: sha512-YDydjm6sYOEJ5JAYlOQvjGOJtubP4/Z7BvTYzC34Oz3E3B3G7fA6pGM2bnUBeAwkc969kbTy/H7hI/ZcQMExnA==}
 
   '@inquirer/ansi@2.0.3':
     resolution: {integrity: sha512-g44zhR3NIKVs0zUesa4iMzExmZpLUdTLRMCStqX3GE5NT6VkPcxQGJ+uC8tDgBUC/vB1rUhUd55cOf++4NZcmw==}
@@ -2072,7 +2072,7 @@ snapshots:
       - unplugin-unused
       - vue-tsc
 
-  '@fastgpt-plugin/helpers@0.0.1-alpha.3(@types/node@22.19.9)(tsx@4.21.0)':
+  '@fastgpt-plugin/helpers@0.0.1-alpha.6(@types/node@22.19.9)(tsx@4.21.0)':
     dependencies:
       jszip: 3.10.1
       vitest: 4.0.18(@types/node@22.19.9)(tsx@4.21.0)
@@ -2099,7 +2099,7 @@ snapshots:
       - tsx
       - yaml
 
-  '@fastgpt-plugin/helpers@0.0.1-alpha.3(@types/node@24.10.11)(tsx@4.21.0)':
+  '@fastgpt-plugin/helpers@0.0.1-alpha.6(@types/node@24.10.11)(tsx@4.21.0)':
     dependencies:
       jszip: 3.10.1
       vitest: 4.0.18(@types/node@24.10.11)(tsx@4.21.0)

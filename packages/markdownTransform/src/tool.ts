@@ -4,7 +4,7 @@ import { pptxTool } from "./pptx";
 import type { Format, Input, Output } from "./schemas";
 import { xlsxTool } from "./xlsx";
 
-export async function tool(
+export async function handler(
   { format, markdown, filename }: Input & { format: Format },
   ctx: ToolContextType,
 ): Promise<Output> {
@@ -17,5 +17,6 @@ export async function tool(
   if (format === "pptx") {
     return pptxTool({ markdown, filename }, ctx);
   }
+
   return Promise.reject("Invalid format");
 }

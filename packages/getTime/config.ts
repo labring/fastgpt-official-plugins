@@ -5,7 +5,7 @@ import {
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.enum.tools],
+  tags: [ToolTagEnum.tools],
   name: {
     "zh-CN": "获取当前时间",
     en: "Get current time",
@@ -23,7 +23,7 @@ export default defineTool({
       outputs: [
         {
           key: "time",
-          valueType: WorkflowIOValueTypeEnum.enum.string,
+          valueType: WorkflowIOValueTypeEnum.string,
           label: "时间",
           description: "当前时间",
         },

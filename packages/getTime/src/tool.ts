@@ -2,7 +2,7 @@ import type { ToolContextType } from "@fastgpt-plugin/helpers/tools/schemas/req"
 import type { z } from "zod";
 import type { InputType, OutputType } from "./schemas";
 
-export async function tool(
+export async function handler(
   _: z.infer<typeof InputType>,
   ctx: ToolContextType,
 ): Promise<z.infer<typeof OutputType>> {

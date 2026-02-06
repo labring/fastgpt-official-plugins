@@ -48,7 +48,7 @@ const v2 = {
       ],
       valueType: WorkflowIOValueTypeEnum.string,
     },
-  ],
+  ] satisfies Parameters<typeof defineTool>[0]["versionList"][number]["inputs"],
   outputs: [
     {
       valueType: WorkflowIOValueTypeEnum.string,
@@ -89,7 +89,7 @@ const v1 = {
         { label: "pptx", value: "pptx" },
       ],
     },
-  ],
+  ] satisfies Parameters<typeof defineTool>[0]["versionList"][number]["inputs"],
   outputs: [
     {
       valueType: WorkflowIOValueTypeEnum.string,
