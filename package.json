@@ -6,7 +6,8 @@
     "build": "turbo run build",
     "pack": "turbo run pack",
     "postinstall": "lefthook install",
-    "clean:node_modules": "tsx scripts/clean-node-modules.ts"
+    "clean:node_modules": "tsx scripts/clean-node-modules.ts",
+    "clean:dist": "tsx scripts/clean-dist.ts"
   },
   "keywords": [
     "fastgpt",
