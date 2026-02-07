@@ -10,7 +10,9 @@
     "pack": "npx @fastgpt-plugin/cli pack",
     "test": "vitest run"
   },
-  "dependencies": {},
+  "dependencies": {
+    "axios": "^1.13.4"
+  },
   "devDependencies": {
     "@fastgpt-plugin/cli": "catalog:",
     "@fastgpt-plugin/helpers": "catalog:",
