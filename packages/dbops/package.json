@@ -1,0 +1,28 @@
+{
+  "name": "dbops",
+  "version": "0.0.1",
+  "description": "This is a FastGPT plugin",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/helpers": "catalog:",
+    "@types/mssql": "^9.1.9",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
+  },
+  "dependencies": {
+    "@clickhouse/client": "^1.17.0",
+    "mssql": "^12.2.0",
+    "mysql2": "^3.16.3",
+    "oracledb": "^6.10.0",
+    "postgres": "^3.4.8"
+  }
+}
