@@ -151,6 +151,9 @@ importers:
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
         version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+      '@types/xml2js':
+        specifier: ^0.4.14
+        version: 0.4.14
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -308,6 +311,9 @@ importers:
       '@clickhouse/client':
         specifier: ^1.17.0
         version: 1.17.0
+      axios:
+        specifier: ^1.13.4
+        version: 1.13.4
       mssql:
         specifier: ^12.2.0
         version: 12.2.0(@azure/core-client@1.10.1)
@@ -379,8 +385,11 @@ importers:
   packages/drawing:
     dependencies:
       echarts:
-        specifier: ^6.0.0
-        version: 6.0.0
+        specifier: ^5
+        version: 5.6.0
+      json5:
+        specifier: ^2.2.3
+        version: 2.2.3
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
@@ -439,6 +448,13 @@ importers:
         version: 4.3.6
 
   packages/feishuBitable:
+    dependencies:
+      axios:
+        specifier: ^1.13.4
+        version: 1.13.4
+      json5:
+        specifier: ^2.2.3
+        version: 2.2.3
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
@@ -982,10 +998,6 @@ importers:
         version: 4.3.6
 
   packages/tavily:
-    dependencies:
-      axios:
-        specifier: ^1.13.4
-        version: 1.13.4
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
@@ -2048,6 +2060,9 @@ packages:
   '@types/turndown@5.0.6':
     resolution: {integrity: sha512-ru00MoyeeouE5BX4gRL+6m/BsDfbRayOskWqUvh7CLGW+UXxHQItqALa38kKnOiZPqJrtzJUgAC2+F0rL1S4Pg==}
 
+  '@types/xml2js@0.4.14':
+    resolution: {integrity: sha512-4YnrRemBShWRO2QjvUin8ESA41rH+9nQGLUGZV/1IDhi3SL9OhdpNC/MrulTWuptXKwhx/aDxE7toV0f/ypIXQ==}
+
   '@typespec/ts-http-runtime@0.3.3':
     resolution: {integrity: sha512-91fp6CAAJSRtH5ja95T1FHSKa8aPW9/Zw6cta81jlZTUw/+Vq8jM/AfF/14h2b71wwR84JUTW/3Y8QPhDAawFA==}
     engines: {node: '>=20.0.0'}
@@ -2355,8 +2370,8 @@ packages:
   ecdsa-sig-formatter@1.0.11:
     resolution: {integrity: sha512-nagl3RYrbNv6kQkeJIpt6NJZy8twLB/2vtz6yN9Z4vRKHN4/QZJIEbqohALSgwKdnksuY3k5Addp5lg8sVoVcQ==}
 
-  echarts@6.0.0:
-    resolution: {integrity: sha512-Tte/grDQRiETQP4xz3iZWSvoHrkCQtwqd6hs+mifXcjrCuo2iKWbajFObuLJVBlDIJlOzgQPd1hsaKt/3+OMkQ==}
+  echarts@5.6.0:
+    resolution: {integrity: sha512-oTbVTsXfKuEhxftHqL5xprgLoc0k7uScAwtryCgWF6hPYFLRwOUHiFmHGCBKP5NPFNkDVopOieyUqYGH8Fa3kA==}
 
   emoji-regex@10.6.0:
     resolution: {integrity: sha512-toUI84YS5YmxW219erniWD0CIVOo46xGKColeNQRgOzDorgBi1v4D71/OFzgD9GO2UGKIv1C3Sp8DAn0+j5w7A==}
@@ -2622,6 +2637,11 @@ packages:
 
   jsesc@3.1.0:
     resolution: {integrity: sha512-/sM3dO2FOzXjKQhJuo0Q173wf2KOo8t4I8vHy6lF9poUp7bKT0/NHE8fPX23PwfhnykfqnC2xRxOnVw5XuGIaA==}
+    engines: {node: '>=6'}
+    hasBin: true
+
+  json5@2.2.3:
+    resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
     engines: {node: '>=6'}
     hasBin: true
 
@@ -3443,8 +3463,8 @@ packages:
   zod@4.3.6:
     resolution: {integrity: sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==}
 
-  zrender@6.0.0:
-    resolution: {integrity: sha512-41dFXEEXuJpNecuUQq6JlbybmnHaqqpGlbH1yxnA5V9MMP4SbohSVZsJIwz+zdjQXSSlR1Vc34EgH1zxyTDvhg==}
+  zrender@5.6.1:
+    resolution: {integrity: sha512-OFXkDJKcrlx5su2XbzJvj/34Q3m6PvyCZkVPHGYpcCJ52ek4U/ymZyfuV1nKE23AyBJ51E/6Yr0mhZ7xGTO4ag==}
 
 snapshots:
 
@@ -4480,6 +4500,10 @@ snapshots:
 
   '@types/turndown@5.0.6': {}
 
+  '@types/xml2js@0.4.14':
+    dependencies:
+      '@types/node': 24.10.11
+
   '@typespec/ts-http-runtime@0.3.3':
     dependencies:
       http-proxy-agent: 7.0.2
@@ -4504,14 +4528,6 @@ snapshots:
       magic-string: 0.30.21
     optionalDependencies:
       vite: 7.3.1(@types/node@22.19.9)(tsx@4.21.0)
-
-  '@vitest/mocker@4.0.18(vite@7.3.1(@types/node@24.10.11)(tsx@4.21.0))':
-    dependencies:
-      '@vitest/spy': 4.0.18
-      estree-walker: 3.0.3
-      magic-string: 0.30.21
-    optionalDependencies:
-      vite: 7.3.1(@types/node@24.10.11)(tsx@4.21.0)
 
   '@vitest/pretty-format@4.0.18':
     dependencies:
@@ -4827,10 +4843,10 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
-  echarts@6.0.0:
+  echarts@5.6.0:
     dependencies:
       tslib: 2.3.0
-      zrender: 6.0.0
+      zrender: 5.6.1
 
   emoji-regex@10.6.0: {}
 
@@ -5111,6 +5127,8 @@ snapshots:
   js-md4@0.3.2: {}
 
   jsesc@3.1.0: {}
+
+  json5@2.2.3: {}
 
   jsonwebtoken@9.0.3:
     dependencies:
@@ -5854,7 +5872,7 @@ snapshots:
   vitest@4.0.18(@types/node@24.10.11)(tsx@4.21.0):
     dependencies:
       '@vitest/expect': 4.0.18
-      '@vitest/mocker': 4.0.18(vite@7.3.1(@types/node@24.10.11)(tsx@4.21.0))
+      '@vitest/mocker': 4.0.18(vite@7.3.1(@types/node@22.19.9)(tsx@4.21.0))
       '@vitest/pretty-format': 4.0.18
       '@vitest/runner': 4.0.18
       '@vitest/snapshot': 4.0.18
@@ -5966,6 +5984,6 @@ snapshots:
 
   zod@4.3.6: {}
 
-  zrender@6.0.0:
+  zrender@5.6.1:
     dependencies:
       tslib: 2.3.0

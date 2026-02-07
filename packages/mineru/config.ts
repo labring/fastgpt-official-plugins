@@ -1,33 +1,31 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "mineru",
-    en: "mineru",
+    "zh-CN": "MinerU",
+    en: "MinerU",
   },
+  author: "gary-Shen",
+  tags: [ToolTagEnum.productivity],
+  tutorialUrl: "https://mineru.net/",
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN":
+      "MinerU 是一款可以在本地部署的将文件转化为机器可读格式的工具（如 markdown、json ）。",
+    en: "MinerU is a tool that can convert FILES to machine-readable formats (such as markdown, json).",
   },
-  icon: "core/workflow/template/mineru",
-  versionList: [
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "base_url",
+      label: "Base url(Saas 服务不需要填写)",
+      description: "Example: https://mineru.net, http://127.0.0.1:8000",
+      inputType: "input",
+    },
+    {
+      key: "token",
+      label: "API Token",
+      description:
+        "官方在线 MinerU 解析服务的 API Token，可在 https://mineru.net/apiManage/docs 申请获取",
+      inputType: "secret",
     },
   ],
 });

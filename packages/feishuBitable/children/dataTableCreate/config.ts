@@ -1,33 +1,66 @@
 import {
   defineTool,
-  ToolTagEnum,
+  FlowNodeInputTypeEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
+const v1 = {
+  inputs: [
+    {
+      key: "biTableId",
+      label: "多维表格 ID",
+      description: "多维表格应用的唯一标识",
+      required: true,
+      valueType: WorkflowIOValueTypeEnum.string,
+      renderTypeList: [
+        FlowNodeInputTypeEnum.input,
+        FlowNodeInputTypeEnum.reference,
+      ],
+      toolDescription: "The BiTable ID (app token) of the Bitable application",
+      placeholder: "bascxxxxxx",
+    },
+    {
+      key: "tableName",
+      label: "数据表名称",
+      description: "新建数据表的名称",
+      required: true,
+      valueType: WorkflowIOValueTypeEnum.string,
+      renderTypeList: [
+        FlowNodeInputTypeEnum.input,
+        FlowNodeInputTypeEnum.reference,
+      ],
+      toolDescription: "The name of the new table to create",
+      maxLength: 100,
+    },
+  ],
+  outputs: [
+    {
+      key: "dataTableId",
+      label: "数据表 ID",
+      description: "创建的数据表唯一标识",
+      valueType: WorkflowIOValueTypeEnum.string,
+    },
+  ],
+};
+
 export default defineTool({
-  tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "feishu-bitable",
-    en: "feishu-bitable",
+    "zh-CN": "新增数据表",
+    en: "Create Data Table",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "在飞书多维表格应用中创建新的数据表",
+    en: "Create a new data table in Feishu Bitable app",
   },
-  icon: "core/workflow/template/feishu-bitable",
+  toolDescription:
+    "Create a new data table in a Feishu Bitable application with specified name.",
+
   versionList: [
+    { value: "0.1.1", description: "update docs", ...v1 },
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      value: "0.1.0",
+      description: "Initial version",
+      ...v1,
     },
   ],
 });

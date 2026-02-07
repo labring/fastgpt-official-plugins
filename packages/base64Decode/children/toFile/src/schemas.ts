@@ -1,9 +1,11 @@
 import { z } from "zod";
 
-export const InputSchema = z.object({});
+export const InputSchema = z.object({
+  base64: z.string().nonempty(),
+});
 export type Input = z.infer<typeof InputSchema>;
 
 export const OutputSchema = z.object({
-  time: z.string().nonempty(),
+  url: z.string(),
 });
 export type Output = z.infer<typeof OutputSchema>;

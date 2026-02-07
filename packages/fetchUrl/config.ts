@@ -1,5 +1,6 @@
 import {
   defineTool,
+  FlowNodeInputTypeEnum,
   ToolTagEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
@@ -7,25 +8,44 @@ import {
 export default defineTool({
   tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "fetch-url",
-    en: "fetch-url",
+    "zh-CN": "网页内容抓取",
+    en: "Fetch Url",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN":
+      "可获取一个网页链接内容，并以 Markdown 格式输出，仅支持获取静态网站。",
+    en: "Get the content of a website link and output it in Markdown format, only supports static websites.",
   },
-  icon: "core/workflow/template/fetch-url",
+  icon: "core/workflow/template/fetchUrl",
   versionList: [
     {
-      value: "0.0.1",
-      description: "Initial version",
-      inputs: [],
+      value: "0.1.1",
+      description: "Default version",
+      inputs: [
+        {
+          renderTypeList: [
+            FlowNodeInputTypeEnum.reference,
+            FlowNodeInputTypeEnum.input,
+          ],
+          selectedTypeIndex: 0,
+          valueType: WorkflowIOValueTypeEnum.string,
+          key: "url",
+          label: "url",
+          description: "需要读取的网页链接",
+          required: true,
+          toolDescription: "需要读取的网页链接",
+        },
+      ],
       outputs: [
         {
-          key: "time",
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          key: "title",
+          label: "网页标题",
+        },
+        {
+          valueType: WorkflowIOValueTypeEnum.string,
+          key: "result",
+          label: "网页内容",
         },
       ],
     },

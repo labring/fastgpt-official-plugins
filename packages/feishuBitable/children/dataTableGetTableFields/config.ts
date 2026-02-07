@@ -1,33 +1,66 @@
 import {
   defineTool,
-  ToolTagEnum,
+  FlowNodeInputTypeEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
+const v1 = {
+  inputs: [
+    {
+      key: "biTableId",
+      label: "多维表格 ID",
+      description: "多维表格应用的唯一标识",
+      required: true,
+      valueType: WorkflowIOValueTypeEnum.string,
+      renderTypeList: [
+        FlowNodeInputTypeEnum.input,
+        FlowNodeInputTypeEnum.reference,
+      ],
+      toolDescription: "The BiTable ID (app token) of the Bitable application",
+      placeholder: "bascxxxxxx",
+    },
+    {
+      key: "dataTableId",
+      label: "数据表 ID",
+      description: "数据表唯一标识",
+      required: true,
+      valueType: WorkflowIOValueTypeEnum.string,
+      renderTypeList: [
+        FlowNodeInputTypeEnum.input,
+        FlowNodeInputTypeEnum.reference,
+      ],
+      toolDescription: "The table ID to get fields from",
+      placeholder: "tblxxxxxx",
+    },
+  ],
+  outputs: [
+    {
+      key: "fields",
+      label: "字段列表",
+      description: "字段配置数组,每个包含fieldId, fieldName, type等信息",
+      valueType: WorkflowIOValueTypeEnum.arrayObject,
+    },
+  ],
+};
+
 export default defineTool({
-  tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "feishu-bitable",
-    en: "feishu-bitable",
+    "zh-CN": "获取表字段配置",
+    en: "Get Table Fields",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "获取飞书多维表格数据表的字段配置信息",
+    en: "Get field configuration of a data table in Feishu Bitable app",
   },
-  icon: "core/workflow/template/feishu-bitable",
+  toolDescription:
+    "List all field configurations of a data table with pagination support.",
+
   versionList: [
+    { value: "0.1.1", description: "update docs", ...v1 },
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      value: "0.1.0",
+      description: "Initial version",
+      ...v1,
     },
   ],
 });

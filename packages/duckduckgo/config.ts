@@ -1,33 +1,13 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "duckduckgo",
-    en: "duckduckgo",
+    "zh-CN": "DuckDuckGo服务",
+    en: "DuckDuckGo Service",
   },
+  tags: [ToolTagEnum.search],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "DuckDuckGo 服务，包含网络搜索、图片搜索、新闻搜索等。",
+    en: "DuckDuckGo Service, including network search, image search, news search, etc.",
   },
-  icon: "core/workflow/template/duckduckgo",
-  versionList: [
-    {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
-    },
-  ],
 });

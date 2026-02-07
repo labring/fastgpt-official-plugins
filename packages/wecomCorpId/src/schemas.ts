@@ -4,6 +4,7 @@ export const InputSchema = z.object({});
 export type Input = z.infer<typeof InputSchema>;
 
 export const OutputSchema = z.object({
-  time: z.string().nonempty(),
+  access_token: z.string(),
+  expires_in: z.number(),
 });
 export type Output = z.infer<typeof OutputSchema>;

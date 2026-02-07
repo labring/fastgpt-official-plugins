@@ -1,5 +1,6 @@
 import {
   defineTool,
+  FlowNodeInputTypeEnum,
   ToolTagEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
@@ -7,27 +8,31 @@ import {
 export default defineTool({
   tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "delay",
-    en: "delay",
+    "zh-CN": "流程等待",
+    en: "Delay",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "让工作流等待指定时间后运行",
+    en: "Delay the workflow after a specified time",
   },
-  icon: "core/workflow/template/delay",
+  icon: "core/workflow/template/sleep",
   versionList: [
     {
-      value: "0.0.1",
-      description: "Initial version",
-      inputs: [],
-      outputs: [
+      value: "1.0",
+      description: "Default version",
+      inputs: [
         {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          key: "ms",
+          label: "延迟时长(毫秒)",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.numberInput,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          valueType: WorkflowIOValueTypeEnum.number,
+          defaultValue: 1000,
         },
       ],
+      outputs: [],
     },
   ],
 });

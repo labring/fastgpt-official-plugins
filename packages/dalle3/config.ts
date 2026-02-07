@@ -1,33 +1,69 @@
 import {
   defineTool,
+  FlowNodeInputTypeEnum,
+  FlowNodeOutputTypeEnum,
   ToolTagEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
+  tags: [ToolTagEnum.multimodal],
   name: {
-    "zh-CN": "dalle-3",
-    en: "dalle-3",
+    "zh-CN": "Dalle3 绘图",
+    en: "Dalle3 Drawing",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "调用 Dalle3 接口绘图",
+    en: "Call Dalle3 Interface to Draw",
   },
-  icon: "core/workflow/template/dalle-3",
+  icon: "common/openai",
+  tutorialUrl: "https://openai.com",
   versionList: [
     {
-      value: "0.0.1",
-      description: "Initial version",
-      inputs: [],
-      outputs: [
+      value: "0.1.1",
+      description: "Default version",
+      inputs: [
         {
-          key: "time",
+          key: "prompt",
+          label: "绘图提示词",
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.reference,
+            FlowNodeInputTypeEnum.input,
+          ],
+          toolDescription: "绘图提示词",
         },
       ],
+      outputs: [
+        {
+          valueType: WorkflowIOValueTypeEnum.string,
+          key: "link",
+          label: "图片访问链接",
+          description: "图片访问链接",
+        },
+        {
+          type: FlowNodeOutputTypeEnum.error,
+          valueType: WorkflowIOValueTypeEnum.string,
+          key: "system_error",
+          label: "错误信息",
+        },
+      ],
+    },
+  ],
+  secretInputConfig: [
+    {
+      key: "url",
+      label: "Dalle3 接口基础地址",
+      description: "例如：https://api.openai.com",
+      inputType: "input",
+      required: true,
+    },
+    {
+      key: "authorization",
+      label: "接口凭证（不需要 Bearer）",
+      description: "sk-xxxx",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

@@ -1,33 +1,13 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "drawing",
-    en: "drawing",
+    "zh-CN": "BI图表功能",
+    en: "BI Charts",
   },
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "BI图表功能，可以生成一些常用的图表，如饼图，柱状图，折线图等",
+    en: "BI Charts, can generate some common charts, such as pie charts, bar charts, line charts, etc.",
   },
-  icon: "core/workflow/template/drawing",
-  versionList: [
-    {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
-    },
-  ],
 });

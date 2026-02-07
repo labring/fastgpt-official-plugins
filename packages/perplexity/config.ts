@@ -1,33 +1,23 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "perplexity",
-    en: "perplexity",
+    "zh-CN": "Perplexity 工具集",
+    en: "Perplexity Tool Set",
   },
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "这是一个 Perplexity 工具集",
+    en: "This is a Perplexity tool set",
   },
-  icon: "core/workflow/template/perplexity",
-  versionList: [
+  tutorialUrl: "https://docs.perplexity.ai/getting-started/overview",
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "apiKey",
+      label: "API Key",
+      description: "可以在 Perplexity 获取",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

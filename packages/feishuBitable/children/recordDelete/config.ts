@@ -1,33 +1,75 @@
 import {
   defineTool,
-  ToolTagEnum,
+  FlowNodeInputTypeEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
+const v1 = {
+  inputs: [
+    {
+      key: "biTableId",
+      label: "多维表格 ID",
+      description: "多维表格应用的唯一标识",
+      required: true,
+      valueType: WorkflowIOValueTypeEnum.string,
+      renderTypeList: [
+        FlowNodeInputTypeEnum.input,
+        FlowNodeInputTypeEnum.reference,
+      ],
+      toolDescription: "The BiTable ID (app token) of the Bitable application",
+    },
+    {
+      key: "dataTableId",
+      label: "数据表 ID",
+      description: "数据表唯一标识",
+      required: true,
+      valueType: WorkflowIOValueTypeEnum.string,
+      renderTypeList: [
+        FlowNodeInputTypeEnum.input,
+        FlowNodeInputTypeEnum.reference,
+      ],
+      toolDescription: "The table ID containing the record",
+    },
+    {
+      key: "recordId",
+      label: "记录 ID",
+      description: "要删除的记录唯一标识",
+      required: true,
+      valueType: WorkflowIOValueTypeEnum.string,
+      renderTypeList: [
+        FlowNodeInputTypeEnum.input,
+        FlowNodeInputTypeEnum.reference,
+      ],
+      toolDescription: "The record ID to delete",
+    },
+  ],
+  outputs: [
+    {
+      key: "success",
+      label: "是否成功",
+      description: "操作是否成功",
+      valueType: WorkflowIOValueTypeEnum.boolean,
+    },
+  ],
+};
+
 export default defineTool({
-  tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "feishu-bitable",
-    en: "feishu-bitable",
+    "zh-CN": "删除记录",
+    en: "Delete Record",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "删除飞书多维表格数据表中的指定记录",
+    en: "Delete a specific record from a data table in Feishu Bitable app",
   },
-  icon: "core/workflow/template/feishu-bitable",
+  toolDescription: "Delete a record from a data table by record ID.",
+
   versionList: [
+    { value: "0.1.1", description: "update docs", ...v1 },
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      value: "0.1.0",
+      description: "Initial version",
+      ...v1,
     },
   ],
 });

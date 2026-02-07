@@ -1,33 +1,30 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "libulibu",
-    en: "libulibu",
+    "zh-CN": "libulibu 工具集",
+    en: "Libulibu Tool Set",
   },
+  tags: [ToolTagEnum.multimodal],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "libulibu 工具集",
+    en: "Libulibu Tool Set",
   },
-  icon: "core/workflow/template/libulibu",
-  versionList: [
+  tutorialUrl: "https://www.liblib.art/apis",
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "accessKey",
+      label: "accessKey",
+      description: "可以在 https://www.liblib.art/apis 获取",
+      required: true,
+      inputType: "secret",
+    },
+    {
+      key: "secretKey",
+      label: "secretKey",
+      description: "可以在 https://www.liblib.art/apis 获取",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

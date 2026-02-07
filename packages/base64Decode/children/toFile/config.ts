@@ -1,31 +1,44 @@
 import {
   defineTool,
+  FlowNodeInputTypeEnum,
   ToolTagEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "base-64-decode",
-    en: "base-64-decode",
+    "zh-CN": "Base64 转文件",
+    en: "Base64 to File",
   },
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "将 Base64 编码的字符串转换为文件。",
+    en: "Enter a Base64-encoded string and get a file.",
   },
-  icon: "core/workflow/template/base-64-decode",
+  toolDescription: "Base64-encoded to file",
   versionList: [
     {
-      value: "0.0.1",
+      value: "0.1.1",
       description: "Default version",
-      inputs: [],
+      inputs: [
+        {
+          key: "base64",
+          label: "Base64 字符串",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.input,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          valueType: WorkflowIOValueTypeEnum.string,
+          required: true,
+        },
+      ],
       outputs: [
         {
-          key: "time",
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          key: "url",
+          label: "文件 URL",
+          description: "可访问的文件地址: http://example.com",
+          required: true,
         },
       ],
     },

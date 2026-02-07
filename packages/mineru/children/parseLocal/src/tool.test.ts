@@ -1,37 +1,23 @@
+import {
+  mockedEventEmitter,
+  mockedSystemVar,
+} from "@fastgpt-plugin/helpers/tools/mocks";
 import { describe, expect, it } from "vitest";
-import { InputType, OutputType } from "./schemas";
-import { tool } from "./tool";
+import { InputSchema, OutputSchema } from "./schemas";
+import { handler } from "./tool";
 
-describe("mineru child tool", () => {
+describe("mineru parseLocal", () => {
   it("should run with valid IO schemas", async () => {
-    const input = InputType.parse({});
-    const result = await tool(input, {
-      systemVar: {
-        user: {
-          id: "test",
-          username: "test",
-          contact: "test",
-          membername: "test",
-          teamName: "test",
-          teamId: "test",
-          name: "test",
-        },
-        app: {
-          id: "test",
-          name: "test",
-        },
-        tool: {
-          id: "test",
-          version: "0.0.1",
-        },
-        time: new Date().toISOString(),
-      },
-      streamResponse: () => {
-        // noop
-      },
+    const input = InputSchema.parse({
+      base_url: "http://127.0.0.1:8000",
+      files: ["https://example.com/test.pdf"],
+    });
+    const result = await handler(input, {
+      systemVar: mockedSystemVar,
+      emitter: mockedEventEmitter,
     });
 
-    const output = OutputType.parse(result);
+    const output = OutputSchema.parse(result);
     expect(output).toBeDefined();
   });
 });

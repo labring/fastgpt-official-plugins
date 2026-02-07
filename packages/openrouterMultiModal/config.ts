@@ -1,33 +1,25 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "openrouter-multi-modal",
-    en: "openrouter-multi-modal",
+    "zh-CN": "OpenRouter 多模态",
+    en: "OpenRouter Multi-Modal",
   },
+  tags: [ToolTagEnum.multimodal],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN":
+      "这是一个OpenRouter 多模态工具集，支持调用多种OpenRouter平台提供的模型服务",
+    en: "This is an OpenRouter multi-modal tool set, supporting various model services provided by the OpenRouter platform",
   },
-  icon: "core/workflow/template/openrouter-multi-modal",
-  versionList: [
+  toolDescription:
+    "This is an OpenRouter multi-modal tool set, supporting various model services provided by the OpenRouter platform",
+  tutorialUrl: "https://openrouter.ai/docs/quickstart",
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "apiKey",
+      label: "API Key",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

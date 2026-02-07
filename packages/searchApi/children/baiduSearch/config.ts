@@ -1,31 +1,53 @@
 import {
   defineTool,
-  ToolTagEnum,
+  FlowNodeInputTypeEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "search-api",
-    en: "search-api",
+    "zh-CN": "百度搜索",
+    en: "Baidu Search",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "调用百度搜索",
+    en: "Call Baidu search",
   },
-  icon: "core/workflow/template/search-api",
   versionList: [
     {
-      value: "0.0.1",
+      value: "0.1.1",
       description: "Default version",
-      inputs: [],
+      inputs: [
+        {
+          key: "q",
+          label: "搜索关键词",
+          toolDescription: "搜索关键词",
+          required: true,
+          valueType: WorkflowIOValueTypeEnum.string,
+          renderTypeList: [
+            FlowNodeInputTypeEnum.reference,
+            FlowNodeInputTypeEnum.input,
+          ],
+        },
+        {
+          key: "num",
+          label: "最大搜索数量",
+          valueType: WorkflowIOValueTypeEnum.number,
+          renderTypeList: [
+            FlowNodeInputTypeEnum.numberInput,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          value: 20,
+          max: 100,
+          min: 1,
+        },
+      ],
       outputs: [
         {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          valueType: WorkflowIOValueTypeEnum.arrayObject,
+          key: "result",
+          label: "搜索结果",
+          description: "搜索结果",
         },
       ],
     },

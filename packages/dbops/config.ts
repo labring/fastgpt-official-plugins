@@ -1,33 +1,14 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "dbops",
-    en: "dbops",
+    "zh-CN": "数据库操作",
+    en: "Database Operations",
   },
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN":
+      "数据库操作工具集，包含 MySQL、PostgreSQL、Microsoft SQL Server、Oracle、ClickHouse 数据库操作功能",
+    en: "Database Operations Tool Set, including MySQL, PostgreSQL, Microsoft SQL Server, Oracle, ClickHouse database operations functionality",
   },
-  icon: "core/workflow/template/dbops",
-  versionList: [
-    {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
-    },
-  ],
 });

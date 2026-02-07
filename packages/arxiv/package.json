@@ -8,7 +8,9 @@
     "build": "npx @fastgpt-plugin/cli build --minify",
     "build:dev": "npx @fastgpt-plugin/cli build",
     "pack": "npx @fastgpt-plugin/cli pack",
-    "test": "vitest run"
+    "test": "vitest run",
+    "type-check": "tsc --noEmit",
+    "biome-check": "biome check . --write"
   },
   "dependencies": {
     "xml2js": "^0.6.2"
@@ -16,6 +18,7 @@
   "devDependencies": {
     "@fastgpt-plugin/cli": "catalog:",
     "@fastgpt-plugin/helpers": "catalog:",
+    "@types/xml2js": "^0.4.14",
     "typescript": "catalog:",
     "vitest": "catalog:",
     "zod": "catalog:"

@@ -7,25 +7,32 @@ import {
 export default defineTool({
   tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "wecom-corp-id",
-    en: "wecom-corp-id",
+    "zh-CN": "企业微信授权",
+    en: "WeChat Work Auth",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "获取企业微信授权 Token",
+    en: "Get WeChat Work authorization token",
   },
-  icon: "core/workflow/template/wecom-corp-id",
+  toolDescription:
+    "Get WeChat Work (WeCom) authorization token by corpId. Returns access_token and expires_in.",
   versionList: [
     {
-      value: "0.0.1",
-      description: "Initial version",
+      value: "0.1.0",
+      description: "Get WeChat Work authorization token",
       inputs: [],
       outputs: [
         {
-          key: "time",
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          key: "access_token",
+          label: "访问令牌",
+          description: "企业微信访问令牌",
+        },
+        {
+          valueType: WorkflowIOValueTypeEnum.number,
+          key: "expires_in",
+          label: "过期时间（秒）",
+          description: "Token 过期时间（秒）",
         },
       ],
     },

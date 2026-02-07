@@ -1,33 +1,22 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "search-api",
-    en: "search-api",
+    "zh-CN": "SearchApi",
+    en: "SearchApi",
   },
+  tutorialUrl: "https://www.searchapi.io/",
+  tags: [ToolTagEnum.search],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "SearchApi 服务",
+    en: "SearchApi Service",
   },
-  icon: "core/workflow/template/search-api",
-  versionList: [
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "apiKey",
+      label: "Search API Key",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

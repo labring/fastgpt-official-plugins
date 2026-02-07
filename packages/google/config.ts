@@ -1,33 +1,65 @@
 import {
   defineTool,
+  FlowNodeInputTypeEnum,
   ToolTagEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
+  tags: [ToolTagEnum.search],
   name: {
-    "zh-CN": "google",
-    en: "google",
+    "zh-CN": "Google 搜索",
+    en: "Google search",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "在 Google 中搜索",
+    en: "Search in Google",
   },
   icon: "core/workflow/template/google",
+  tutorialUrl:
+    "https://fael3z0zfze.feishu.cn/wiki/Vqk1w4ltNiuLifkHTuoc0hSrnVg?fromScene=spaceOverview",
   versionList: [
     {
-      value: "0.0.1",
-      description: "Initial version",
-      inputs: [],
-      outputs: [
+      value: "0.1.1",
+      description: "Default version",
+      inputs: [
         {
-          key: "time",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.reference,
+            FlowNodeInputTypeEnum.input,
+          ],
+          selectedTypeIndex: 0,
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          key: "query",
+          label: "query",
+          description: "查询字段值",
+          required: true,
+          toolDescription: "查询字段值",
         },
       ],
+      outputs: [
+        {
+          valueType: WorkflowIOValueTypeEnum.object,
+          key: "result",
+          label: "result",
+        },
+      ],
+    },
+  ],
+  secretInputConfig: [
+    {
+      key: "key",
+      label: "key",
+      description: "Google搜索key",
+      required: true,
+      inputType: "secret",
+    },
+    {
+      key: "cx",
+      label: "cx",
+      description: "Google搜索cxID",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

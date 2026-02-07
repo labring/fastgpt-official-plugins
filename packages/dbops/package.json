@@ -8,7 +8,9 @@
     "build": "npx @fastgpt-plugin/cli build --minify",
     "build:dev": "npx @fastgpt-plugin/cli build",
     "pack": "npx @fastgpt-plugin/cli pack",
-    "test": "vitest run"
+    "test": "vitest run",
+    "type-check": "tsc --noEmit",
+    "biome-check": "biome check . --write"
   },
   "devDependencies": {
     "@fastgpt-plugin/cli": "catalog:",
@@ -20,6 +22,7 @@
   },
   "dependencies": {
     "@clickhouse/client": "^1.17.0",
+    "axios": "^1.13.4",
     "mssql": "^12.2.0",
     "mysql2": "^3.16.3",
     "oracledb": "^6.10.0",

@@ -4,12 +4,15 @@ import {
 } from "@fastgpt-plugin/helpers/tools/mocks";
 import { describe, expect, it } from "vitest";
 import { InputSchema, OutputSchema } from "./schemas";
-import { tool } from "./tool";
+import { handler } from "./tool";
 
-describe("get-time", () => {
+describe("chatPPT", () => {
   it("should run with valid IO schemas", async () => {
-    const input = InputSchema.parse({});
-    const result = await tool(input, {
+    const input = InputSchema.parse({
+      apiKey: "test-api-key",
+      text: "生成一个关于人工智能的PPT",
+    });
+    const result = await handler(input, {
       systemVar: mockedSystemVar,
       emitter: mockedEventEmitter,
     });

@@ -1,33 +1,24 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "jina-ai",
-    en: "jina-ai",
+    "zh-CN": "Jina AI 工具集",
+    en: "Jina AI Tool Set",
   },
+  tutorialUrl: "https://jina.ai/",
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN":
+      "Jina AI 提供的智能搜索和网页内容提取工具集，包含搜索引擎和网页阅读器功能",
+    en: "Jina AI intelligent search and web content extraction tool set, including search engine and web reader functionality",
   },
-  icon: "core/workflow/template/jina-ai",
-  versionList: [
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "apiKey",
+      label: "Jina AI API密钥",
+      description: "Jina AI API密钥，格式：jina_xxxxxxxxxxxxxxxx",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

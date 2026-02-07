@@ -1,33 +1,35 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "feishu-bitable",
-    en: "feishu-bitable",
+    "zh-CN": "飞书多维表格",
+    en: "Feishu Bitable",
   },
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN":
+      "提供飞书多维表格的完整操作功能，包括应用管理、数据表管理、记录 CRUD、字段配置查询",
+    en: "Provides comprehensive Feishu Bitable operations including app management, table management, record CRUD, and field configuration",
   },
-  icon: "core/workflow/template/feishu-bitable",
-  versionList: [
+  toolDescription: `A comprehensive Feishu (Lark) Bitable toolset for managing multidimensional table apps, tables, records, and fields.
+Supports complete CRUD operations across all levels: apps, tables, and records.`,
+  tutorialUrl:
+    "https://open.feishu.cn/document/server-docs/docs/bitable-v1/bitable-overview",
+  // 使用 appId 和 appSecret 来换取 token
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "appId",
+      label: "应用 ID (App ID)",
+      description: "飞书机器人应用的 App ID， cli_xxx",
+      required: true,
+      inputType: "input",
+    },
+    {
+      key: "appSecret",
+      label: "应用密钥 (App Secret)",
+      description: "飞书机器人应用的 App Secret",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

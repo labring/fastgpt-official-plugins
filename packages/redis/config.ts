@@ -1,33 +1,27 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "redis",
-    en: "redis",
+    "zh-CN": "Redis 缓存",
+    en: "Redis Cache",
   },
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "提供 Redis 缓存的基本操作功能,包括获取、设置和删除",
+    en: "Provides basic Redis cache operations including get, set and delete",
   },
-  icon: "core/workflow/template/redis",
-  versionList: [
+  toolDescription:
+    "A Redis caching toolset with GET, SET, DELETE operations. Use these tools to manage cached data in Redis with TTL support.",
+
+  // Shared secret config - all child tools share this
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "redisUrl",
+      label: "Redis 连接串",
+      description:
+        "Redis 连接地址 (格式: redis://host:port 或 redis://user:password@host:port/db)",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

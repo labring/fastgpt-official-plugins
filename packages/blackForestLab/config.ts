@@ -1,33 +1,23 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "black-forest-lab",
-    en: "black-forest-lab",
+    "zh-CN": "Flux 绘图",
+    en: "Flux Drawing",
   },
+  tutorialUrl: "https://www.flux.ai",
+  tags: [ToolTagEnum.multimodal],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "Flux官方绘图模型工具集",
+    en: "Flux official drawing model toolset",
   },
-  icon: "core/workflow/template/black-forest-lab",
-  versionList: [
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "apiKey",
+      label: "API Key",
+      description: "可以在 https://api.bfl.ai/ 获取 API Key",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

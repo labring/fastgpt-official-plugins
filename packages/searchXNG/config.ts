@@ -1,33 +1,58 @@
 import {
   defineTool,
+  FlowNodeInputTypeEnum,
   ToolTagEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
+  tags: [ToolTagEnum.search],
   name: {
-    "zh-CN": "search-xng",
-    en: "search-xng",
+    "zh-CN": "SearXNG 搜索",
+    en: "Search XNG",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "使用 SearXNG 服务进行搜索。",
+    en: "Use SearXNG service for search.",
   },
-  icon: "core/workflow/template/search-xng",
+  icon: "core/workflow/template/searxng",
+  tutorialUrl: "/docs/introduction/guide/plugins/searxng_plugin_guide/",
   versionList: [
     {
-      value: "0.0.1",
-      description: "Initial version",
-      inputs: [],
-      outputs: [
+      value: "0.1.1",
+      description: "Default version",
+      inputs: [
         {
-          key: "time",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.reference,
+            FlowNodeInputTypeEnum.input,
+          ],
+          selectedTypeIndex: 0,
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          key: "query",
+          label: "query",
+          description: "检索词",
+          required: true,
+          toolDescription: "检索词",
         },
       ],
+      outputs: [
+        {
+          valueType: WorkflowIOValueTypeEnum.string,
+          key: "result",
+          label: "搜索结果",
+          description: " 检索结果",
+        },
+      ],
+    },
+  ],
+  secretInputConfig: [
+    {
+      key: "url",
+      label: "url",
+      description: "searXNG搜索url",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

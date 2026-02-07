@@ -1,31 +1,60 @@
 import {
   defineTool,
-  ToolTagEnum,
+  FlowNodeInputTypeEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "firecrawl",
-    en: "firecrawl",
+    "zh-CN": "抓取网页内容",
+    en: "Scrape web content",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "从任何网站抓取干净的数据。",
+    en: "Scrape clean data from any website.",
   },
-  icon: "core/workflow/template/firecrawl",
+  tutorialUrl: "https://www.firecrawl.dev/",
   versionList: [
     {
-      value: "0.0.1",
+      value: "0.1.1",
       description: "Default version",
-      inputs: [],
+      inputs: [
+        {
+          key: "url",
+          label: "Url",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.reference,
+            FlowNodeInputTypeEnum.input,
+          ],
+          valueType: WorkflowIOValueTypeEnum.string,
+          required: true,
+          toolDescription: "The URL of the webpage to scrape",
+        },
+        {
+          key: "format",
+          label: "返回格式",
+          renderTypeList: [FlowNodeInputTypeEnum.select],
+          valueType: WorkflowIOValueTypeEnum.string,
+          required: true,
+          list: [
+            { label: "Markdown", value: "markdown" },
+            { label: "HTML", value: "html" },
+          ],
+          defaultValue: "markdown",
+        },
+        {
+          key: "faster",
+          label: "快速模式",
+          renderTypeList: [FlowNodeInputTypeEnum.switch],
+          valueType: WorkflowIOValueTypeEnum.boolean,
+          defaultValue: true,
+        },
+      ],
       outputs: [
         {
-          key: "time",
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          key: "result",
+          label: "抓取结果",
         },
       ],
     },

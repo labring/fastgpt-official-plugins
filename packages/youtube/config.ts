@@ -1,33 +1,13 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "youtube",
-    en: "youtube",
+    "zh-CN": "YouTube 工具集",
+    en: "YouTube Tools",
   },
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "提供 YouTube 视频相关功能,包括字幕获取等",
+    en: "Provides YouTube video-related functionalities, including subtitle extraction",
   },
-  icon: "core/workflow/template/youtube",
-  versionList: [
-    {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
-    },
-  ],
 });

@@ -1,33 +1,26 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "minimax",
-    en: "minimax",
+    "zh-CN": "minimax 工具集",
+    en: "minimax Tool Set",
   },
+  tutorialUrl: "https://platform.minimaxi.com/document/quick_start",
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN":
+      "minimax 工具集, 包含文本转语音、语音转文本、语音合成、语音识别等功能",
+    en: "minimax tool set, including text-to-speech, speech-to-text, speech synthesis, speech recognition等功能",
   },
-  icon: "core/workflow/template/minimax",
-  versionList: [
+  toolDescription:
+    "minimax tool set, including text-to-speech, speech-to-text, speech synthesis, speech recognition等功能",
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "apiKey",
+      label: "API Key",
+      description: "可以在 minimax 官网获取",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

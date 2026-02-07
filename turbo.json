@@ -9,6 +9,8 @@
     "pack": {
       "dependsOn": ["^pack"],
       "outputs": ["*.pkg"]
-    }
+    },
+    "type-check": {},
+    "biome-check": {}
   }
 }

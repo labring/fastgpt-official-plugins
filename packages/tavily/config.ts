@@ -1,33 +1,28 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "tavily",
-    en: "tavily",
+    "zh-CN": "Tavily 搜索",
+    en: "Tavily Search",
   },
+  tags: [ToolTagEnum.search],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "提供 Tavily AI 搜索和内容提取功能,支持智能搜索和网页内容抽取",
+    en: "Provides Tavily AI search and content extraction capabilities",
   },
-  icon: "core/workflow/template/tavily",
-  versionList: [
+  toolDescription: `A Tavily AI search toolset with SEARCH and EXTRACT operations.
+    Use these tools to perform AI-powered web searches with advanced filtering
+    and extract structured content from web pages.`,
+  tutorialUrl: "https://app.tavily.com",
+  // 共享密钥配置 - 所有子工具共享
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "tavilyApiKey",
+      label: "Tavily API Key",
+      description:
+        "Tavily API 密钥 (格式: tvly-xxxxxxxxxxxxxxxxxxxxxxxx), 在 https://app.tavily.com 获取",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

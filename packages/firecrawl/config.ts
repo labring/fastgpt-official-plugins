@@ -1,33 +1,28 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "firecrawl",
-    en: "firecrawl",
+    "zh-CN": "Firecrawl",
+    en: "Firecrawl",
   },
+  tags: [ToolTagEnum.search],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "使用从任何网站抓取的干净数据为您的AI应用程序提供动力。",
+    en: "Web scraper for LLMs. Power your AI apps with clean data crawled from any website. It's also open source.",
   },
-  icon: "core/workflow/template/firecrawl",
-  versionList: [
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "apiUrl",
+      label: "Firecrawl API Url",
+      description: "Firecrawl 的 API 地址,如果使用官方的服务,这里可以留空。",
+      required: false,
+      inputType: "input",
+    },
+    {
+      key: "apiKey",
+      label: "Firecrawl API Key",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

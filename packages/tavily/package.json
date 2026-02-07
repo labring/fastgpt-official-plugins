@@ -8,11 +8,11 @@
     "build": "npx @fastgpt-plugin/cli build --minify",
     "build:dev": "npx @fastgpt-plugin/cli build",
     "pack": "npx @fastgpt-plugin/cli pack",
-    "test": "vitest run"
+    "test": "vitest run",
+    "type-check": "tsc --noEmit",
+    "biome-check": "biome check . --write"
   },
-  "dependencies": {
-    "axios": "^1.13.4"
-  },
+  "dependencies": {},
   "devDependencies": {
     "@fastgpt-plugin/cli": "catalog:",
     "@fastgpt-plugin/helpers": "catalog:",

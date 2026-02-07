@@ -1,37 +1,33 @@
+import {
+  mockedEventEmitter,
+  mockedSystemVar,
+} from "@fastgpt-plugin/helpers/tools/mocks";
 import { describe, expect, it } from "vitest";
-import { InputType, OutputType } from "./schemas";
-import { tool } from "./tool";
+import { InputSchema, OutputSchema } from "./schemas";
+import { handler } from "./tool";
 
-describe("moji-weather child tool", () => {
-  it("should run with valid IO schemas", async () => {
-    const input = InputType.parse({});
-    const result = await tool(input, {
-      systemVar: {
-        user: {
-          id: "test",
-          username: "test",
-          contact: "test",
-          membername: "test",
-          teamName: "test",
-          teamId: "test",
-          name: "test",
-        },
-        app: {
-          id: "test",
-          name: "test",
-        },
-        tool: {
-          id: "test",
-          version: "0.0.1",
-        },
-        time: new Date().toISOString(),
-      },
-      streamResponse: () => {
-        // noop
-      },
-    });
+describe("mojiWeather tool", () => {
+  it("should have valid schemas defined", () => {
+    expect(InputSchema).toBeDefined();
+    expect(OutputSchema).toBeDefined();
+  });
 
-    const output = OutputType.parse(result);
-    expect(output).toBeDefined();
+  it("should reject when no city info provided", async () => {
+    await expect(
+      handler(
+        InputSchema.parse({
+          apiKey: "test-key",
+          city: "杭州",
+          province: "浙江",
+          towns: "",
+          start_time: "2024-07-18",
+          end_time: "2024-07-20",
+        }),
+        {
+          systemVar: mockedSystemVar,
+          emitter: mockedEventEmitter,
+        },
+      ),
+    ).rejects.toBeDefined();
   });
 });

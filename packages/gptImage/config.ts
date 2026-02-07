@@ -1,33 +1,32 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "gpt-image",
-    en: "gpt-image",
+    "zh-CN": "gpt-image 绘图",
+    en: "gpt-image Image Generation",
   },
+  tutorialUrl: "https://platform.openai.com/docs/pricing",
+  tags: [ToolTagEnum.multimodal],
+  icon: "common/openai",
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "这是一个gpt-image 绘图工具集",
+    en: "This is a gpt-image image generation tool set",
   },
-  icon: "core/workflow/template/gpt-image",
-  versionList: [
+  toolDescription: "gpt-image image generation tool set",
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "baseUrl",
+      label: "BaseUrl",
+      inputType: "input",
+      description: "默认为：https://api.openai.com/v1",
+      defaultValue: "https://api.openai.com/v1",
+    },
+    {
+      key: "apiKey",
+      label: "API Key",
+      description: "可以在 https://api.gpt.ge/pricing 获取",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

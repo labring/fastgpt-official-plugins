@@ -1,9 +1,7 @@
-import { z } from "zod";
+import { OracleInputSchema, SQLDbOutputSchema } from "../../../types";
 
-export const InputSchema = z.object({});
-export type Input = z.infer<typeof InputSchema>;
+export const InputSchema = OracleInputSchema;
+export type Input = import("../../../types").OracleInputType;
 
-export const OutputSchema = z.object({
-  time: z.string().nonempty(),
-});
-export type Output = z.infer<typeof OutputSchema>;
+export const OutputSchema = SQLDbOutputSchema;
+export type Output = import("../../../types").SQLDbOutputType;

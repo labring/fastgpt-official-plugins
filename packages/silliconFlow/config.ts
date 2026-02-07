@@ -1,33 +1,23 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "sillicon-flow",
-    en: "sillicon-flow",
+    "zh-CN": "硅基流动",
+    en: "Silicon Flow",
   },
+  tags: [ToolTagEnum.multimodal],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "这是一个硅基流动工具集",
+    en: "This is a Silicon Flow tool set",
   },
-  icon: "core/workflow/template/sillicon-flow",
-  versionList: [
+  tutorialUrl: "https://cloud.siliconflow.cn/i/TR9Ym0c4",
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "authorization",
+      label: "接口凭证（不需要 Bearer）",
+      description: "sk-xxxx",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

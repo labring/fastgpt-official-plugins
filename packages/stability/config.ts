@@ -1,33 +1,25 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "stability",
-    en: "stability",
+    "zh-CN": "Stability AI 图像生成",
+    en: "Stability AI Image Generation",
   },
+  tags: [ToolTagEnum.multimodal],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN":
+      "Stability AI 提供的图像生成工具集，包含 Ultra、Core 和 SD3.5 模型",
+    en: "Stability AI image generation tool set including Ultra, Core and SD3.5 models",
   },
-  icon: "core/workflow/template/stability",
-  versionList: [
+  toolDescription:
+    "Stability AI image generation tools: Ultra for high-quality images, Core for balanced performance, and SD3.5 for advanced generation with model selection",
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "STABILITY_KEY",
+      label: "Stability API Key",
+      description: "可以在 https://platform.stability.ai 获取 API Key",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

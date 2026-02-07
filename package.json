@@ -5,6 +5,8 @@
   "scripts": {
     "build": "turbo run build",
     "pack": "turbo run pack",
+    "type-check": "turbo run type-check --parallel",
+    "biome-check": "turbo run biome-check --parallel",
     "postinstall": "lefthook install",
     "clean:node_modules": "tsx scripts/clean-node-modules.ts",
     "clean:dist": "tsx scripts/clean-dist.ts"

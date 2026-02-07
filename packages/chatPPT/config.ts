@@ -1,31 +1,69 @@
 import {
   defineTool,
+  FlowNodeInputTypeEnum,
   ToolTagEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
+  tutorialUrl: "https://wiki.yoo-ai.com/api/guide.html",
   name: {
-    "zh-CN": "chat-ppt",
-    en: "chat-ppt",
+    "zh-CN": "必优ChatPPT",
+    en: "ChatPPT",
   },
+  tags: [ToolTagEnum.productivity],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "必优ChatPPT，一键生成PPT",
+    en: "ChatPPT, one-click generate PPT",
   },
-  icon: "core/workflow/template/chat-ppt",
+  toolDescription: "ChatPPT, one-click generate PPT",
+  icon: "core/workflow/template/chatPPT",
+  secretInputConfig: [
+    {
+      key: "apiKey",
+      label: "API Key",
+      description: "可以在必优官网获取",
+      required: true,
+      inputType: "secret",
+    },
+  ],
   versionList: [
     {
-      value: "0.0.1",
-      description: "Initial version",
-      inputs: [],
+      value: "0.1.1",
+      description: "Default version",
+      inputs: [
+        {
+          key: "text",
+          label: "描述文本",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.input,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          valueType: WorkflowIOValueTypeEnum.string,
+          description: "生成PPT的描述文本",
+          toolDescription: "生成PPT的描述文本",
+          placeholder: "描述PPT内容, 如: 生成一个关于人工智能的PPT",
+          required: true,
+        },
+        {
+          key: "color",
+          label: "主题色",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.input,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          valueType: WorkflowIOValueTypeEnum.string,
+          description: "PPT的主题色",
+          toolDescription: "PPT的主题色",
+          placeholder: "直接填写自然语言描述主题色, 如: 蓝色",
+        },
+      ],
       outputs: [
         {
-          key: "time",
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          key: "preview_url",
+          label: "PPT的预览URL",
+          description: "PPT的预览URL",
         },
       ],
     },

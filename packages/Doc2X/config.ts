@@ -1,33 +1,24 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "doc-2-x",
-    en: "doc-2-x",
+    "zh-CN": "Doc2X 服务",
+    en: "Doc2X Service",
   },
+  tags: [ToolTagEnum.productivity],
+  tutorialUrl: "https://doc2x.noedgeai.com?inviteCode=9EACN2",
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN":
+      "将传入的图片或PDF文件发送至Doc2X进行解析，返回带LaTeX公式的markdown格式的文本。",
+    en: "Send an image or PDF file to Doc2X for parsing and return the LaTeX formula in markdown format.",
   },
-  icon: "core/workflow/template/doc-2-x",
-  versionList: [
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "apikey",
+      label: "apikey",
+      description: "Doc2X的API密钥，可以从Doc2X开放平台获得",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

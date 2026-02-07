@@ -8,7 +8,9 @@
     "build": "npx @fastgpt-plugin/cli build --minify",
     "build:dev": "npx @fastgpt-plugin/cli build",
     "pack": "npx @fastgpt-plugin/cli pack",
-    "test": "vitest run"
+    "test": "vitest run",
+    "type-check": "tsc --noEmit",
+    "biome-check": "biome check . --write"
   },
   "dependencies": {
     "cheerio": "^1.2.0",

@@ -1,33 +1,64 @@
 import {
   defineTool,
+  FlowNodeInputTypeEnum,
   ToolTagEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
+  tags: [ToolTagEnum.communication],
   name: {
-    "zh-CN": "ding-talk-webhook",
-    en: "ding-talk-webhook",
+    "zh-CN": "钉钉 webhook",
+    en: "DingTalk Webhook",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "向钉钉机器人发起 webhook 请求。",
+    en: "Send a webhook request to DingTalk.",
   },
-  icon: "core/workflow/template/ding-talk-webhook",
+  icon: "plugins/dingding",
+  tutorialUrl: "https://open.dingtalk.com/document/robots/custom-robot-access",
   versionList: [
     {
-      value: "0.0.1",
-      description: "Initial version",
-      inputs: [],
-      outputs: [
+      value: "0.1.1",
+      description: "Default version",
+      inputs: [
         {
-          key: "time",
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          key: "webhookUrl",
+          label: "钉钉机器人地址",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.input,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          required: true,
+        },
+        {
+          renderTypeList: [
+            FlowNodeInputTypeEnum.input,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          selectedTypeIndex: 0,
+          valueType: WorkflowIOValueTypeEnum.string,
+          key: "secret",
+          label: "加签值",
+          description: "钉钉机器人加签值",
+          required: true,
+        },
+        {
+          renderTypeList: [
+            FlowNodeInputTypeEnum.input,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          selectedTypeIndex: 0,
+          valueType: WorkflowIOValueTypeEnum.string,
+          key: "message",
+          label: "发送的消息",
+          description: "发送的消息",
+          required: true,
+          toolDescription: "发送的消息",
         },
       ],
+      outputs: [],
     },
   ],
 });

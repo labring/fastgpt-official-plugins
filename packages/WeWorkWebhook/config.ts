@@ -1,33 +1,47 @@
 import {
   defineTool,
+  FlowNodeInputTypeEnum,
   ToolTagEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
+  tags: [ToolTagEnum.communication],
   name: {
-    "zh-CN": "we-work-webhook",
-    en: "we-work-webhook",
+    "zh-CN": "企业微信 webhook",
+    en: "WeWork Webhook",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "向企业微信机器人发起 webhook 请求。只能内部群使用。",
+    en: "Send webhook requests to WeWork robots. Only internal groups can use this tool.",
   },
-  icon: "core/workflow/template/we-work-webhook",
+  tutorialUrl: "https://developer.work.weixin.qq.com/document/path/91770",
+  icon: "plugins/qiwei",
   versionList: [
     {
-      value: "0.0.1",
-      description: "Initial version",
-      inputs: [],
-      outputs: [
+      value: "0.1.1",
+      description: "Default version",
+      inputs: [
         {
-          key: "time",
+          key: "webhookUrl",
+          label: "企微机器人地址",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.input,
+            FlowNodeInputTypeEnum.reference,
+          ],
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+        },
+        {
+          key: "message",
+          label: "发送的消息",
+          renderTypeList: [
+            FlowNodeInputTypeEnum.input,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          valueType: WorkflowIOValueTypeEnum.string,
         },
       ],
+      outputs: [],
     },
   ],
 });

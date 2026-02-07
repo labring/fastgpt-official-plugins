@@ -1,33 +1,13 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "base-64-decode",
-    en: "base-64-decode",
+    "zh-CN": "Base64 解析",
+    en: "Base64 Decode",
   },
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "输入 Base64 编码的字符串，输出文本、图片等。",
+    en: "Enter a Base64-encoded string and get a text, image, etc.",
   },
-  icon: "core/workflow/template/base-64-decode",
-  versionList: [
-    {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
-    },
-  ],
 });

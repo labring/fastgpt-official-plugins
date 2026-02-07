@@ -1,33 +1,24 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "moji-weather",
-    en: "moji-weather",
+    "zh-CN": "墨迹天气",
+    en: "Moji Weather",
   },
+  tutorialUrl: "https://www.mojicb.com/apis",
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "墨迹天气工具集，提供天气查询相关功能",
+    en: "Moji Weather toolset providing weather query functionality",
   },
-  icon: "core/workflow/template/moji-weather",
-  versionList: [
+  toolDescription: "Moji Weather toolset providing weather query functionality",
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "apiKey",
+      label: "墨迹天气API密钥",
+      description: "墨迹天气API密钥，用于访问天气服务",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

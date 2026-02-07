@@ -1,2 +1,6 @@
-export { default as toolFromChild } from "./children/sqlserver/index";
-export { default as config } from "./config";
+import { exportToolSet } from "@fastgpt-plugin/helpers/tools/helper";
+import config from "./config";
+
+export default exportToolSet({
+  config,
+});

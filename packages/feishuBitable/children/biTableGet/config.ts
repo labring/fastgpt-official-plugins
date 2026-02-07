@@ -1,33 +1,53 @@
 import {
   defineTool,
-  ToolTagEnum,
+  FlowNodeInputTypeEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
+const v1 = {
+  inputs: [
+    {
+      key: "biTableId",
+      label: "多维表格 ID",
+      description: "多维表格应用的唯一标识",
+      required: true,
+      valueType: WorkflowIOValueTypeEnum.string,
+      renderTypeList: [
+        FlowNodeInputTypeEnum.input,
+        FlowNodeInputTypeEnum.reference,
+      ],
+      toolDescription: "The BiTable ID (app token) of the Bitable application",
+      placeholder: "bascxxxxxx",
+    },
+  ],
+  outputs: [
+    {
+      key: "name",
+      label: "应用名称",
+      description: "应用名称",
+      valueType: WorkflowIOValueTypeEnum.string,
+    },
+  ],
+};
+
 export default defineTool({
-  tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "feishu-bitable",
-    en: "feishu-bitable",
+    "zh-CN": "获取多维表格",
+    en: "Get BiTable",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "获取指定飞书多维表格应用的元数据信息",
+    en: "Get metadata information of a specific Feishu Bitable application",
   },
-  icon: "core/workflow/template/feishu-bitable",
+  toolDescription:
+    "Retrieve metadata information of a Feishu Bitable application by its app token.",
+
   versionList: [
+    { value: "0.1.1", description: "update docs", ...v1 },
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      value: "0.1.0",
+      description: "Initial version",
+      ...v1,
     },
   ],
 });

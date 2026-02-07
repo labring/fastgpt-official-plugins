@@ -1,9 +1,7 @@
-import { z } from "zod";
+import { ClickHouseInputSchema, SQLDbOutputSchema } from "../../../types";
 
-export const InputSchema = z.object({});
-export type Input = z.infer<typeof InputSchema>;
+export const InputSchema = ClickHouseInputSchema;
+export type Input = import("../../../types").ClickHouseInputType;
 
-export const OutputSchema = z.object({
-  time: z.string().nonempty(),
-});
-export type Output = z.infer<typeof OutputSchema>;
+export const OutputSchema = SQLDbOutputSchema;
+export type Output = import("../../../types").SQLDbOutputType;

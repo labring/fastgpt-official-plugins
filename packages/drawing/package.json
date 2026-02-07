@@ -8,10 +8,13 @@
     "build": "npx @fastgpt-plugin/cli build --minify",
     "build:dev": "npx @fastgpt-plugin/cli build",
     "pack": "npx @fastgpt-plugin/cli pack",
-    "test": "vitest run"
+    "test": "vitest run",
+    "type-check": "tsc --noEmit",
+    "biome-check": "biome check . --write"
   },
   "dependencies": {
-    "echarts": "^6.0.0"
+    "echarts": "^5",
+    "json5": "^2.2.3"
   },
   "devDependencies": {
     "@fastgpt-plugin/cli": "catalog:",

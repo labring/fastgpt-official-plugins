@@ -1,31 +1,51 @@
 import {
   defineTool,
-  ToolTagEnum,
+  FlowNodeInputTypeEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "redis",
-    en: "redis",
+    "zh-CN": "获取缓存",
+    en: "Get Cache",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "从 Redis 获取缓存数据",
+    en: "Get cached data from Redis",
   },
-  icon: "core/workflow/template/redis",
+  toolDescription:
+    "Get cached value from Redis by key. Returns null if key does not exist.",
+
   versionList: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
+      value: "0.1.1",
+      description: "Initial version",
+      inputs: [
+        {
+          key: "key",
+          label: "缓存键",
+          description: "Redis 键名",
+          required: true,
+          valueType: WorkflowIOValueTypeEnum.string,
+          renderTypeList: [
+            FlowNodeInputTypeEnum.input,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          toolDescription: "The Redis key to retrieve",
+        },
+      ],
       outputs: [
         {
-          key: "time",
+          key: "value",
+          label: "缓存值",
+          description: "获取到的缓存数据,如果键不存在则为 null",
           valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+        },
+        {
+          key: "exists",
+          label: "是否存在",
+          description: "键是否存在",
+          valueType: WorkflowIOValueTypeEnum.boolean,
         },
       ],
     },

@@ -1,33 +1,23 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "metaso",
-    en: "metaso",
+    "zh-CN": "秘塔搜索工具集",
+    en: "Metaso Tool Set",
   },
+  tags: [ToolTagEnum.search],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "秘塔AI搜索工具集，包含智能搜索、问答和网页内容读取功能",
+    en: "Metaso AI search tool set, including intelligent search, Q&A and web content reading functionality",
   },
-  icon: "core/workflow/template/metaso",
-  versionList: [
+  tutorialUrl: "https://metaso.cn/",
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "apiKey",
+      label: "Metaso API密钥",
+      description: "Metaso API密钥，用于访问问答服务",
+      required: true,
+      inputType: "secret",
     },
   ],
 });

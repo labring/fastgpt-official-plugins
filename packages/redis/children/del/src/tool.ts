@@ -1,8 +1,25 @@
 import type { ToolContextType } from "@fastgpt-plugin/helpers/tools/schemas/req";
+import { createRedisClient, handleRedisError } from "../../../client";
 import type { Input, Output } from "./schemas";
 
-export async function handler(_: Input, ctx: ToolContextType): Promise<Output> {
-  const { systemVar } = ctx;
+export async function handler(
+  { redisUrl, key }: Input,
+  _ctx: ToolContextType,
+): Promise<Output> {
+  let client = null;
 
-  return { time: systemVar.time };
+  try {
+    client = await createRedisClient(redisUrl);
+    const count = await client.del(key);
+
+    return {
+      deleted: count > 0,
+    };
+  } catch (error) {
+    return Promise.reject(handleRedisError(error));
+  } finally {
+    if (client) {
+      await client.quit();
+    }
+  }
 }

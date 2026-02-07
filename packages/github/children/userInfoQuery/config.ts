@@ -1,31 +1,49 @@
 import {
   defineTool,
-  ToolTagEnum,
+  FlowNodeInputTypeEnum,
   WorkflowIOValueTypeEnum,
 } from "@fastgpt-plugin/helpers";
 
 export default defineTool({
-  tags: [ToolTagEnum.tools],
   name: {
-    "zh-CN": "github",
-    en: "github",
+    "zh-CN": "GitHub 用户信息查询",
+    en: "GitHub User Info Query",
   },
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN":
+      "查询任意 GitHub 用户的公开信息（头像、bio、粉丝数、仓库数等）和公开仓库列表。可选 GitHub Token 以提升速率或访问更多信息。",
+    en: "Query any GitHub user's public info (avatar, bio, followers, repo count, etc.) and public repo list. Optional GitHub token for higher rate limit.",
   },
-  icon: "core/workflow/template/github",
   versionList: [
     {
-      value: "0.0.1",
+      value: "0.1.1",
       description: "Default version",
-      inputs: [],
+      inputs: [
+        {
+          key: "username",
+          label: "GitHub 用户名",
+          description: "要查询的 GitHub 用户名，如 octocat",
+          required: true,
+          valueType: WorkflowIOValueTypeEnum.string,
+          renderTypeList: [
+            FlowNodeInputTypeEnum.input,
+            FlowNodeInputTypeEnum.reference,
+          ],
+          toolDescription: "要查询的 GitHub 用户名，如 octocat",
+        },
+      ],
       outputs: [
         {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
+          valueType: WorkflowIOValueTypeEnum.object,
+          key: "userInfo",
+          label: "用户基本信息",
+          description: "GitHub 用户的公开信息，如头像、bio、粉丝数、仓库数等",
+        },
+        {
+          valueType: WorkflowIOValueTypeEnum.arrayObject,
+          key: "repos",
+          label: "公开仓库列表",
+          description: "该用户的所有公开仓库",
         },
       ],
     },

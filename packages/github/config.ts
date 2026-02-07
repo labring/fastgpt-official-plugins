@@ -1,33 +1,22 @@
-import {
-  defineTool,
-  ToolTagEnum,
-  WorkflowIOValueTypeEnum,
-} from "@fastgpt-plugin/helpers";
+import { defineToolSet, ToolTagEnum } from "@fastgpt-plugin/helpers";
 
-export default defineTool({
-  tags: [ToolTagEnum.tools],
+export default defineToolSet({
   name: {
-    "zh-CN": "github",
-    en: "github",
+    "zh-CN": "GitHub 工具集",
+    en: "GitHub Tool Set",
   },
+  tags: [ToolTagEnum.tools],
   description: {
-    "zh-CN": "This is a FastGPT plugin",
-    en: "This is a FastGPT plugin",
+    "zh-CN": "GitHub 工具集",
+    en: "GitHub Tool Set",
   },
-  icon: "core/workflow/template/github",
-  versionList: [
+  secretInputConfig: [
     {
-      value: "0.0.1",
-      description: "Default version",
-      inputs: [],
-      outputs: [
-        {
-          key: "time",
-          valueType: WorkflowIOValueTypeEnum.string,
-          label: "时间",
-          description: "当前时间",
-        },
-      ],
+      key: "token",
+      label: "GitHub Token",
+      description: "可选，填写后可提升API速率或访问更多信息",
+      inputType: "secret",
+      required: false,
     },
   ],
 });
