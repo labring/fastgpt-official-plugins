@@ -1,0 +1,21 @@
+{
+  "name": "fastgpt-info",
+  "version": "0.0.1",
+  "description": "获取 FastGPT 中用户、团队等信息",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/helpers": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
+  }
+}

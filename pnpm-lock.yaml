@@ -10,11 +10,11 @@ catalogs:
       specifier: 2.3.13
       version: 2.3.13
     '@fastgpt-plugin/cli':
-      specifier: 0.1.0-beta.2
-      version: 0.1.0-beta.2
+      specifier: 0.1.0-beta.3
+      version: 0.1.0-beta.3
     '@fastgpt-plugin/helpers':
-      specifier: 0.0.1-alpha.7
-      version: 0.0.1-alpha.7
+      specifier: 0.0.1-alpha.9
+      version: 0.0.1-alpha.9
     '@types/node':
       specifier: ^22
       version: 22.19.9
@@ -46,7 +46,7 @@ importers:
         version: 2.3.13
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@22.19.9)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@22.19.9)(tsx@4.21.0)(typescript@5.9.3)
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.9
@@ -67,10 +67,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -89,10 +89,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -107,10 +107,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -125,10 +125,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -147,10 +147,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       '@types/xml2js':
         specifier: ^0.4.14
         version: 0.4.14
@@ -168,10 +168,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -186,10 +186,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -204,10 +204,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -222,10 +222,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -240,10 +240,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -258,10 +258,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -286,10 +286,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       '@types/mssql':
         specifier: ^9.1.9
         version: 9.1.9(@azure/core-client@1.10.1)
@@ -329,10 +329,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       '@types/mssql':
         specifier: ^9.1.9
         version: 9.1.9(@azure/core-client@1.10.1)
@@ -350,10 +350,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -368,10 +368,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -393,10 +393,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -415,10 +415,28 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.0.18(@types/node@24.10.11)(tsx@4.21.0)
+      zod:
+        specifier: 'catalog:'
+        version: 4.3.6
+
+  packages/fastgptInfo:
+    devDependencies:
+      '@fastgpt-plugin/cli':
+        specifier: 'catalog:'
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+      '@fastgpt-plugin/helpers':
+        specifier: 'catalog:'
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -433,10 +451,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -458,10 +476,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -489,10 +507,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       '@types/turndown':
         specifier: ^5.0.6
         version: 5.0.6
@@ -514,10 +532,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -536,10 +554,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@22.19.9)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@22.19.9)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@22.19.9)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@22.19.9)(tsx@4.21.0)
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.9
@@ -554,10 +572,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -572,10 +590,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -590,10 +608,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -608,10 +626,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -626,10 +644,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -663,10 +681,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       '@types/markdown-it':
         specifier: ^13.0.7
         version: 13.0.9
@@ -682,10 +700,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -700,10 +718,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -722,10 +740,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -740,10 +758,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -758,10 +776,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -776,10 +794,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -798,10 +816,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -820,10 +838,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -842,10 +860,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -860,10 +878,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -882,10 +900,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -900,10 +918,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -918,10 +936,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -936,10 +954,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -958,10 +976,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       '@types/nodemailer':
         specifier: ^7.0.9
         version: 7.0.9
@@ -983,10 +1001,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1001,10 +1019,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1029,10 +1047,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1047,10 +1065,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1069,10 +1087,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1087,10 +1105,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1109,10 +1127,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1131,10 +1149,10 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
+        version: 0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)
       '@fastgpt-plugin/helpers':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
+        version: 0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1474,16 +1492,19 @@ packages:
   '@fast-csv/parse@4.3.6':
     resolution: {integrity: sha512-uRsLYksqpbDmWaSmzvJcuApSEe38+6NQZBUsuAyMZKqHxH0g1wcJgsKUvN3WC8tewaqFjBMMGrkHmC+T7k8LvA==}
 
-  '@fastgpt-plugin/cli@0.1.0-beta.2':
-    resolution: {integrity: sha512-+tGg/OUGPkOVF4ApLMedYC1UfnEgyK7HqSWlyCob8EzU3n67w3HBSWAXq1wnX02gBhOPjprZ1yqcrbaUE5jS4A==}
+  '@fastgpt-plugin/cli@0.1.0-beta.3':
+    resolution: {integrity: sha512-NiaT9gtn//E/TursOS8FGsma7A16yF9Vf646f4KhP0EqDv3vWLatQ/RBeY7yPKTvk6auX+GXso48du0+qnWuFw==}
     engines: {node: '>=22.12.0'}
     hasBin: true
 
-  '@fastgpt-plugin/helpers@0.0.1-alpha.3':
-    resolution: {integrity: sha512-HII2f9Bdo35GqfBw740RO9wwNXXiYi0F4o92F3B+ma/p+eXzbMDFJL+CtDbaMHGVR0xEHgQ/NM970o1Bg9X6ug==}
-
   '@fastgpt-plugin/helpers@0.0.1-alpha.7':
     resolution: {integrity: sha512-OzIuLGE1FMK2QBFwhoC6Wc6j2noXZHUe83XpPFOyfMeusmqvLcr569dbWMlOJsYkDe/Q5ldkkaS6iesB08Ggcw==}
+
+  '@fastgpt-plugin/helpers@0.0.1-alpha.9':
+    resolution: {integrity: sha512-QdyiA3GnptxJokbRaM425IBlrS+KVcTKzsZQd84lgI5HrfZKN7wOc4ZlYQN+7dVu2SaH9D+Q/1tnSh54cvG7Jg==}
+
+  '@fastgpt-sdk/invoke@0.0.1-alpha.2':
+    resolution: {integrity: sha512-UH1mZ8dG/nNDYb6/q173BJSBzvB3dZicwP70bPV4Lj5h4h6NG/zSH0bNq+cJP4pKTRirpw/SEZcnfNwEyVVZgw==}
 
   '@inquirer/ansi@2.0.3':
     resolution: {integrity: sha512-g44zhR3NIKVs0zUesa4iMzExmZpLUdTLRMCStqX3GE5NT6VkPcxQGJ+uC8tDgBUC/vB1rUhUd55cOf++4NZcmw==}
@@ -3785,9 +3806,9 @@ snapshots:
       lodash.isundefined: 3.0.1
       lodash.uniq: 4.5.0
 
-  '@fastgpt-plugin/cli@0.1.0-beta.2(@types/node@22.19.9)(tsx@4.21.0)(typescript@5.9.3)':
+  '@fastgpt-plugin/cli@0.1.0-beta.3(@types/node@22.19.9)(tsx@4.21.0)(typescript@5.9.3)':
     dependencies:
-      '@fastgpt-plugin/helpers': 0.0.1-alpha.3(@types/node@22.19.9)(tsx@4.21.0)
+      '@fastgpt-plugin/helpers': 0.0.1-alpha.7(@types/node@22.19.9)(tsx@4.21.0)
       '@inquirer/prompts': 8.2.0(@types/node@22.19.9)
       '@oxc-parser/binding-wasm32-wasi': 0.112.0
       commander: 14.0.3
@@ -3829,9 +3850,9 @@ snapshots:
       - vue-tsc
       - yaml
 
-  '@fastgpt-plugin/cli@0.1.0-beta.2(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)':
+  '@fastgpt-plugin/cli@0.1.0-beta.3(@types/node@24.10.11)(tsx@4.21.0)(typescript@5.9.3)':
     dependencies:
-      '@fastgpt-plugin/helpers': 0.0.1-alpha.3(@types/node@24.10.11)(tsx@4.21.0)
+      '@fastgpt-plugin/helpers': 0.0.1-alpha.7(@types/node@24.10.11)(tsx@4.21.0)
       '@inquirer/prompts': 8.2.0(@types/node@24.10.11)
       '@oxc-parser/binding-wasm32-wasi': 0.112.0
       commander: 14.0.3
@@ -3871,60 +3892,6 @@ snapshots:
       - unplugin-lightningcss
       - unplugin-unused
       - vue-tsc
-      - yaml
-
-  '@fastgpt-plugin/helpers@0.0.1-alpha.3(@types/node@22.19.9)(tsx@4.21.0)':
-    dependencies:
-      jszip: 3.10.1
-      vitest: 4.0.18(@types/node@22.19.9)(tsx@4.21.0)
-      zod: 4.3.6
-    transitivePeerDependencies:
-      - '@edge-runtime/vm'
-      - '@opentelemetry/api'
-      - '@types/node'
-      - '@vitest/browser-playwright'
-      - '@vitest/browser-preview'
-      - '@vitest/browser-webdriverio'
-      - '@vitest/ui'
-      - happy-dom
-      - jiti
-      - jsdom
-      - less
-      - lightningcss
-      - msw
-      - sass
-      - sass-embedded
-      - stylus
-      - sugarss
-      - terser
-      - tsx
-      - yaml
-
-  '@fastgpt-plugin/helpers@0.0.1-alpha.3(@types/node@24.10.11)(tsx@4.21.0)':
-    dependencies:
-      jszip: 3.10.1
-      vitest: 4.0.18(@types/node@24.10.11)(tsx@4.21.0)
-      zod: 4.3.6
-    transitivePeerDependencies:
-      - '@edge-runtime/vm'
-      - '@opentelemetry/api'
-      - '@types/node'
-      - '@vitest/browser-playwright'
-      - '@vitest/browser-preview'
-      - '@vitest/browser-webdriverio'
-      - '@vitest/ui'
-      - happy-dom
-      - jiti
-      - jsdom
-      - less
-      - lightningcss
-      - msw
-      - sass
-      - sass-embedded
-      - stylus
-      - sugarss
-      - terser
-      - tsx
       - yaml
 
   '@fastgpt-plugin/helpers@0.0.1-alpha.7(@types/node@22.19.9)(tsx@4.21.0)':
@@ -3980,6 +3947,66 @@ snapshots:
       - terser
       - tsx
       - yaml
+
+  '@fastgpt-plugin/helpers@0.0.1-alpha.9(@types/node@22.19.9)(tsx@4.21.0)':
+    dependencies:
+      '@fastgpt-sdk/invoke': 0.0.1-alpha.2
+      jszip: 3.10.1
+      vitest: 4.0.18(@types/node@22.19.9)(tsx@4.21.0)
+      zod: 4.3.6
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@opentelemetry/api'
+      - '@types/node'
+      - '@vitest/browser-playwright'
+      - '@vitest/browser-preview'
+      - '@vitest/browser-webdriverio'
+      - '@vitest/ui'
+      - happy-dom
+      - jiti
+      - jsdom
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
+      - tsx
+      - yaml
+
+  '@fastgpt-plugin/helpers@0.0.1-alpha.9(@types/node@24.10.11)(tsx@4.21.0)':
+    dependencies:
+      '@fastgpt-sdk/invoke': 0.0.1-alpha.2
+      jszip: 3.10.1
+      vitest: 4.0.18(@types/node@24.10.11)(tsx@4.21.0)
+      zod: 4.3.6
+    transitivePeerDependencies:
+      - '@edge-runtime/vm'
+      - '@opentelemetry/api'
+      - '@types/node'
+      - '@vitest/browser-playwright'
+      - '@vitest/browser-preview'
+      - '@vitest/browser-webdriverio'
+      - '@vitest/ui'
+      - happy-dom
+      - jiti
+      - jsdom
+      - less
+      - lightningcss
+      - msw
+      - sass
+      - sass-embedded
+      - stylus
+      - sugarss
+      - terser
+      - tsx
+      - yaml
+
+  '@fastgpt-sdk/invoke@0.0.1-alpha.2':
+    dependencies:
+      zod: 4.3.6
 
   '@inquirer/ansi@2.0.3': {}
 
