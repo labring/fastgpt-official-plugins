@@ -1,4 +1,4 @@
-import type { ClickHouseInputType, SQLDbOutputType } from '@tool/packages/dbops/types';
+import type { ClickHouseInputType, SQLDbOutputType } from '../../../types';
 import clickhouse from '@clickhouse/client';
 
 export async function main({

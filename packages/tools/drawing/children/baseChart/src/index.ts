@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import * as echarts from 'echarts';
-import { uploadFile } from '@tool/utils/uploadFile';
+import { uploadFile } from '../../../utils/uploadFile';
 import json5 from 'json5';
 
 export const InputType = z
@@ -41,7 +41,13 @@ export const OutputType = z.object({
   chartUrl: z.string().optional()
 });
 
-const generateChart = async (title = '', xAxis: string[], yAxis: string[], chartType: string) => {
+const generateChart = async (
+  title = '',
+  xAxis: string[],
+  yAxis: string[],
+  chartType: string,
+  ctx?: Parameters<typeof uploadFile>[1]
+) => {
   const chart = echarts.init(undefined, undefined, {
     renderer: 'svg', // 必须使用 SVG 模式
     ssr: true, // 开启 SSR
@@ -89,18 +95,21 @@ const generateChart = async (title = '', xAxis: string[], yAxis: string[], chart
   const file = await uploadFile({
     base64,
     defaultFilename: `chart.svg`
-  });
+  }, ctx);
 
   return file.accessUrl;
 };
 
-export async function tool({
-  title,
-  xAxis,
-  yAxis,
-  chartType
-}: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
-  const base64 = await generateChart(title, xAxis, yAxis, chartType);
+export async function tool(
+  {
+    title,
+    xAxis,
+    yAxis,
+    chartType
+  }: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
+): Promise<z.infer<typeof OutputType>> {
+  const base64 = await generateChart(title, xAxis, yAxis, chartType, ctx);
   return {
     '图表 url': base64, // 兼容旧版
     chartUrl: base64

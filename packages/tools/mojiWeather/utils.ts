@@ -1,4 +1,4 @@
-import { POST } from '@tool/utils/request';
+import { POST } from './utils/request';
 import type { WeatherItem, WeatherApiResponse } from './types';
 import citiesData from './cities.json';
 

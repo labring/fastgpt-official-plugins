@@ -2,18 +2,23 @@
   "name": "@tool/redis",
   "version": "0.1.0",
   "description": "Redis cache toolset for FastGPT Plugin",
-  "main": "index.ts",
+  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "bun ../../../../scripts/build.ts"
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
   },
   "dependencies": {
-    "ioredis": "^5.3.2",
-    "zod": "^4"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "@ioredis/commands": "^1.5.1",
+    "ioredis": "^5.3.2"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
   }
 }

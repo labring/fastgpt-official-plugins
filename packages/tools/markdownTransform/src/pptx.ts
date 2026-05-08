@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { uploadFile } from '@tool/utils/uploadFile';
+import { uploadFile } from '../utils/uploadFile';
 import PptxGenJS from 'pptxgenjs';
 import MarkdownIt from 'markdown-it';
 import { OutputType } from './type';
@@ -443,7 +443,8 @@ async function parseMarkdownToPptx(markdown: string): Promise<Buffer> {
 }
 
 export async function pptxTool(
-  input: z.infer<typeof InputType>
+  input: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
 ): Promise<z.infer<typeof OutputType>> {
   const { markdown, filename } = input;
   const pptxBuffer = await parseMarkdownToPptx(markdown);
@@ -451,7 +452,7 @@ export async function pptxTool(
   const result = await uploadFile({
     buffer: pptxBuffer,
     defaultFilename: finalFilename
-  });
+  }, ctx);
   if (!result.accessUrl) {
     return Promise.reject('Upload failed: No access URL in result');
   }

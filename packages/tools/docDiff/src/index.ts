@@ -1,4 +1,4 @@
-import { uploadFile } from '@tool/utils/uploadFile';
+import { uploadFile } from '../utils/uploadFile';
 import { z } from 'zod';
 import {
   compareDocuments,
@@ -1068,7 +1068,10 @@ function escapeHtml(text: string): string {
   return text.replace(/[&<>"']/g, (m) => map[m]);
 }
 
-export async function tool(input: z.infer<typeof InputType>) {
+export async function tool(
+  input: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
+) {
   // Zod 会自动验证输入，如果验证失败会抛出错误
   const validatedInput = InputType.parse(input);
 
@@ -1099,7 +1102,7 @@ export async function tool(input: z.infer<typeof InputType>) {
     buffer: Buffer.from(html, 'utf-8'),
     defaultFilename: 'docdiff_report.html',
     contentType: 'text/html'
-  });
+  }, ctx);
 
   if (!uploadResult || !uploadResult.accessUrl) {
     throw new Error('文件上传失败');

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { uploadFile } from '@tool/utils/uploadFile';
+import { uploadFile } from '../../../utils/uploadFile';
 import axios from 'axios';
 import FormData from 'form-data';
 
@@ -62,7 +62,10 @@ function getApiEndpoint(model: ModelType): string {
 }
 
 // 工具主函数
-export async function tool(props: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
+export async function tool(
+  props: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
+): Promise<z.infer<typeof OutputType>> {
   const { STABILITY_KEY, model, output_format } = props;
 
   // 获取 API 端点
@@ -100,7 +103,7 @@ export async function tool(props: z.infer<typeof InputType>): Promise<z.infer<ty
   const uploadResult = await uploadFile({
     buffer: Buffer.from(response.data),
     defaultFilename: `${model}.${output_format}`
-  });
+  }, ctx);
 
   // 返回结果
   return {

@@ -1,11 +1,15 @@
-import { z } from 'zod';
-import { createTavilyClient, handleTavilyError, validateApiKey } from '../../../client';
-import type { MapRequest, MapResponse } from '../../../types';
+import { z } from "zod";
+import {
+  createTavilyClient,
+  handleTavilyError,
+  validateApiKey,
+} from "../../../client";
+import type { MapRequest, MapResponse } from "../../../types";
 
 // 输入类型 (包含父级密钥)
 export const InputType = z.object({
-  tavilyApiKey: z.string().min(1, 'Tavily API key is required'),
-  url: z.string().min(1, 'URL is required'),
+  tavilyApiKey: z.string().min(1, "Tavily API key is required"),
+  url: z.string().min(1, "URL is required"),
   instructions: z.string().optional(),
   maxDepth: z.number().int().min(1).max(5).default(1),
   maxBreadth: z.number().int().min(1).default(20),
@@ -15,7 +19,7 @@ export const InputType = z.object({
   excludePaths: z.string().optional(),
   excludeDomains: z.string().optional(),
   allowExternal: z.boolean().default(true),
-  timeout: z.number().min(10).max(150).default(150)
+  timeout: z.number().min(10).max(150).default(150),
 });
 
 // 输出类型
@@ -23,7 +27,7 @@ export const OutputType = z.object({
   baseUrl: z.string(),
   results: z.array(z.string()).default([]),
   urlCount: z.number(),
-  responseTime: z.number()
+  responseTime: z.number(),
 });
 
 export async function tool({
@@ -38,7 +42,7 @@ export async function tool({
   excludePaths,
   excludeDomains,
   allowExternal,
-  timeout
+  timeout,
 }: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
   try {
     // 1. 验证 API Key
@@ -52,7 +56,7 @@ export async function tool({
       if (!input) return undefined;
 
       return input
-        .split('\n')
+        .split("\n")
         .map((pattern) => pattern.trim())
         .filter((pattern) => pattern.length > 0);
     };
@@ -70,20 +74,18 @@ export async function tool({
       exclude_paths: parseRegexPatterns(excludePaths),
       exclude_domains: parseRegexPatterns(excludeDomains),
       allow_external: allowExternal,
-      timeout
+      timeout,
     };
 
     // 5. 发送请求
-    const response = await client.post<MapResponse>('/map', requestBody);
-
-    console.log(response.data);
+    const response = await client.post<MapResponse>("/map", requestBody);
 
     // 6. 格式化输出
     return {
       baseUrl: response.data.base_url,
       results: response.data.results || [],
       urlCount: (response.data.results || []).length,
-      responseTime: response.data.response_time
+      responseTime: response.data.response_time,
     };
   } catch (error) {
     return Promise.reject(handleTavilyError(error));

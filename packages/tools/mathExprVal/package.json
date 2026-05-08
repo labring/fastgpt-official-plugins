@@ -1,18 +1,23 @@
 {
   "name": "fastgpt-tools-mathExprVal",
-  "module": "index.ts",
+  "version": "0.0.1",
+  "description": "A tool for executing mathematical expressions using the expr-eval library in js to return the result.",
   "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "bun ../../../../scripts/build.ts"
-  },
-  "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
   },
   "dependencies": {
-    "expr-eval": "^2.0.2",
-    "zod": "^4"
+    "expr-eval": "^2.0.2"
+  },
+  "devDependencies": {
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
   }
 }

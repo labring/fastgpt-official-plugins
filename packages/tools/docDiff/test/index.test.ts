@@ -2,11 +2,11 @@ import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
 import { tool } from '../src';
 
 // Mock the uploadFile function
-vi.mock('@tool/utils/uploadFile', () => ({
+vi.mock('../utils/uploadFile', () => ({
   uploadFile: vi.fn()
 }));
 
-import { uploadFile } from '@tool/utils/uploadFile';
+import { uploadFile } from '../utils/uploadFile';
 
 describe('DocDiff Tool Tests', () => {
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import { delay } from '@tool/utils/delay';
+import { delay } from '../../../utils/delay';
 import { z } from 'zod';
 
 export const InputType = z

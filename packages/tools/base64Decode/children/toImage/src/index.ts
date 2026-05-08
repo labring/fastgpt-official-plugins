@@ -1,5 +1,8 @@
+import type { ToolHandlerContext } from '@fastgpt-plugin/sdk-factory';
 import { z } from 'zod';
-import { uploadFile } from '@tool/utils/uploadFile';
+
+type UploadContext = Pick<ToolHandlerContext<any>, 'invoke'>;
+type UploadFileInput = Parameters<UploadContext['invoke']['uploadFile']>[0];
 
 /**
  * Detect image MIME type from base64 binary data by checking file signatures
@@ -75,6 +78,31 @@ function detectImageMimeType(base64Data: string) {
   }
 }
 
+function toBuffer(base64Data: string) {
+  const match = base64Data.match(/^data:[^;]+;base64,(.+)$/);
+  return Buffer.from(match?.[1] ?? base64Data, 'base64');
+}
+
+function getUploadErrorMessage(error: unknown) {
+  if (!error) return 'Failed to upload file';
+  if (error instanceof Error) return error.message;
+  if (typeof error === 'string') return error;
+  if (typeof error === 'object' && 'reason' in error) {
+    const reason = (error as { reason?: { 'zh-CN'?: string; en?: string } })
+      .reason;
+    return reason?.['zh-CN'] ?? reason?.en ?? 'Failed to upload file';
+  }
+  return 'Failed to upload file';
+}
+
+function toUploadContentType(mime: string): UploadFileInput['contentType'] {
+  if (mime === 'image/jpeg') return 'image/jpeg';
+  if (mime === 'image/png') return 'image/png';
+  if (mime === 'image/gif') return 'image/gif';
+  if (mime === 'image/webp') return 'image/webp';
+  return 'application/octet-stream';
+}
+
 export const InputType = z.object({
   base64: z.string().nonempty()
 });
@@ -87,9 +115,12 @@ export const OutputType = z.object({
  * Convert base64 image data to a file and return its URL, type, and size
  * Supports both data URL format (with MIME type) and raw base64 (auto-detected)
  */
-export async function tool({
-  base64
-}: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
+export async function tool(
+  {
+    base64
+  }: z.infer<typeof InputType>,
+  ctx: UploadContext
+): Promise<z.infer<typeof OutputType>> {
   // First try to get MIME type from data URL
   const mime = (() => {
     const match = base64.match(/^data:([^;]+);base64,/);
@@ -112,9 +143,18 @@ export async function tool({
   // Generate filename with appropriate extension
   const filename = `image.${ext}`;
 
-  const meta = await uploadFile({ base64, defaultFilename: filename });
+  const uploadInput: UploadFileInput = {
+    file: toBuffer(base64),
+    fileName: filename,
+    contentType: toUploadContentType(mime)
+  };
+  const [meta, error] = await ctx.invoke.uploadFile(uploadInput);
+
+  if (error || !meta) {
+    throw new Error(getUploadErrorMessage(error));
+  }
 
   return {
-    url: meta.accessUrl
+    url: meta.accessURL
   };
 }

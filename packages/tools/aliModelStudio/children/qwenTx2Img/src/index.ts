@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { POST } from '@tool/utils/request';
+import { POST } from '../../../utils/request';
 
 export const InputType = z.object({
   apiKey: z.string().describe('Alibaba Cloud Qwen API Key'),

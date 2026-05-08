@@ -2,17 +2,22 @@
   "name": "@fastgpt-plugin/wecomSmartSheet",
   "version": "0.1.0",
   "description": "WeCom Smart Sheet toolset for FastGPT",
-  "main": "index.ts",
+  "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "bun ../../../../scripts/build.ts"
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
   },
   "dependencies": {
-    "zod": "^4"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "axios": "^1.13.2"
   },
   "devDependencies": {
-    "@types/bun": "latest"
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
   }
 }

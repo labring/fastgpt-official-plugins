@@ -2,24 +2,20 @@
   "name": "@fastgpt-plugins/tool-wecom-corp-id",
   "version": "0.1.0",
   "description": "WeChat Work authorization tool for FastGPT",
-  "module": "index.ts",
   "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "bun ../../../../scripts/build.ts"
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
   },
-  "keywords": [
-    "fastgpt",
-    "wechat-work",
-    "wecom",
-    "authorization"
-  ],
+  "dependencies": {},
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "zod": "^4"
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
   }
 }

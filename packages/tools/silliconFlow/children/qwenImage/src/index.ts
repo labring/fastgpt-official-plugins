@@ -1,4 +1,4 @@
-import { POST } from '@tool/utils/request';
+import { POST } from '../../../utils/request';
 import { z } from 'zod';
 
 // Define input schema for the Silicon Flow painting API

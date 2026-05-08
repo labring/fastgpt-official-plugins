@@ -1,4 +1,4 @@
-import { uploadFile } from '@tool/utils/uploadFile';
+import { uploadFile } from '../../../utils/uploadFile';
 import { z } from 'zod';
 
 export const InputType = z.object({
@@ -52,11 +52,15 @@ function buildHeaders(token?: string) {
   return {};
 }
 
-async function uploadBase64Image(filename: string, content: string) {
+async function uploadBase64Image(
+  filename: string,
+  content: string,
+  ctx?: Parameters<typeof uploadFile>[1]
+) {
   const { accessUrl } = await uploadFile({
     base64: content,
     defaultFilename: filename
-  });
+  }, ctx);
 
   return accessUrl;
 }
@@ -68,7 +72,10 @@ function replaceImageUrl(content: string, images: Record<string, string>) {
   return content;
 }
 
-export async function tool(props: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
+export async function tool(
+  props: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
+): Promise<z.infer<typeof OutputType>> {
   const { base_url, token, lang_list } = props;
 
   if (!base_url) {
@@ -134,7 +141,7 @@ export async function tool(props: z.infer<typeof InputType>): Promise<z.infer<ty
     if (result_item.images) {
       item.images = [];
       for (const [key, value] of Object.entries(result_item.images)) {
-        const accessUrl = await uploadBase64Image(key, value);
+        const accessUrl = await uploadBase64Image(key, value, ctx);
         item.images.push(accessUrl);
         images[key] = accessUrl;
       }

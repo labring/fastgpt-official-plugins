@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { POST, GET } from '@tool/utils/request';
+import { POST, GET } from '../utils/request';
 
 export const InputType = z.object({
   baseUrl: z.string().optional().default('https://api.openai.com/v1'),

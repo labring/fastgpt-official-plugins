@@ -1,26 +1,44 @@
-import { z } from 'zod';
-import { POST } from '@tool/utils/request';
+import { z } from "zod";
+import { POST } from "../../../utils/request";
 
 export const InputType = z.object({
-  apiKey: z.string().min(1, 'API key required').describe('Metaso API密钥'),
+  apiKey: z.string().min(1, "API key required").describe("Metaso API密钥"),
   query: z
     .string()
-    .min(1, 'Search query required')
-    .describe('搜索查询词')
+    .min(1, "Search query required")
+    .describe("搜索查询词")
     .transform((val) => val.trim()),
   scope: z
-    .enum(['all', 'webpage', 'document', 'scholar', 'image', 'video', 'podcast'])
+    .enum([
+      "all",
+      "webpage",
+      "document",
+      "scholar",
+      "image",
+      "video",
+      "podcast",
+    ])
     .optional()
-    .default('all'),
-  includeSummary: z.boolean().optional().default(true).describe('是否包含搜索结果摘要'),
-  size: z.number().min(1).max(20).optional().default(20).describe('返回的搜索结果数量（1-20）')
+    .default("all"),
+  includeSummary: z
+    .boolean()
+    .optional()
+    .default(true)
+    .describe("是否包含搜索结果摘要"),
+  size: z
+    .number()
+    .min(1)
+    .max(20)
+    .optional()
+    .default(20)
+    .describe("返回的搜索结果数量（1-20）"),
 });
 
 export const OutputType = z
   .object({
-    result: z.array(z.any()).min(1, '搜索结果为空或数据格式错误')
+    result: z.array(z.any()).min(1, "搜索结果为空或数据格式错误"),
   })
-  .describe('Metaso 搜索响应数据');
+  .describe("Metaso 搜索响应数据");
 
 /**
  * Metaso 搜索工具主函数
@@ -30,7 +48,7 @@ export async function tool({
   apiKey,
   scope,
   includeSummary,
-  size
+  size,
 }: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
   const { data } = await POST<{
     errMsg?: string;
@@ -76,19 +94,19 @@ export async function tool({
       date: string;
     }[];
   }>(
-    'https://metaso.cn/api/v1/search',
+    "https://metaso.cn/api/v1/search",
     {
       q: query,
       scope,
       includeSummary,
-      size: String(size)
+      size: String(size),
     },
     {
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${apiKey}`
-      }
-    }
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+    },
   );
 
   if (data.errMsg) {
@@ -104,7 +122,7 @@ export async function tool({
         snippet: item.snippet,
         summary: item.summary,
         authors: item.authors,
-        date: item.date
+        date: item.date,
       }));
     }
 
@@ -114,7 +132,7 @@ export async function tool({
         title: item.title,
         link: item.link,
         summary: item.summary,
-        snippet: item.snippet
+        snippet: item.snippet,
       }));
     }
 
@@ -126,7 +144,7 @@ export async function tool({
         snippet: item.snippet,
         summary: item.summary,
         authors: item.authors,
-        date: item.date
+        date: item.date,
       }));
     }
 
@@ -134,7 +152,7 @@ export async function tool({
     if (data.images) {
       return data.images.map((item) => ({
         title: item.title,
-        imageUrl: item.imageUrl
+        imageUrl: item.imageUrl,
       }));
     }
 
@@ -146,7 +164,7 @@ export async function tool({
         snippet: item.snippet,
         authors: item.authors,
         date: item.date,
-        coverImage: item.coverImage
+        coverImage: item.coverImage,
       }));
     }
 
@@ -157,15 +175,14 @@ export async function tool({
         link: item.link,
         snippet: item.snippet,
         authors: item.authors,
-        date: item.date
+        date: item.date,
       }));
     }
 
-    console.log('No search results found', { data });
-    throw new Error('No search results found');
+    throw new Error("No search results found");
   })();
 
   return {
-    result
+    result,
   };
 }

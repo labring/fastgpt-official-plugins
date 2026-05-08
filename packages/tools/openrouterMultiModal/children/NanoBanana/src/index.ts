@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { POST } from '@tool/utils/request';
-import { uploadFile } from '@tool/utils/uploadFile';
+import { POST } from '../../../utils/request';
+import { uploadFile } from '../../../utils/uploadFile';
 
 export const InputType = z.object({
   apiKey: z.string(),
@@ -15,12 +15,15 @@ export const OutputType = z.object({
 
 const OPENROUTER_BASE_URL = 'https://openrouter.ai/api/v1/chat/completions';
 
-export async function tool({
-  apiKey,
-  text,
-  aspect_ratio,
-  model
-}: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
+export async function tool(
+  {
+    apiKey,
+    text,
+    aspect_ratio,
+    model
+  }: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
+): Promise<z.infer<typeof OutputType>> {
   const token = `Bearer ${apiKey}`;
   const { data } = await POST(
     OPENROUTER_BASE_URL,
@@ -59,7 +62,7 @@ export async function tool({
   })();
   const defaultFilename = `image.${ext}`;
 
-  const meta = await uploadFile({ base64: dataUrl, defaultFilename });
+  const meta = await uploadFile({ base64: dataUrl, defaultFilename }, ctx);
 
   return {
     imageUrl: meta.accessUrl

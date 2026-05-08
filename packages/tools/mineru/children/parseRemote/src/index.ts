@@ -1,9 +1,9 @@
 import { z } from 'zod';
 import JSZip from 'jszip';
-import { delay } from '@tool/utils/delay';
-import { uploadFile } from '@tool/utils/uploadFile';
-import { retryFn } from '@tool/utils/function';
-import { getErrText } from '@tool/utils/err';
+import { delay } from '../../../utils/delay';
+import { uploadFile } from '../../../utils/uploadFile';
+import { retryFn } from '../../../utils/function';
+import { getErrText } from '../../../utils/err';
 
 export const InputType = z.object({
   base_url: z.string().optional().default('https://mineru.net'),
@@ -183,7 +183,11 @@ async function batchParse(props: InnerPropsType): Promise<string> {
   return data.data.batch_id;
 }
 
-async function extractResult(batchId: string, props: InnerPropsType): Promise<ParsedItemType[]> {
+async function extractResult(
+  batchId: string,
+  props: InnerPropsType,
+  ctx?: Parameters<typeof uploadFile>[1]
+): Promise<ParsedItemType[]> {
   async function extractFromZip(zipUrl: string) {
     const zipResponse = await fetchWithTimeout(
       zipUrl,
@@ -217,7 +221,7 @@ async function extractResult(batchId: string, props: InnerPropsType): Promise<Pa
           const { accessUrl } = await uploadFile({
             base64: image,
             defaultFilename: file.name
-          });
+          }, ctx);
           result.images[relativePath] = accessUrl;
         })()
       );
@@ -325,7 +329,10 @@ async function extractResult(batchId: string, props: InnerPropsType): Promise<Pa
   return parseZipResukt;
 }
 
-export async function tool(props: PropsType): Promise<z.infer<typeof OutputType>> {
+export async function tool(
+  props: PropsType,
+  ctx?: Parameters<typeof uploadFile>[1]
+): Promise<z.infer<typeof OutputType>> {
   const { base_url, token } = props;
 
   const innerProps: InnerPropsType = {
@@ -339,7 +346,7 @@ export async function tool(props: PropsType): Promise<z.infer<typeof OutputType>
   };
 
   const batchId = await batchParse(innerProps);
-  const result = await extractResult(batchId, innerProps);
+  const result = await extractResult(batchId, innerProps, ctx);
 
   return {
     result

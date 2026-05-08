@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { delay } from '@tool/utils/delay';
+import { delay } from '../../../utils/delay';
 
 const FluxStatus = z.enum(['Pending', 'Ready', 'Error', 'Failed']);
 

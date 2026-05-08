@@ -1,17 +1,21 @@
 {
   "name": "@fastgpt-plugins/tool-seo-keyword-miner",
-  "module": "index.ts",
+  "version": "0.0.1",
+  "description": "Massive long-tail keyword mining tool based on 5118 API,获取 keyword search volume and index data",
   "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "bun ../../../../scripts/build.ts"
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
   },
+  "dependencies": {},
   "devDependencies": {
-    "@types/bun": "latest"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "zod": "^4"
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
   }
 }

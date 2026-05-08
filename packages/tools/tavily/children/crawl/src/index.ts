@@ -1,11 +1,15 @@
-import { z } from 'zod';
-import { createTavilyClient, handleTavilyError, validateApiKey } from '../../../client';
-import type { CrawlRequest, CrawlResponse } from '../../../types';
+import { z } from "zod";
+import {
+  createTavilyClient,
+  handleTavilyError,
+  validateApiKey,
+} from "../../../client";
+import type { CrawlRequest, CrawlResponse } from "../../../types";
 
 // 输入类型 (包含父级密钥)
 export const InputType = z.object({
-  tavilyApiKey: z.string().min(1, 'Tavily API key is required'),
-  url: z.string().min(1, 'URL is required'),
+  tavilyApiKey: z.string().min(1, "Tavily API key is required"),
+  url: z.string().min(1, "URL is required"),
   instructions: z.string().optional(),
   maxDepth: z.number().int().min(1).max(5).default(1),
   maxBreadth: z.number().int().min(1).default(20),
@@ -14,10 +18,10 @@ export const InputType = z.object({
   excludePaths: z.string().optional(),
   allowExternal: z.boolean().default(true),
   includeImages: z.boolean().default(false),
-  extractDepth: z.enum(['basic', 'advanced']).default('basic'),
-  format: z.enum(['markdown', 'text']).default('markdown'),
+  extractDepth: z.enum(["basic", "advanced"]).default("basic"),
+  format: z.enum(["markdown", "text"]).default("markdown"),
   includeFavicon: z.boolean().default(false),
-  timeout: z.number().min(10).max(150).default(150)
+  timeout: z.number().min(10).max(150).default(150),
 });
 
 // 输出类型
@@ -28,12 +32,12 @@ export const OutputType = z.object({
       z.object({
         url: z.string(),
         raw_content: z.string(),
-        favicon: z.string().optional()
-      })
+        favicon: z.string().optional(),
+      }),
     )
     .default([]),
   successCount: z.number(),
-  responseTime: z.number()
+  responseTime: z.number(),
 });
 
 export async function tool({
@@ -50,7 +54,7 @@ export async function tool({
   extractDepth,
   format,
   includeFavicon,
-  timeout
+  timeout,
 }: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
   try {
     // 1. 验证 API Key
@@ -65,14 +69,14 @@ export async function tool({
 
     if (selectPaths) {
       parsedSelectPaths = selectPaths
-        .split('\n')
+        .split("\n")
         .map((path) => path.trim())
         .filter((path) => path.length > 0);
     }
 
     if (excludePaths) {
       parsedExcludePaths = excludePaths
-        .split('\n')
+        .split("\n")
         .map((path) => path.trim())
         .filter((path) => path.length > 0);
     }
@@ -94,20 +98,18 @@ export async function tool({
       extract_depth: extractDepth,
       format,
       include_favicon: includeFavicon,
-      timeout
+      timeout,
     };
 
     // 5. 发送请求
-    const response = await client.post<CrawlResponse>('/crawl', requestBody);
-
-    console.log(response.data);
+    const response = await client.post<CrawlResponse>("/crawl", requestBody);
 
     // 6. 格式化输出
     return {
       baseUrl: response.data.base_url,
       results: response.data.results || [],
       successCount: (response.data.results || []).length,
-      responseTime: response.data.response_time
+      responseTime: response.data.response_time,
     };
   } catch (error) {
     return Promise.reject(handleTavilyError(error));

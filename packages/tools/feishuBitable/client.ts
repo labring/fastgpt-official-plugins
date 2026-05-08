@@ -1,6 +1,6 @@
 import axios, { type AxiosInstance } from 'axios';
 import type { FeishuResponse } from './types';
-import { getErrText } from '@tool/utils/err';
+import { getErrText } from './utils/err';
 
 const FEISHU_API_BASE = 'https://open.feishu.cn/open-apis';
 

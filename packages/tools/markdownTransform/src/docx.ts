@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { uploadFile } from '@tool/utils/uploadFile';
+import { uploadFile } from '../utils/uploadFile';
 import {
   Document,
   Packer,
@@ -426,7 +426,7 @@ async function parseMarkdownToParagraphs(markdown: string): Promise<(Paragraph |
 export async function docxTool({
   markdown,
   filename
-}: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
+}: z.infer<typeof InputType>, ctx?: Parameters<typeof uploadFile>[1]): Promise<z.infer<typeof OutputType>> {
   const elements = await parseMarkdownToParagraphs(markdown);
 
   const doc = new Document({
@@ -445,7 +445,7 @@ export async function docxTool({
   const result = await uploadFile({
     buffer: buf,
     defaultFilename: finalFilename
-  });
+  }, ctx);
 
   if (!result.accessUrl) {
     return Promise.reject('Upload failed: No access URL in result');

@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { getErrText } from '@tool/utils/err';
-import { delay } from '@tool/utils/delay';
+import { getErrText } from '../../../utils/err';
+import { delay } from '../../../utils/delay';
 
 // FLUX model enum
 const ModelEnum = z.enum([

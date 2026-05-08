@@ -3,13 +3,15 @@
   "version": "1.0.0",
   "description": "Official plugins for FastGPT",
   "scripts": {
-    "build": "turbo run build",
-    "pack": "turbo run pack",
+    "build": "turbo run build --continue=always --force --summarize",
+    "build:cached": "turbo run build",
+    "pack": "turbo run pack --continue=always --summarize",
     "type-check": "turbo run type-check --parallel",
     "biome-check": "turbo run biome-check --parallel",
     "postinstall": "lefthook install",
     "clean:node_modules": "tsx scripts/clean-node-modules.ts",
-    "clean:dist": "tsx scripts/clean-dist.ts"
+    "clean:dist": "tsx scripts/clean-dist.ts",
+    "upload": "tsx --env-file-if-exists .env.local scripts/publish-to-marketplace.ts"
   },
   "keywords": [
     "fastgpt",

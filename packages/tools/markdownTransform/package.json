@@ -2,13 +2,15 @@
   "name": "fastgpt-tools-markdownTransform",
   "version": "1.0.0",
   "description": "Convert markdown to various document formats",
-  "module": "index.ts",
   "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "bun build index.ts --minify --outdir dist --outFile index.js --target=node"
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
   },
   "dependencies": {
-    "zod": "^4",
     "docx": "^8.5.0",
     "exceljs": "^4.4.0",
     "axios": "^1.9.0",
@@ -16,9 +18,12 @@
     "pptxgenjs": "^4.0.1"
   },
   "devDependencies": {
-    "@types/bun": "latest",
     "@types/markdown-it": "^13.0.7",
     "@types/minio": "^7.1.1",
-    "typescript": "^5.0.0"
+    "typescript": "catalog:",
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
   }
 }

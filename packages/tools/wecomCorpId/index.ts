@@ -1,10 +1,52 @@
-import config from './config';
-import { InputType, OutputType, tool as toolCb } from './src';
-import { exportTool } from '@tool/utils/tool';
+import { createToolHandler, defineTool } from "@fastgpt-plugin/sdk-factory";
+import { InputType, OutputType, tool as toolCb } from "./src";
+import z from "zod";
 
-export default exportTool({
-  toolCb,
-  InputType,
-  OutputType,
-  config
+const secretSchema = z.object({});
+const inputSchema = z.object({});
+const outputSchema = z.object({
+  "access_token": z.string().meta({
+    title: "访问令牌",
+    description: "企业微信访问令牌"
+  }),
+  "expires_in": z.number().meta({
+    title: "过期时间（秒）",
+    description: "Token 过期时间（秒）"
+  })
 });
+const handler = createToolHandler({
+  inputSchema,
+  outputSchema,
+  secretSchema,
+  handler: async (input, ctx) => {
+    const parsedInput = await InputType.parseAsync(input);
+    const output = await toolCb(parsedInput, ctx);
+    return OutputType.parseAsync(output);
+  },
+});
+
+const tool = defineTool({
+  manifest: {
+    pluginId: "wecomCorpId",
+    name: {
+      en: "WeChat Work Auth",
+      "zh-CN": "企业微信授权",
+    },
+    description: {
+      en: "Get WeChat Work authorization token",
+      "zh-CN": "获取企业微信授权 Token",
+    },
+    version: "0.1.0",
+    versionDescription: {
+      en: "Get WeChat Work authorization token",
+      "zh-CN": "Get WeChat Work authorization token",
+    },
+    toolDescription:
+      "Get WeChat Work (WeCom) authorization token by corpId. Returns access_token and expires_in.",
+    tags: ["tools"],
+  },
+  secretSchema,
+  handler,
+});
+
+export default tool;

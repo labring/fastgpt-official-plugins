@@ -1,11 +1,6 @@
-import { main } from './src';
-import { MySQLInputSchema, SQLDbOutputSchema } from '@tool/packages/dbops/types';
-import config from './config';
-import { exportTool } from '@tool/utils/tool';
+import { MySQLInputSchema, SQLDbOutputSchema } from "../../types";
+import { main } from "./src";
 
-export default exportTool({
-  toolCb: main,
-  InputType: MySQLInputSchema,
-  OutputType: SQLDbOutputSchema,
-  config
-});
+export const InputType = MySQLInputSchema;
+export const OutputType = SQLDbOutputSchema;
+export const tool = main;

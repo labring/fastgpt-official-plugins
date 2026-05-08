@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { POST } from '@tool/utils/request';
-import { uploadFile } from '@tool/utils/uploadFile';
+import { POST } from '../../../utils/request';
+import { uploadFile } from '../../../utils/uploadFile';
 
 export const InputType = z.object({
   baseUrl: z.string().optional().default('https://api.openai.com/v1'),
@@ -16,15 +16,18 @@ export const OutputType = z.object({
   imageUrl: z.string()
 });
 
-export async function tool({
-  baseUrl,
-  apiKey,
-  prompt,
-  size,
-  quality,
-  background,
-  moderation
-}: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
+export async function tool(
+  {
+    baseUrl,
+    apiKey,
+    prompt,
+    size,
+    quality,
+    background,
+    moderation
+  }: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
+): Promise<z.infer<typeof OutputType>> {
   const headers = {
     Authorization: `Bearer ${apiKey}`,
     'Content-Type': 'application/json'
@@ -58,7 +61,7 @@ export async function tool({
   const { accessUrl: imageUrl } = await uploadFile({
     buffer: imageBuffer,
     defaultFilename: 'gpt-image-generated.png'
-  });
+  }, ctx);
   if (!imageUrl) {
     return Promise.reject('Failed to upload image file');
   }

@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { uploadFile } from '@tool/utils/uploadFile';
-import { POST, GET } from '@tool/utils/request';
+import { uploadFile } from '../../../utils/uploadFile';
+import { POST, GET } from '../../../utils/request';
 
 export const InputType = z.object({
   baseUrl: z.string().optional().default('https://api.openai.com/v1'),
@@ -38,14 +38,17 @@ async function imageInputToBlob(imageInput: string): Promise<Blob> {
   return new Blob([bytes], { type: mimeType });
 }
 
-export async function tool({
-  baseUrl,
-  apiKey,
-  image,
-  prompt,
-  size,
-  quality
-}: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
+export async function tool(
+  {
+    baseUrl,
+    apiKey,
+    image,
+    prompt,
+    size,
+    quality
+  }: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
+): Promise<z.infer<typeof OutputType>> {
   const imageBlob = await imageInputToBlob(image);
   const formData = new FormData();
   formData.append('model', 'gpt-image-1');
@@ -74,7 +77,7 @@ export async function tool({
   const { accessUrl: imageUrl } = await uploadFile({
     buffer: imageBuffer,
     defaultFilename: 'gpt-image-edited.png'
-  });
+  }, ctx);
   if (!imageUrl) {
     return Promise.reject('Failed to upload edited image file');
   }

@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import axios, { type Method } from 'axios';
-import { getErrText } from '@tool/utils/err';
-import { delay } from '@tool/utils/delay';
-import { htmlTable2Md } from '@tool/utils/markdown';
+import { getErrText } from '../../../utils/err';
+import { delay } from '../../../utils/delay';
+import { htmlTable2Md } from '../../../utils/markdown';
 
 export const InputType = z.object({
   apikey: z.string(),

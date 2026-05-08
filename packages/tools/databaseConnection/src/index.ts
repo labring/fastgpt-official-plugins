@@ -1,7 +1,6 @@
 import { z } from 'zod';
 import { Client as PgClient } from 'pg'; // PostgreSQL 客户端
 import mysql from 'mysql2/promise'; // MySQL 客户端
-import mssql from 'mssql'; // SQL Server 客户端
 
 // const supportedDatabaseTypes = ['PostgreSQL', 'MySQL', 'Microsoft SQL Server'];
 const supportedDatabaseTypes = z.enum(['PostgreSQL', 'MySQL', 'Microsoft SQL Server']);
@@ -65,6 +64,8 @@ export async function tool({
       result = rows;
       await connection.end();
     } else if (databaseType === 'Microsoft SQL Server') {
+      const mssqlModule = await loadMssql();
+      const mssql = (mssqlModule.default ?? mssqlModule) as typeof mssqlModule;
       const pool = await mssql.connect({
         server: host,
         port,
@@ -91,4 +92,8 @@ export async function tool({
     console.error('Database query error:', error);
     return Promise.reject('An unknown error occurred');
   }
+}
+
+function loadMssql(): Promise<typeof import('mssql')> {
+  return new Function('specifier', 'return import(specifier)')('mssql');
 }

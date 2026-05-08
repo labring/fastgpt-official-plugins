@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { getSubtitles } from 'youtube-caption-extractor';
-import { getErrText } from '@tool/utils/err';
+import { getErrText } from '../../../utils/err';
 
 export const InputType = z.object({
   videoUrl: z.string(),

@@ -1,4 +1,4 @@
-import { GET } from '@tool/utils/request';
+import { GET } from '../../../utils/request';
 import { z } from 'zod';
 
 // 输入参数类型定义

@@ -1,7 +1,7 @@
 import { search, SafeSearchType } from 'duck-duck-scrape';
 import { z } from 'zod';
-import { getErrText } from '@tool/utils/err';
-import { delay } from '@tool/utils/delay';
+import { getErrText } from '../../../utils/err';
+import { delay } from '../../../utils/delay';
 
 export const InputType = z.object({
   query: z.string()

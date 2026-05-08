@@ -1,6 +1,6 @@
 import { z } from 'zod';
-import { getCorpToken } from '@/invoke/wecom/getAuthToken';
-import type { RunToolSecondParamsType } from '@tool/type/req';
+import { getCorpToken } from '../utils/invoke/wecom/getAuthToken';
+import type { RunToolSecondParamsType } from '../utils/type/req';
 
 export const InputType = z.object({});
 

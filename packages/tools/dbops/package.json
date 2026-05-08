@@ -1,16 +1,14 @@
 {
   "name": "fastgpt-tools-sql",
-  "module": "index.ts",
+  "version": "0.0.1",
+  "description": "SQL connection tool, made by FastGPT",
   "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "bun ../../../../scripts/build.ts"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@types/oracledb": "^6.9.1"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
   },
   "dependencies": {
     "@clickhouse/client": "^1.12.1",
@@ -18,16 +16,14 @@
     "mssql": "^12.0.0",
     "mysql2": "^3.15.0",
     "oracledb": "^6.9.0",
-    "postgres": "^3.4.7",
-    "zod": "^4"
+    "postgres": "^3.4.7"
   },
-  "keywords": [
-    "SQL",
-    "Oracle",
-    "MySQL",
-    "ClickHouse",
-    "Microsoft SQL Server"
-  ],
-  "author": "xqvvu",
-  "description": "SQL connection tool, made by FastGPT"
+  "devDependencies": {
+    "@types/oracledb": "^6.9.1",
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
+  }
 }

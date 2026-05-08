@@ -1,10 +1,74 @@
-import config from './config';
+import { createToolHandler, defineTool } from '@fastgpt-plugin/sdk-factory';
 import { InputType, OutputType, tool as toolCb } from './src';
-import { exportTool } from '@tool/utils/tool';
+import z from 'zod';
 
-export default exportTool({
-  toolCb,
-  InputType,
-  OutputType,
-  config
+const secretSchema = z.object({
+  "databaseType": z.enum(["MySQL","PostgreSQL","Microsoft SQL Server"]).meta({
+    title: "数据库类型"
+  }),
+  "host": z.string().meta({
+    title: "host"
+  }),
+  "port": z.string().meta({
+    title: "数据库连接端口号"
+  }),
+  "databaseName": z.string().meta({
+    title: "数据库名称"
+  }),
+  "user": z.string().meta({
+    title: "数据库账号"
+  }),
+  "password": z.string().meta({
+    title: "数据库密码"
+  })
 });
+const inputSchema = z.object({
+  "sql": z.string().meta({
+    title: "sql",
+    description: "sql语句，可以传入sql语句直接执行",
+    toolDescription: "sql语句，可以传入sql语句直接执行"
+  })
+});
+const outputSchema = z.object({
+  "result": z.record(z.string(), z.unknown()).meta({
+    title: "结果",
+    description: "执行结果"
+  })
+});
+
+const handler = createToolHandler({
+  inputSchema,
+  outputSchema,
+  secretSchema,
+  handler: async (input, ctx) => {
+    const parsedInput = await InputType.parseAsync(input);
+    const output = await toolCb(parsedInput, ctx);
+    return OutputType.parseAsync(output);
+  }
+});
+
+const tool = defineTool({
+  manifest: {
+  "pluginId": "databaseConnection",
+  "name": {
+    "en": "Database Connection",
+    "zh-CN": "数据库连接"
+  },
+  "description": {
+    "en": "Can connect to common databases and execute sql",
+    "zh-CN": "可连接常用数据库，并执行sql"
+  },
+  "version": "0.1.2",
+  "versionDescription": {
+    "en": "Default version",
+    "zh-CN": "Default version"
+  },
+  "tags": [
+    "tools"
+  ]
+},
+  secretSchema,
+  handler
+});
+
+export default tool;

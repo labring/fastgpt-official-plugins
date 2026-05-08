@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { POST } from '@tool/utils/request';
-import { uploadFile } from '@tool/utils/uploadFile';
-import { ErrorCodeMap } from '@tool/packages/minimax/constants';
+import { POST } from '../../../utils/request';
+import { uploadFile } from '../../../utils/uploadFile';
+import { ErrorCodeMap } from '../../../constants';
 
 export const InputType = z.object({
   apiKey: z.string().nonempty(),
@@ -21,17 +21,20 @@ export const OutputType = z.object({
 
 const MINIMAX_BASE_URL = 'https://api.minimaxi.com/v1';
 
-export async function tool({
-  apiKey,
-  text,
-  model,
-  voice_id,
-  speed,
-  vol,
-  pitch,
-  emotion,
-  english_normalization
-}: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
+export async function tool(
+  {
+    apiKey,
+    text,
+    model,
+    voice_id,
+    speed,
+    vol,
+    pitch,
+    emotion,
+    english_normalization
+  }: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
+): Promise<z.infer<typeof OutputType>> {
   const headers = {
     Authorization: `Bearer ${apiKey}`,
     'Content-Type': 'application/json'
@@ -74,7 +77,7 @@ export async function tool({
   const { accessUrl: audioUrl } = await uploadFile({
     buffer: audioBuffer,
     defaultFilename: 'minimax_tts.mp3'
-  });
+  }, ctx);
   if (!audioUrl) {
     return Promise.reject('Failed to upload audio file');
   }

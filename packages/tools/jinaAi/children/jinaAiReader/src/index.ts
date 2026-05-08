@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { GET } from '@tool/utils/request';
+import { GET } from '../../../utils/request';
 
 // 输入参数类型定义
 export const InputType = z.object({

@@ -1,12 +1,12 @@
 import { expect, test, describe, vi, beforeEach } from 'vitest';
 
 // Mock modules BEFORE importing them (must be hoisted)
-vi.mock('@tool/utils/uploadFile');
+vi.mock('../utils/uploadFile');
 vi.mock('axios');
 
 // Now import the modules
 import tool from '..';
-import * as uploadFileModule from '@tool/utils/uploadFile';
+import * as uploadFileModule from '../utils/uploadFile';
 
 const mockUploadFile = vi.mocked(uploadFileModule.uploadFile);
 

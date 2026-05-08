@@ -1,4 +1,4 @@
-import type { OracleInputType, SQLDbOutputType } from '@tool/packages/dbops/types';
+import type { OracleInputType, SQLDbOutputType } from '../../../types';
 import oracle from 'oracledb';
 
 oracle.fetchAsString = [oracle.NUMBER, oracle.DATE];

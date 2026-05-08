@@ -1,19 +1,24 @@
 {
   "name": "fastgpt-tools-smtpEmail",
-  "module": "index.ts",
+  "version": "0.0.1",
+  "description": "Send email by SMTP protocol (nodemailer)",
   "type": "module",
+  "main": "dist/index.js",
   "scripts": {
-    "build": "bun ../../../../scripts/build.ts"
-  },
-  "devDependencies": {
-    "@types/bun": "latest",
-    "@types/nodemailer": "^6.4.17"
-  },
-  "peerDependencies": {
-    "typescript": "^5.0.0"
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
   },
   "dependencies": {
-    "nodemailer": "^7.0.3",
-    "zod": "^4"
+    "nodemailer": "^7.0.3"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.17",
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
   }
 }

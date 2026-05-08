@@ -1,4 +1,4 @@
-import type { MySQLInputType, SQLDbOutputType } from '@tool/packages/dbops/types';
+import type { MySQLInputType, SQLDbOutputType } from '../../../types';
 import mysql from 'mysql2/promise';
 
 export async function main({

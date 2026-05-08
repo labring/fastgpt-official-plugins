@@ -1,8 +1,8 @@
 import { z } from 'zod';
 import crypto from 'crypto';
-import { delay } from '@tool/utils/delay';
-import { retryFn } from '@tool/utils/function';
-import { getErrText } from '@tool/utils/err';
+import { delay } from '../../../utils/delay';
+import { retryFn } from '../../../utils/function';
+import { getErrText } from '../../../utils/err';
 
 const SizeEnum = z.enum(['512*1024', '768*512', '768*1024', '1024*576', '576*1024', '1024*1024']);
 

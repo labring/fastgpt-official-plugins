@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { uploadFile } from '@tool/utils/uploadFile';
+import { uploadFile } from '../utils/uploadFile';
 import ExcelJS, { type Buffer as ExcelBuffer } from 'exceljs';
 import { Buffer } from 'buffer';
 import { OutputType } from './type';
@@ -330,7 +330,8 @@ async function createExcelFromMarkdown(markdown: string): Promise<Buffer> {
 }
 
 export async function xlsxTool(
-  input: z.infer<typeof InputType>
+  input: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
 ): Promise<z.infer<typeof OutputType>> {
   const { markdown, filename } = input;
   try {
@@ -339,7 +340,7 @@ export async function xlsxTool(
     const result = await uploadFile({
       buffer: xlsxBuffer,
       defaultFilename: finalFilename
-    });
+    }, ctx);
 
     return { url: result.accessUrl };
   } catch (error) {

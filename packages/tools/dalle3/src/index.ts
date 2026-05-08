@@ -1,7 +1,7 @@
 import { z } from 'zod';
-import { getErrText } from '@tool/utils/err';
-import { uploadFile } from '@tool/utils/uploadFile';
-import { POST } from '@tool/utils/request';
+import { getErrText } from '../utils/err';
+import { uploadFile } from '../utils/uploadFile';
+import { POST } from '../utils/request';
 
 export const InputType = z
   .object({
@@ -29,7 +29,10 @@ export const OutputType = z.object({
   link: z.string().optional()
 });
 
-export async function tool(props: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
+export async function tool(
+  props: z.infer<typeof InputType>,
+  ctx?: Parameters<typeof uploadFile>[1]
+): Promise<z.infer<typeof OutputType>> {
   const { prompt, url, authorization, 绘图提示词: old_prompt } = props;
 
   try {
@@ -60,7 +63,7 @@ export async function tool(props: z.infer<typeof InputType>): Promise<z.infer<ty
     const uploadResult = await uploadFile({
       url: imageUrl,
       defaultFilename: 'dalle3.png'
-    });
+    }, ctx);
 
     if (old_prompt) {
       return {

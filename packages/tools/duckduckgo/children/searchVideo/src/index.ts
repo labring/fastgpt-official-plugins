@@ -1,5 +1,5 @@
-import { delay } from '@tool/utils/delay';
-import { getErrText } from '@tool/utils/err';
+import { delay } from '../../../utils/delay';
+import { getErrText } from '../../../utils/err';
 import { SafeSearchType, searchVideos } from 'duck-duck-scrape';
 import { z } from 'zod';
 

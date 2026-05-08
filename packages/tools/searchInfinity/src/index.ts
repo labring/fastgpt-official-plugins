@@ -1,5 +1,5 @@
-import { getErrText } from '@tool/utils/err';
-import { POST } from '@tool/utils/request';
+import { getErrText } from '../utils/err';
+import { POST } from '../utils/request';
 import { z } from 'zod';
 
 export const InputType = z

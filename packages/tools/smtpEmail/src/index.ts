@@ -1,4 +1,4 @@
-import { getErrText } from '@tool/utils/err';
+import { getErrText } from '../utils/err';
 import { z } from 'zod';
 import nodemailer from 'nodemailer';
 
