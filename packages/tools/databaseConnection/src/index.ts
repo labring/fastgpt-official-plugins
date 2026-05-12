@@ -25,7 +25,13 @@ export const OutputType = z.object({
   result: z.any()
 });
 
-export async function tool({
+export const LegacyOutputType = z.object({
+  result: z.string()
+});
+
+type QueryInput = z.infer<typeof InputType>;
+
+export async function executeDatabaseQuery({
   databaseName,
   databaseType,
   host,
@@ -33,7 +39,7 @@ export async function tool({
   port,
   sql,
   user
-}: z.infer<typeof InputType>): Promise<z.infer<typeof OutputType>> {
+}: QueryInput): Promise<unknown> {
   let result;
   try {
     if (databaseType === 'PostgreSQL') {
@@ -65,7 +71,8 @@ export async function tool({
       await connection.end();
     } else if (databaseType === 'Microsoft SQL Server') {
       const mssqlModule = await loadMssql();
-      const mssql = (mssqlModule.default ?? mssqlModule) as typeof mssqlModule;
+      const mssql = ((mssqlModule as { default?: typeof mssqlModule }).default ??
+        mssqlModule) as typeof mssqlModule;
       const pool = await mssql.connect({
         server: host,
         port,
@@ -80,9 +87,7 @@ export async function tool({
       result = await pool.query(sql);
       await pool.close();
     }
-    return {
-      result
-    };
+    return result;
   } catch (error: unknown) {
     // 使用类型断言来处理错误
     if (error instanceof Error) {
@@ -91,6 +96,30 @@ export async function tool({
     }
     console.error('Database query error:', error);
     return Promise.reject('An unknown error occurred');
+  }
+}
+
+export async function tool(input: QueryInput): Promise<z.infer<typeof OutputType>> {
+  return {
+    result: await executeDatabaseQuery(input)
+  };
+}
+
+export async function legacyTool(input: QueryInput): Promise<z.infer<typeof LegacyOutputType>> {
+  return {
+    result: stringifyResult(await executeDatabaseQuery(input))
+  };
+}
+
+function stringifyResult(result: unknown): string {
+  if (typeof result === 'string') {
+    return result;
+  }
+
+  try {
+    return JSON.stringify(result);
+  } catch {
+    return String(result);
   }
 }
 

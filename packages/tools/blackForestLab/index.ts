@@ -63,7 +63,10 @@ const kontextEditingHandler = createToolHandler({
   outputSchema: kontextEditingOutputSchema,
   secretSchema: kontextEditingSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await kontextEditingInputType.parseAsync(input);
+    const parsedInput = await kontextEditingInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await kontextEditingTool(parsedInput, ctx);
     return kontextEditingOutputType.parseAsync(output);
   },
@@ -111,7 +114,10 @@ const kontextGenerationHandler = createToolHandler({
   outputSchema: kontextGenerationOutputSchema,
   secretSchema: kontextGenerationSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await kontextGenerationInputType.parseAsync(input);
+    const parsedInput = await kontextGenerationInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await kontextGenerationTool(parsedInput, ctx);
     return kontextGenerationOutputType.parseAsync(output);
   },

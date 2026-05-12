@@ -42,7 +42,10 @@ const jinaAiReaderHandler = createToolHandler({
   outputSchema: jinaAiReaderOutputSchema,
   secretSchema: jinaAiReaderSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await jinaAiReaderInputType.parseAsync(input);
+    const parsedInput = await jinaAiReaderInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await jinaAiReaderTool(parsedInput, ctx);
     return jinaAiReaderOutputType.parseAsync(output);
   }
@@ -83,7 +86,10 @@ const jinaAiSearchHandler = createToolHandler({
   outputSchema: jinaAiSearchOutputSchema,
   secretSchema: jinaAiSearchSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await jinaAiSearchInputType.parseAsync(input);
+    const parsedInput = await jinaAiSearchInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await jinaAiSearchTool(parsedInput, ctx);
     return jinaAiSearchOutputType.parseAsync(output);
   }

@@ -13,8 +13,8 @@ catalogs:
       specifier: 0.1.0-beta.7
       version: 0.1.0-beta.7
     '@fastgpt-plugin/sdk-factory':
-      specifier: 0.0.1-alpha.2
-      version: 0.0.1-alpha.2
+      specifier: 0.0.1-alpha.4
+      version: 0.0.1-alpha.4
     '@types/node':
       specifier: ^22
       version: 22.19.9
@@ -70,7 +70,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -88,7 +88,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -106,7 +106,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -128,7 +128,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -146,7 +146,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -164,7 +164,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -189,7 +189,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       '@types/node-fetch':
         specifier: latest
         version: 2.6.13
@@ -213,7 +213,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -231,7 +231,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -249,7 +249,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -267,7 +267,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -285,7 +285,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -303,7 +303,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -331,7 +331,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       '@types/mssql':
         specifier: ^9.1.7
         version: 9.1.11(@azure/core-client@1.10.1)
@@ -374,7 +374,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       '@types/oracledb':
         specifier: ^6.9.1
         version: 6.10.3
@@ -395,7 +395,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -413,7 +413,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -438,7 +438,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -460,7 +460,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -478,7 +478,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -496,7 +496,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -521,7 +521,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -552,7 +552,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       '@types/turndown':
         specifier: ^5.0.5
         version: 5.0.6
@@ -577,7 +577,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -599,7 +599,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -614,7 +614,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -632,7 +632,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -650,7 +650,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -668,7 +668,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -686,7 +686,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -720,7 +720,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       '@types/markdown-it':
         specifier: ^13.0.7
         version: 13.0.9
@@ -748,7 +748,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -766,7 +766,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -788,7 +788,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -806,7 +806,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -824,7 +824,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -842,7 +842,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -864,7 +864,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -889,7 +889,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -911,7 +911,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -929,7 +929,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -951,7 +951,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -969,7 +969,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -987,7 +987,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1005,7 +1005,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1027,7 +1027,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       '@types/nodemailer':
         specifier: ^6.4.17
         version: 6.4.23
@@ -1055,7 +1055,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1077,7 +1077,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1105,7 +1105,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1123,7 +1123,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1145,7 +1145,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1163,7 +1163,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1185,7 +1185,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1207,7 +1207,7 @@ importers:
         version: 0.1.0-beta.7(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
-        version: 0.0.1-alpha.2(zod@4.3.6)
+        version: 0.0.1-alpha.4
       typescript:
         specifier: 'catalog:'
         version: 5.9.3
@@ -1552,10 +1552,8 @@ packages:
     engines: {node: '>=22.12.0'}
     hasBin: true
 
-  '@fastgpt-plugin/sdk-factory@0.0.1-alpha.2':
-    resolution: {integrity: sha512-5rCLEI7p/vfw3s+qWYDaAElYSz/JtTGG1qSNCh05Lxd6SZsFDmPA9sQKLIZjMCLUl+6vQTyumaB7bGFt7Zr7+A==}
-    peerDependencies:
-      zod: ^4
+  '@fastgpt-plugin/sdk-factory@0.0.1-alpha.4':
+    resolution: {integrity: sha512-SenCuSWxBMqTW3F9z7di1lto+lH9IU1yig3wUlIu99rBzTLodD/Z1BC0Lc6XITuMOmaQ6Tppls4HovhPVH0LXg==}
 
   '@inquirer/ansi@2.0.5':
     resolution: {integrity: sha512-doc2sWgJpbFQ64UflSVd17ibMGDuxO1yKgOgLMwavzESnXjFWJqUeG8saYosqKpHp4kWiM5x1nXvEjbpx90gzw==}
@@ -4130,9 +4128,7 @@ snapshots:
       - unplugin-unused
       - vue-tsc
 
-  '@fastgpt-plugin/sdk-factory@0.0.1-alpha.2(zod@4.3.6)':
-    dependencies:
-      zod: 4.3.6
+  '@fastgpt-plugin/sdk-factory@0.0.1-alpha.4': {}
 
   '@inquirer/ansi@2.0.5': {}
 

@@ -53,7 +53,10 @@ const getAuthTokenHandler = createToolHandler({
   outputSchema: getAuthTokenOutputSchema,
   secretSchema: getAuthTokenSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await getAuthTokenInputType.parseAsync(input);
+    const parsedInput = await getAuthTokenInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await getAuthTokenTool(parsedInput, ctx);
     return getAuthTokenOutputType.parseAsync(output);
   },
@@ -112,7 +115,10 @@ const getDraftListHandler = createToolHandler({
   outputSchema: getDraftListOutputSchema,
   secretSchema: getDraftListSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await getDraftListInputType.parseAsync(input);
+    const parsedInput = await getDraftListInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await getDraftListTool(parsedInput, ctx);
     return getDraftListOutputType.parseAsync(output);
   },
@@ -145,7 +151,10 @@ const publishDraftHandler = createToolHandler({
   outputSchema: publishDraftOutputSchema,
   secretSchema: publishDraftSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await publishDraftInputType.parseAsync(input);
+    const parsedInput = await publishDraftInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await publishDraftTool(parsedInput, ctx);
     return publishDraftOutputType.parseAsync(output);
   },
@@ -211,7 +220,10 @@ const uploadMarkdownToDraftHandler = createToolHandler({
   outputSchema: uploadMarkdownToDraftOutputSchema,
   secretSchema: uploadMarkdownToDraftSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await uploadMarkdownToDraftInputType.parseAsync(input);
+    const parsedInput = await uploadMarkdownToDraftInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await uploadMarkdownToDraftTool(parsedInput, ctx);
     return uploadMarkdownToDraftOutputType.parseAsync(output);
   },
@@ -273,7 +285,10 @@ const uploadPermanentMaterialHandler = createToolHandler({
   secretSchema: uploadPermanentMaterialSecretSchema,
   handler: async (input, ctx) => {
     const parsedInput =
-      await uploadPermanentMaterialInputType.parseAsync(input);
+      await uploadPermanentMaterialInputType.parseAsync({
+        ...input,
+        ...ctx.secrets
+      });
     const output = await uploadPermanentMaterialTool(parsedInput, ctx);
     return uploadPermanentMaterialOutputType.parseAsync(output);
   },

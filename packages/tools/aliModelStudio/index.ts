@@ -71,7 +71,10 @@ const fluxHandler = createToolHandler({
   outputSchema: fluxOutputSchema,
   secretSchema: fluxSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await fluxInputType.parseAsync(input);
+    const parsedInput = await fluxInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await fluxTool(parsedInput, ctx);
     return fluxOutputType.parseAsync(output);
   },
@@ -120,7 +123,10 @@ const qwenTx2ImgHandler = createToolHandler({
   outputSchema: qwenTx2ImgOutputSchema,
   secretSchema: qwenTx2ImgSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await qwenTx2ImgInputType.parseAsync(input);
+    const parsedInput = await qwenTx2ImgInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await qwenTx2ImgTool(parsedInput, ctx);
     return qwenTx2ImgOutputType.parseAsync(output);
   },
@@ -177,7 +183,10 @@ const wanxTxt2ImgV2Handler = createToolHandler({
   outputSchema: wanxTxt2ImgV2OutputSchema,
   secretSchema: wanxTxt2ImgV2SecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await wanxTxt2ImgV2InputType.parseAsync(input);
+    const parsedInput = await wanxTxt2ImgV2InputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await wanxTxt2ImgV2Tool(parsedInput, ctx);
     return wanxTxt2ImgV2OutputType.parseAsync(output);
   },

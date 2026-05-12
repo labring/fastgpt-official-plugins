@@ -34,7 +34,10 @@ const baiduSearchHandler = createToolHandler({
   outputSchema: baiduSearchOutputSchema,
   secretSchema: baiduSearchSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await baiduSearchInputType.parseAsync(input);
+    const parsedInput = await baiduSearchInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await baiduSearchTool(parsedInput, ctx);
     return baiduSearchOutputType.parseAsync(output);
   }
@@ -65,7 +68,10 @@ const googleImagesSearchHandler = createToolHandler({
   outputSchema: googleImagesSearchOutputSchema,
   secretSchema: googleImagesSearchSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await googleImagesSearchInputType.parseAsync(input);
+    const parsedInput = await googleImagesSearchInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await googleImagesSearchTool(parsedInput, ctx);
     return googleImagesSearchOutputType.parseAsync(output);
   }
@@ -96,7 +102,10 @@ const googleNewsSearchHandler = createToolHandler({
   outputSchema: googleNewsSearchOutputSchema,
   secretSchema: googleNewsSearchSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await googleNewsSearchInputType.parseAsync(input);
+    const parsedInput = await googleNewsSearchInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await googleNewsSearchTool(parsedInput, ctx);
     return googleNewsSearchOutputType.parseAsync(output);
   }
@@ -127,7 +136,10 @@ const googleSearchHandler = createToolHandler({
   outputSchema: googleSearchOutputSchema,
   secretSchema: googleSearchSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await googleSearchInputType.parseAsync(input);
+    const parsedInput = await googleSearchInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await googleSearchTool(parsedInput, ctx);
     return googleSearchOutputType.parseAsync(output);
   }
@@ -158,7 +170,10 @@ const googleVideosSearchHandler = createToolHandler({
   outputSchema: googleVideosSearchOutputSchema,
   secretSchema: googleVideosSearchSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await googleVideosSearchInputType.parseAsync(input);
+    const parsedInput = await googleVideosSearchInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await googleVideosSearchTool(parsedInput, ctx);
     return googleVideosSearchOutputType.parseAsync(output);
   }

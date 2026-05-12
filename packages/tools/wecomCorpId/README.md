@@ -10,7 +10,6 @@
 
 - 通过企业 ID（corpId）获取企业微信访问令牌
 - 返回 access_token 和过期时间
-- 使用 FastGPT 反向调用框架实现
 
 ## 输入参数
 
@@ -51,26 +50,8 @@
 }
 ```
 
-## 技术实现
-
-此工具使用 FastGPT 的反向调用框架（invoke framework）：
-
-```typescript
-import { invoke } from '@/invoke';
-
-const result = await invoke('wecom.getAuthToken', {
-  corpId: 'your_corp_id'
-});
-```
-
 ## 注意事项
 
 - access_token 有效期通常为 7200 秒（2 小时）
 - 请妥善保管 access_token，避免泄露
 - 建议在 token 过期前提前刷新
-
-## 版本历史
-
-### 0.1.0
-- 初始版本
-- 支持获取企业微信授权 Token

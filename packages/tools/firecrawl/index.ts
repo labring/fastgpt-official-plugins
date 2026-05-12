@@ -38,7 +38,10 @@ const scrapeHandler = createToolHandler({
   outputSchema: scrapeOutputSchema,
   secretSchema: scrapeSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await scrapeInputType.parseAsync(input);
+    const parsedInput = await scrapeInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await scrapeTool(parsedInput, ctx);
     return scrapeOutputType.parseAsync(output);
   },

@@ -36,7 +36,10 @@ const NanoBananaHandler = createToolHandler({
   outputSchema: NanoBananaOutputSchema,
   secretSchema: NanoBananaSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await NanoBananaInputType.parseAsync(input);
+    const parsedInput = await NanoBananaInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await NanoBananaTool(parsedInput, ctx);
     return NanoBananaOutputType.parseAsync(output);
   },

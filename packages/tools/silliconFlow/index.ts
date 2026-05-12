@@ -68,7 +68,10 @@ const paintHandler = createToolHandler({
   outputSchema: paintOutputSchema,
   secretSchema: paintSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await paintInputType.parseAsync(input);
+    const parsedInput = await paintInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await paintTool(parsedInput, ctx);
     return paintOutputType.parseAsync(output);
   }
@@ -109,7 +112,10 @@ const qwenImageHandler = createToolHandler({
   outputSchema: qwenImageOutputSchema,
   secretSchema: qwenImageSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await qwenImageInputType.parseAsync(input);
+    const parsedInput = await qwenImageInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await qwenImageTool(parsedInput, ctx);
     return qwenImageOutputType.parseAsync(output);
   }
@@ -161,7 +167,10 @@ const qwenImageEdit2509Handler = createToolHandler({
   outputSchema: qwenImageEdit2509OutputSchema,
   secretSchema: qwenImageEdit2509SecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await qwenImageEdit2509InputType.parseAsync(input);
+    const parsedInput = await qwenImageEdit2509InputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await qwenImageEdit2509Tool(parsedInput, ctx);
     return qwenImageEdit2509OutputType.parseAsync(output);
   }
@@ -215,7 +224,10 @@ const wanAiHandler = createToolHandler({
   outputSchema: wanAiOutputSchema,
   secretSchema: wanAiSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await wanAiInputType.parseAsync(input);
+    const parsedInput = await wanAiInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await wanAiTool(parsedInput, ctx);
     return wanAiOutputType.parseAsync(output);
   }

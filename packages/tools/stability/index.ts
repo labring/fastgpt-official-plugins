@@ -56,7 +56,10 @@ const imageGenerateHandler = createToolHandler({
   outputSchema: imageGenerateOutputSchema,
   secretSchema: imageGenerateSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await imageGenerateInputType.parseAsync(input);
+    const parsedInput = await imageGenerateInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await imageGenerateTool(parsedInput, ctx);
     return imageGenerateOutputType.parseAsync(output);
   },

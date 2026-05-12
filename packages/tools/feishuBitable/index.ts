@@ -101,7 +101,10 @@ const biTableCreateHandler = createToolHandler({
   outputSchema: biTableCreateOutputSchema,
   secretSchema: biTableCreateSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await biTableCreateInputType.parseAsync(input);
+    const parsedInput = await biTableCreateInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await biTableCreateTool(parsedInput, ctx);
     return biTableCreateOutputType.parseAsync(output);
   },
@@ -126,7 +129,10 @@ const biTableGetHandler = createToolHandler({
   outputSchema: biTableGetOutputSchema,
   secretSchema: biTableGetSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await biTableGetInputType.parseAsync(input);
+    const parsedInput = await biTableGetInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await biTableGetTool(parsedInput, ctx);
     return biTableGetOutputType.parseAsync(output);
   },
@@ -156,7 +162,10 @@ const biTableUpdateHandler = createToolHandler({
   outputSchema: biTableUpdateOutputSchema,
   secretSchema: biTableUpdateSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await biTableUpdateInputType.parseAsync(input);
+    const parsedInput = await biTableUpdateInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await biTableUpdateTool(parsedInput, ctx);
     return biTableUpdateOutputType.parseAsync(output);
   },
@@ -186,7 +195,10 @@ const dataTableCreateHandler = createToolHandler({
   outputSchema: dataTableCreateOutputSchema,
   secretSchema: dataTableCreateSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await dataTableCreateInputType.parseAsync(input);
+    const parsedInput = await dataTableCreateInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await dataTableCreateTool(parsedInput, ctx);
     return dataTableCreateOutputType.parseAsync(output);
   },
@@ -216,7 +228,10 @@ const dataTableDeleteHandler = createToolHandler({
   outputSchema: dataTableDeleteOutputSchema,
   secretSchema: dataTableDeleteSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await dataTableDeleteInputType.parseAsync(input);
+    const parsedInput = await dataTableDeleteInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await dataTableDeleteTool(parsedInput, ctx);
     return dataTableDeleteOutputType.parseAsync(output);
   },
@@ -247,7 +262,10 @@ const dataTableGetTableFieldsHandler = createToolHandler({
   secretSchema: dataTableGetTableFieldsSecretSchema,
   handler: async (input, ctx) => {
     const parsedInput =
-      await dataTableGetTableFieldsInputType.parseAsync(input);
+      await dataTableGetTableFieldsInputType.parseAsync({
+        ...input,
+        ...ctx.secrets
+      });
     const output = await dataTableGetTableFieldsTool(parsedInput, ctx);
     return dataTableGetTableFieldsOutputType.parseAsync(output);
   },
@@ -272,7 +290,10 @@ const dataTableGetTablesHandler = createToolHandler({
   outputSchema: dataTableGetTablesOutputSchema,
   secretSchema: dataTableGetTablesSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await dataTableGetTablesInputType.parseAsync(input);
+    const parsedInput = await dataTableGetTablesInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await dataTableGetTablesTool(parsedInput, ctx);
     return dataTableGetTablesOutputType.parseAsync(output);
   },
@@ -306,7 +327,10 @@ const dataTableUpdateHandler = createToolHandler({
   outputSchema: dataTableUpdateOutputSchema,
   secretSchema: dataTableUpdateSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await dataTableUpdateInputType.parseAsync(input);
+    const parsedInput = await dataTableUpdateInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await dataTableUpdateTool(parsedInput, ctx);
     return dataTableUpdateOutputType.parseAsync(output);
   },
@@ -341,7 +365,10 @@ const recordCreateHandler = createToolHandler({
   outputSchema: recordCreateOutputSchema,
   secretSchema: recordCreateSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await recordCreateInputType.parseAsync(input);
+    const parsedInput = await recordCreateInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await recordCreateTool(parsedInput, ctx);
     return recordCreateOutputType.parseAsync(output);
   },
@@ -376,7 +403,10 @@ const recordDeleteHandler = createToolHandler({
   outputSchema: recordDeleteOutputSchema,
   secretSchema: recordDeleteSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await recordDeleteInputType.parseAsync(input);
+    const parsedInput = await recordDeleteInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await recordDeleteTool(parsedInput, ctx);
     return recordDeleteOutputType.parseAsync(output);
   },
@@ -415,7 +445,10 @@ const recordGetHandler = createToolHandler({
   outputSchema: recordGetOutputSchema,
   secretSchema: recordGetSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await recordGetInputType.parseAsync(input);
+    const parsedInput = await recordGetInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await recordGetTool(parsedInput, ctx);
     return recordGetOutputType.parseAsync(output);
   },
@@ -481,7 +514,10 @@ const recordListHandler = createToolHandler({
   outputSchema: recordListOutputSchema,
   secretSchema: recordListSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await recordListInputType.parseAsync(input);
+    const parsedInput = await recordListInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await recordListTool(parsedInput, ctx);
     return recordListOutputType.parseAsync(output);
   },
@@ -521,7 +557,10 @@ const recordUpdateHandler = createToolHandler({
   outputSchema: recordUpdateOutputSchema,
   secretSchema: recordUpdateSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await recordUpdateInputType.parseAsync(input);
+    const parsedInput = await recordUpdateInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await recordUpdateTool(parsedInput, ctx);
     return recordUpdateOutputType.parseAsync(output);
   },

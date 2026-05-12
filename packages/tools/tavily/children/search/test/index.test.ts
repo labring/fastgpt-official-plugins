@@ -67,12 +67,78 @@ describe('Tavily Search Tool', () => {
         include_answer: true,
         topic: 'general',
         include_raw_content: false,
-        time_range: undefined,
         include_images: false,
         include_image_descriptions: false,
         include_favicon: false,
         include_domains: [],
         exclude_domains: []
+      });
+    });
+
+    it('should accept legacy Tavily search parameter names', async () => {
+      const mockClient = {
+        post: vi.fn().mockResolvedValue({
+          data: {
+            query: 'legacy query',
+            answer: 'Legacy answer',
+            results: [
+              {
+                title: 'Legacy Result',
+                url: 'https://example.com/legacy',
+                content: 'Legacy content'
+              }
+            ],
+            response_time: 1,
+            request_id: 'legacy-request-id'
+          }
+        })
+      };
+
+      vi.spyOn(clientModule, 'validateApiKey').mockImplementation(() => {});
+      vi.spyOn(clientModule, 'createTavilyClient').mockReturnValue(mockClient as any);
+
+      const result = await tool({
+        tavilyApiKey: testApiKey,
+        query: 'legacy query',
+        auto_parameters: true,
+        topic: 'finance',
+        search_depth: 'advanced',
+        chunks_per_source: 2,
+        max_results: 4,
+        include_answer: 'advanced',
+        include_raw_content: true,
+        time_range: 'week',
+        start_date: '2025-01-01',
+        end_date: '2025-01-31',
+        include_images: true,
+        include_image_descriptions: true,
+        include_favicon: true,
+        include_domains: 'example.com, fastgpt.cn',
+        exclude_domains: ['blocked.example.com'],
+        country: 'china'
+      } as any);
+
+      expect(result.answer).toBe('Legacy answer');
+      expect(result.results).toHaveLength(1);
+      expect(mockClient.post).toHaveBeenCalledWith('/search', {
+        api_key: testApiKey,
+        query: 'legacy query',
+        search_depth: 'advanced',
+        max_results: 4,
+        include_answer: 'advanced',
+        topic: 'finance',
+        include_raw_content: 'markdown',
+        time_range: 'week',
+        include_images: true,
+        include_image_descriptions: true,
+        include_favicon: true,
+        include_domains: ['example.com', 'fastgpt.cn'],
+        exclude_domains: ['blocked.example.com'],
+        auto_parameters: true,
+        chunks_per_source: 2,
+        start_date: '2025-01-01',
+        end_date: '2025-01-31',
+        country: 'china'
       });
     });
 
@@ -125,7 +191,6 @@ describe('Tavily Search Tool', () => {
         include_answer: false,
         topic: 'general',
         include_raw_content: false,
-        time_range: undefined,
         include_images: false,
         include_image_descriptions: false,
         include_favicon: false,

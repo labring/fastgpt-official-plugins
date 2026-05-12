@@ -40,7 +40,10 @@ const metasoSearchHandler = createToolHandler({
   outputSchema: metasoSearchOutputSchema,
   secretSchema: metasoSearchSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await metasoSearchInputType.parseAsync(input);
+    const parsedInput = await metasoSearchInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await metasoSearchTool(parsedInput, ctx);
     return metasoSearchOutputType.parseAsync(output);
   }

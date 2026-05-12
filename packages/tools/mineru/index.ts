@@ -61,7 +61,10 @@ const parseLocalHandler = createToolHandler({
   outputSchema: parseLocalOutputSchema,
   secretSchema: parseLocalSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await parseLocalInputType.parseAsync(input);
+    const parsedInput = await parseLocalInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await parseLocalTool(parsedInput, ctx);
     return parseLocalOutputType.parseAsync(output);
   }
@@ -76,7 +79,10 @@ const parseRemoteHandler = createToolHandler({
   outputSchema: parseRemoteOutputSchema,
   secretSchema: parseRemoteSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await parseRemoteInputType.parseAsync(input);
+    const parsedInput = await parseRemoteInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await parseRemoteTool(parsedInput, ctx);
     return parseRemoteOutputType.parseAsync(output);
   }

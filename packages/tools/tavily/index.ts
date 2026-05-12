@@ -116,8 +116,11 @@ const crawlHandler = createToolHandler({
   outputSchema: crawlOutputSchema,
   secretSchema: crawlSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await crawlInputType.parseAsync(input);
-    const output = await crawlTool(parsedInput, ctx);
+    const parsedInput = await crawlInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
+    const output = await crawlTool(parsedInput);
     return crawlOutputType.parseAsync(output);
   },
 });
@@ -167,8 +170,11 @@ const extractHandler = createToolHandler({
   outputSchema: extractOutputSchema,
   secretSchema: extractSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await extractInputType.parseAsync(input);
-    const output = await extractTool(parsedInput, ctx);
+    const parsedInput = await extractInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
+    const output = await extractTool(parsedInput);
     return extractOutputType.parseAsync(output);
   },
 });
@@ -254,8 +260,11 @@ const mapHandler = createToolHandler({
   outputSchema: mapOutputSchema,
   secretSchema: mapSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await mapInputType.parseAsync(input);
-    const output = await mapTool(parsedInput, ctx);
+    const parsedInput = await mapInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
+    const output = await mapTool(parsedInput);
     return mapOutputType.parseAsync(output);
   },
 });
@@ -267,49 +276,129 @@ const searchInputSchema = z.object({
     description: "要搜索的内容",
     toolDescription: "The search query string"
   }),
+  "autoParameters": z.boolean().optional().meta({
+    title: "自动参数",
+    description: "是否让 Tavily 根据查询自动配置搜索参数"
+  }),
+  "auto_parameters": z.boolean().optional().meta({
+    title: "自动参数（旧版）",
+    description: "兼容旧版 Tavily 参数 auto_parameters"
+  }),
   "searchDepth": z.enum(["basic","advanced"]).optional().meta({
     title: "搜索深度",
     description: "基础搜索 (1 credit) | 高级搜索 (2 credits)"
+  }),
+  "search_depth": z.enum(["basic","advanced"]).optional().meta({
+    title: "搜索深度（旧版）",
+    description: "兼容旧版 Tavily 参数 search_depth"
+  }),
+  "chunksPerSource": z.number().optional().meta({
+    title: "每个来源片段数",
+    description: "高级搜索下每个来源返回的内容片段数 (1-3)"
+  }),
+  "chunks_per_source": z.number().optional().meta({
+    title: "每个来源片段数（旧版）",
+    description: "兼容旧版 Tavily 参数 chunks_per_source"
   }),
   "maxResults": z.number().optional().meta({
     title: "最大结果数",
     description: "返回的最大搜索结果数量 (1-20)"
   }),
-  "includeAnswer": z.boolean().optional().meta({
+  "max_results": z.number().optional().meta({
+    title: "最大结果数（旧版）",
+    description: "兼容旧版 Tavily 参数 max_results"
+  }),
+  "includeAnswer": z.union([z.boolean(), z.enum(["basic","advanced"])]).optional().meta({
     title: "生成 AI 摘要",
     description: "是否生成 AI 摘要答案"
+  }),
+  "include_answer": z.union([z.boolean(), z.enum(["basic","advanced"])]).optional().meta({
+    title: "生成 AI 摘要（旧版）",
+    description: "兼容旧版 Tavily 参数 include_answer"
   }),
   "searchTopic": z.enum(["general","news","finance"]).optional().meta({
     title: "搜索主题",
     description: "搜索主题"
   }),
-  "includeRawContent": z.enum(["none","text","markdown"]).optional().meta({
+  "topic": z.enum(["general","news","finance"]).optional().meta({
+    title: "搜索主题（旧版）",
+    description: "兼容旧版 Tavily 参数 topic"
+  }),
+  "includeRawContent": z.union([z.enum(["none","text","markdown"]), z.boolean()]).optional().meta({
     title: "包含原始内容",
     description: "是否包含原始内容"
   }),
-  "timeRange": z.enum(["none","day","week","month","year"]).optional().meta({
+  "include_raw_content": z.union([z.enum(["none","text","markdown"]), z.boolean()]).optional().meta({
+    title: "包含原始内容（旧版）",
+    description: "兼容旧版 Tavily 参数 include_raw_content"
+  }),
+  "timeRange": z.enum(["none","day","week","month","year","d","w","m","y"]).nullable().optional().meta({
     title: "时间范围",
     description: "搜索时间范围"
+  }),
+  "time_range": z.enum(["none","day","week","month","year","d","w","m","y"]).nullable().optional().meta({
+    title: "时间范围（旧版）",
+    description: "兼容旧版 Tavily 参数 time_range"
+  }),
+  "startDate": z.string().optional().meta({
+    title: "开始日期",
+    description: "返回指定日期之后的结果，格式 YYYY-MM-DD"
+  }),
+  "start_date": z.string().optional().meta({
+    title: "开始日期（旧版）",
+    description: "兼容旧版 Tavily 参数 start_date"
+  }),
+  "endDate": z.string().optional().meta({
+    title: "结束日期",
+    description: "返回指定日期之前的结果，格式 YYYY-MM-DD"
+  }),
+  "end_date": z.string().optional().meta({
+    title: "结束日期（旧版）",
+    description: "兼容旧版 Tavily 参数 end_date"
   }),
   "includeImages": z.boolean().optional().meta({
     title: "包含图片",
     description: "是否包含图片"
   }),
+  "include_images": z.boolean().optional().meta({
+    title: "包含图片（旧版）",
+    description: "兼容旧版 Tavily 参数 include_images"
+  }),
   "includeImageDescriptions": z.boolean().optional().meta({
     title: "包含图片描述",
     description: "是否包含图片描述"
+  }),
+  "include_image_descriptions": z.boolean().optional().meta({
+    title: "包含图片描述（旧版）",
+    description: "兼容旧版 Tavily 参数 include_image_descriptions"
   }),
   "includeFavicon": z.boolean().optional().meta({
     title: "包含 favicon",
     description: "是否包含 favicon"
   }),
-  "includeDomains": z.array(z.string()).optional().meta({
+  "include_favicon": z.boolean().optional().meta({
+    title: "包含 favicon（旧版）",
+    description: "兼容旧版 Tavily 参数 include_favicon"
+  }),
+  "includeDomains": z.union([z.array(z.string()), z.string()]).optional().meta({
     title: "包含的域名",
     description: "搜索结果中包含的域名"
   }),
-  "excludeDomains": z.array(z.string()).optional().meta({
+  "include_domains": z.union([z.array(z.string()), z.string()]).optional().meta({
+    title: "包含的域名（旧版）",
+    description: "兼容旧版 Tavily 参数 include_domains"
+  }),
+  "excludeDomains": z.union([z.array(z.string()), z.string()]).optional().meta({
     title: "排除的域名",
     description: "搜索结果中排除的域名"
+  }),
+  "exclude_domains": z.union([z.array(z.string()), z.string()]).optional().meta({
+    title: "排除的域名（旧版）",
+    description: "兼容旧版 Tavily 参数 exclude_domains"
+  }),
+  "country": z.string().optional().meta({
+    title: "国家",
+    description: "优先返回指定国家的搜索结果"
   })
 });
 const searchOutputSchema = z.object({
@@ -327,8 +416,11 @@ const searchHandler = createToolHandler({
   outputSchema: searchOutputSchema,
   secretSchema: searchSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await searchInputType.parseAsync(input);
-    const output = await searchTool(parsedInput, ctx);
+    const parsedInput = await searchInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
+    const output = await searchTool(parsedInput);
     return searchOutputType.parseAsync(output);
   },
 });

@@ -42,7 +42,10 @@ const star3Handler = createToolHandler({
   outputSchema: star3OutputSchema,
   secretSchema: star3SecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await star3InputType.parseAsync(input);
+    const parsedInput = await star3InputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await star3Tool(parsedInput, ctx);
     return star3OutputType.parseAsync(output);
   },

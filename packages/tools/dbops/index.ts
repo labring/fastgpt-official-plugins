@@ -67,7 +67,10 @@ const clickhouseHandler = createToolHandler({
   outputSchema: clickhouseOutputSchema,
   secretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await clickhouseInputType.parseAsync(input);
+    const parsedInput = await clickhouseInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await clickhouseTool(parsedInput, ctx);
     return clickhouseOutputType.parseAsync(output);
   },

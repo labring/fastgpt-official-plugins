@@ -30,7 +30,10 @@ const handler = createToolHandler({
   outputSchema,
   secretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await InputType.parseAsync(input);
+    const parsedInput = await InputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await toolCb(parsedInput, ctx);
     return OutputType.parseAsync(output);
   }

@@ -30,7 +30,10 @@ const findResultsHandler = createToolHandler({
   outputSchema: findResultsOutputSchema,
   secretSchema: findResultsSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await findResultsInputType.parseAsync(input);
+    const parsedInput = await findResultsInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await findResultsTool(parsedInput, ctx);
     return findResultsOutputType.parseAsync(output);
   }

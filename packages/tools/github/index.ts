@@ -50,7 +50,10 @@ const repositoryInfoQueryHandler = createToolHandler({
   outputSchema: repositoryInfoQueryOutputSchema,
   secretSchema: repositoryInfoQuerySecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await repositoryInfoQueryInputType.parseAsync(input);
+    const parsedInput = await repositoryInfoQueryInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await repositoryInfoQueryTool(parsedInput, ctx);
     return repositoryInfoQueryOutputType.parseAsync(output);
   },
@@ -79,7 +82,10 @@ const userInfoQueryHandler = createToolHandler({
   outputSchema: userInfoQueryOutputSchema,
   secretSchema: userInfoQuerySecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await userInfoQueryInputType.parseAsync(input);
+    const parsedInput = await userInfoQueryInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await userInfoQueryTool(parsedInput, ctx);
     return userInfoQueryOutputType.parseAsync(output);
   },

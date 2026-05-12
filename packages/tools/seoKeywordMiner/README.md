@@ -63,17 +63,15 @@
 - `semReason`: 流量特点
 - `semPrice`: SEM点击价格
 
-## API 集成
+## API 参考
 
-本工具基于 5118 官方海量长尾词挖掘APIv2实现，严格遵循官方示例代码：
+本工具使用 5118 官方海量长尾词挖掘 API v2：
 
 - **API端点**: `http://apis.5118.com/keyword/word/v2`
 - **认证方式**: Authorization Header
 - **请求格式**: application/x-www-form-urlencoded
 - **官方文档**: https://www.5118.com/apistore/detail/8cf3d6ed-2b12-ed11-8da8-e43d1a103141/-1
 
-### API参数
+### API 参数
 - `keyword`: 种子关键词
 - `page_index`: 页码索引（工具自动计算）
-
-基于官方PHP示例代码实现，确保与5118 API完全兼容。

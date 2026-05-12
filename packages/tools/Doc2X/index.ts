@@ -37,7 +37,10 @@ const PDF2textHandler = createToolHandler({
   outputSchema: PDF2textOutputSchema,
   secretSchema: PDF2textSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await PDF2textInputType.parseAsync(input);
+    const parsedInput = await PDF2textInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await PDF2textTool(parsedInput, ctx);
     return PDF2textOutputType.parseAsync(output);
   },

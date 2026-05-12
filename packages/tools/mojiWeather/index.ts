@@ -49,7 +49,10 @@ const toolHandler = createToolHandler({
   outputSchema: toolOutputSchema,
   secretSchema: toolSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await toolInputType.parseAsync(input);
+    const parsedInput = await toolInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await toolTool(parsedInput, ctx);
     return toolOutputType.parseAsync(output);
   }

@@ -55,7 +55,10 @@ const ttsHandler = createToolHandler({
   outputSchema: ttsOutputSchema,
   secretSchema: ttsSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await ttsInputType.parseAsync(input);
+    const parsedInput = await ttsInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await ttsTool(parsedInput, ctx);
     return ttsOutputType.parseAsync(output);
   },

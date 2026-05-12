@@ -51,7 +51,10 @@ const imgEditingHandler = createToolHandler({
   outputSchema: imgEditingOutputSchema,
   secretSchema: imgEditingSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await imgEditingInputType.parseAsync(input);
+    const parsedInput = await imgEditingInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await imgEditingTool(parsedInput, ctx);
     return imgEditingOutputType.parseAsync(output);
   },
@@ -88,7 +91,10 @@ const imgGenerationHandler = createToolHandler({
   outputSchema: imgGenerationOutputSchema,
   secretSchema: imgGenerationSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await imgGenerationInputType.parseAsync(input);
+    const parsedInput = await imgGenerationInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await imgGenerationTool(parsedInput, ctx);
     return imgGenerationOutputType.parseAsync(output);
   },

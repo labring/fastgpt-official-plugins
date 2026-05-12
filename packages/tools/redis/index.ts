@@ -41,7 +41,10 @@ const delHandler = createToolHandler({
   outputSchema: delOutputSchema,
   secretSchema: delSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await delInputType.parseAsync(input);
+    const parsedInput = await delInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await delTool(parsedInput, ctx);
     return delOutputType.parseAsync(output);
   },
@@ -70,7 +73,10 @@ const getHandler = createToolHandler({
   outputSchema: getOutputSchema,
   secretSchema: getSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await getInputType.parseAsync(input);
+    const parsedInput = await getInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await getTool(parsedInput, ctx);
     return getOutputType.parseAsync(output);
   },
@@ -105,7 +111,10 @@ const setHandler = createToolHandler({
   outputSchema: setOutputSchema,
   secretSchema: setSecretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await setInputType.parseAsync(input);
+    const parsedInput = await setInputType.parseAsync({
+      ...input,
+      ...ctx.secrets
+    });
     const output = await setTool(parsedInput, ctx);
     return setOutputType.parseAsync(output);
   },
