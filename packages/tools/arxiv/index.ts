@@ -29,23 +29,21 @@ import {
 const secretSchema = z.object({});
 
 const abstractExtractionSecretSchema = z.object({});
-const abstractExtractionInputSchema = z
-  .object({
-    arxivId: z.string().meta({
-      title: "ArXiv ID",
-      description: "要提取摘要的论文 ArXiv ID",
-      toolDescription:
-        '要提取摘要的论文 ArXiv ID，例如: "2301.00001", "arXiv:2301.00001", "1706.03762" 等',
-    }),
-  });
-const abstractExtractionOutputSchema = z
-  .object({
-    abstract: z.record(z.string(), z.unknown()).meta({
-      title: "摘要信息",
-      description:
-        "提取的论文摘要信息，包含标题、作者、摘要内容、发布时间、链接等，如果未找到则为空",
-    }),
-  });
+const abstractExtractionInputSchema = z.object({
+  arxivId: z.string().meta({
+    title: "ArXiv ID",
+    description: "要提取摘要的论文 ArXiv ID",
+    toolDescription:
+      '要提取摘要的论文 ArXiv ID，例如: "2301.00001", "arXiv:2301.00001", "1706.03762" 等',
+  }),
+});
+const abstractExtractionOutputSchema = z.object({
+  abstract: z.record(z.string(), z.unknown()).meta({
+    title: "摘要信息",
+    description:
+      "提取的论文摘要信息，包含标题、作者、摘要内容、发布时间、链接等，如果未找到则为空",
+  }),
+});
 
 const abstractExtractionHandler = createToolHandler({
   inputSchema: abstractExtractionInputSchema,
@@ -59,23 +57,21 @@ const abstractExtractionHandler = createToolHandler({
 });
 
 const arxivIDSearchSecretSchema = z.object({});
-const arxivIDSearchInputSchema = z
-  .object({
-    arxivId: z.string().meta({
-      title: "ArXiv ID",
-      description: "要查找的论文 ArXiv ID",
-      toolDescription:
-        '要查找的论文 ArXiv ID，例如: "2301.00001", "arXiv:2301.00001", "cs-LG/0001001" 等',
-    }),
-  });
-const arxivIDSearchOutputSchema = z
-  .object({
-    paper: z.record(z.string(), z.unknown()).meta({
-      title: "论文信息",
-      description:
-        "查找到的论文详细信息，包含标题、作者、摘要、链接等，如果未找到则为空",
-    }),
-  });
+const arxivIDSearchInputSchema = z.object({
+  arxivId: z.string().meta({
+    title: "ArXiv ID",
+    description: "要查找的论文 ArXiv ID",
+    toolDescription:
+      '要查找的论文 ArXiv ID，例如: "2301.00001", "arXiv:2301.00001", "cs-LG/0001001" 等',
+  }),
+});
+const arxivIDSearchOutputSchema = z.object({
+  paper: z.record(z.string(), z.unknown()).meta({
+    title: "论文信息",
+    description:
+      "查找到的论文详细信息，包含标题、作者、摘要、链接等，如果未找到则为空",
+  }),
+});
 
 const arxivIDSearchHandler = createToolHandler({
   inputSchema: arxivIDSearchInputSchema,
@@ -89,29 +85,30 @@ const arxivIDSearchHandler = createToolHandler({
 });
 
 const authorSearchSecretSchema = z.object({});
-const authorSearchInputSchema = z
-  .object({
-    author: z.string().meta({
-      title: "作者名",
-      description: "要搜索的论文作者名",
-      toolDescription: '要搜索的论文作者名，例如: "Yann LeCun", "Smith, J" 等',
-    }),
-    maxResults: z.number().optional().meta({
-      title: "最大结果数",
-      description: "返回的最大论文数量 (1-50)",
-    }),
-    sortBy: z.enum(["relevance","lastUpdatedDate","submittedDate"]).optional().meta({
+const authorSearchInputSchema = z.object({
+  author: z.string().meta({
+    title: "作者名",
+    description: "要搜索的论文作者名",
+    toolDescription: '要搜索的论文作者名，例如: "Yann LeCun", "Smith, J" 等',
+  }),
+  maxResults: z.number().optional().meta({
+    title: "最大结果数",
+    description: "返回的最大论文数量 (1-50)",
+  }),
+  sortBy: z
+    .enum(["relevance", "lastUpdatedDate", "submittedDate"])
+    .optional()
+    .meta({
       title: "排序方式",
       description: "结果排序方式",
     }),
-  });
-const authorSearchOutputSchema = z
-  .object({
-    papers: z.array(z.record(z.string(), z.unknown())).meta({
-      title: "论文列表",
-      description: "搜索到的论文列表，包含标题、作者、摘要、链接等信息",
-    }),
-  });
+});
+const authorSearchOutputSchema = z.object({
+  papers: z.array(z.record(z.string(), z.unknown())).meta({
+    title: "论文列表",
+    description: "搜索到的论文列表，包含标题、作者、摘要、链接等信息",
+  }),
+});
 
 const authorSearchHandler = createToolHandler({
   inputSchema: authorSearchInputSchema,
@@ -139,19 +136,18 @@ const keywordSearchInputSchema = z.object({
       description: "返回的最大论文数量 (1-50)",
     })
     .default(5),
-  sortBy: z.enum(["相关度", "最后更新时间", "提交时间"]).meta({
+  sortBy: z.enum(["relevance", "lastUpdatedDate", "submittedDate"]).meta({
     title: "排序方式",
     description: "结果排序方式",
   }),
 });
 
-const keywordSearchOutputSchema = z
-  .object({
-    papers: z.array(z.record(z.string(), z.unknown())).meta({
-      title: "论文列表",
-      description: "搜索到的论文列表，包含标题、作者、摘要、链接等信息",
-    }),
-  });
+const keywordSearchOutputSchema = z.object({
+  papers: z.array(z.record(z.string(), z.unknown())).meta({
+    title: "论文列表",
+    description: "搜索到的论文列表，包含标题、作者、摘要、链接等信息",
+  }),
+});
 
 const keywordSearchHandler = createToolHandler({
   inputSchema: keywordSearchInputSchema,
@@ -165,23 +161,21 @@ const keywordSearchHandler = createToolHandler({
 });
 
 const metadataExtractionSecretSchema = z.object({});
-const metadataExtractionInputSchema = z
-  .object({
-    arxivId: z.string().meta({
-      title: "ArXiv ID",
-      description: "要提取元数据的论文 ArXiv ID",
-      toolDescription:
-        '要提取元数据的论文 ArXiv ID，例如: "2301.00001", "arXiv:2301.00001", "1706.03762" 等',
-    }),
-  });
-const metadataExtractionOutputSchema = z
-  .object({
-    metadata: z.record(z.string(), z.unknown()).meta({
-      title: "论文元数据",
-      description:
-        "提取的论文完整元数据，包含标题、作者、摘要、分类、版本、DOI、PDF下载链接等详细信息，如果未找到则为空",
-    }),
-  });
+const metadataExtractionInputSchema = z.object({
+  arxivId: z.string().meta({
+    title: "ArXiv ID",
+    description: "要提取元数据的论文 ArXiv ID",
+    toolDescription:
+      '要提取元数据的论文 ArXiv ID，例如: "2301.00001", "arXiv:2301.00001", "1706.03762" 等',
+  }),
+});
+const metadataExtractionOutputSchema = z.object({
+  metadata: z.record(z.string(), z.unknown()).meta({
+    title: "论文元数据",
+    description:
+      "提取的论文完整元数据，包含标题、作者、摘要、分类、版本、DOI、PDF下载链接等详细信息，如果未找到则为空",
+  }),
+});
 
 const metadataExtractionHandler = createToolHandler({
   inputSchema: metadataExtractionInputSchema,
