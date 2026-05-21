@@ -9,32 +9,32 @@ import {
 const secretSchema = z.object({});
 const baseChartSecretSchema = z.object({});
 const baseChartInputSchema = z.object({
-  "title": z.string().optional().meta({
+  title: z.string().optional().meta({
     title: "title",
     description: "BI图表的标题",
-    toolDescription: "BI图表的标题"
+    toolDescription: "BI图表的标题",
   }),
-  "xAxis": z.array(z.string()).meta({
+  xAxis: z.array(z.string()).meta({
     title: "xAxis",
-    description: "x轴数据，例如：[\"A\", \"B\", \"C\"]",
-    toolDescription: "x轴数据，例如：[\"A\", \"B\", \"C\"]"
+    description: 'x轴数据，例如：["A", "B", "C"]',
+    toolDescription: 'x轴数据，例如：["A", "B", "C"]',
   }),
-  "yAxis": z.array(z.string()).meta({
+  yAxis: z.array(z.string()).meta({
     title: "yAxis",
     description: "y轴数据，例如：[1,2,3]",
-    toolDescription: "y轴数据，例如：[1,2,3]"
+    toolDescription: "y轴数据，例如：[1,2,3]",
   }),
-  "chartType": z.enum(["折线图","柱状图","饼图"]).meta({
+  chartType: z.enum(["折线图", "柱状图", "饼图"]).meta({
     title: "chartType",
     description: "图表类型：柱状图，折线图，饼图",
-    toolDescription: "图表类型：柱状图，折线图，饼图"
-  })
+    toolDescription: "图表类型：柱状图，折线图，饼图",
+  }),
 });
 const baseChartOutputSchema = z.object({
-  "chartUrl": z.string().optional().meta({
+  chartUrl: z.string().optional().meta({
     title: "图表 url",
-    description: "可用使用markdown格式展示图片，如：![图片](url)"
-  })
+    description: "可用使用markdown格式展示图片，如：![图片](url)",
+  }),
 });
 const baseChartHandler = createToolHandler({
   inputSchema: baseChartInputSchema,
@@ -49,6 +49,7 @@ const baseChartHandler = createToolHandler({
 
 const toolSet = defineToolSet({
   manifest: {
+    permission: ["file-upload:allow"],
     pluginId: "drawing",
     name: {
       en: "BI Charts",
