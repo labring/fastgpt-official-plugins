@@ -85,6 +85,7 @@ const toolSet = defineToolSet({
     toolDescription:
       "Stability AI image generation tools: Ultra for high-quality images, Core for balanced performance, and SD3.5 for advanced generation with model selection",
     tags: ["multimodal"],
+    permission: ["file-upload:allow"],
   },
   secretSchema,
   children: [

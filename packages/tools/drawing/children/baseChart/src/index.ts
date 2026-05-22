@@ -99,17 +99,18 @@ const generateChart = async (
   chart.setOption(option);
   const svgContent = chart.renderToSVGString();
 
-  const base64 = `data:image/svg+xml;base64,${Buffer.from(svgContent).toString("base64")}`;
-  return base64;
+  return svgContent;
 };
 
 export async function tool(
   { title, xAxis, yAxis, chartType }: z.infer<typeof InputType>,
   ctx: ToolHandlerContext<any>,
 ): Promise<z.infer<typeof OutputType>> {
-  const base64 = await generateChart(title, xAxis, yAxis, chartType);
+  const svg = await generateChart(title, xAxis, yAxis, chartType);
   const [res, err] = await ctx.invoke.uploadFile({
-    file: Buffer.from(base64),
+    file: Buffer.from(svg),
+    fileName: `${title}.svg`,
+    contentType: "image/svg+xml",
   });
   if (err) {
     throw err;

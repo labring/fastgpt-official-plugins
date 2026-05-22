@@ -67,6 +67,7 @@ const tool = defineTool({
     toolDescription:
       "A tool that compares two markdown documents and generates a visual HTML diff report showing differences section by section",
     tags: ["tools"],
+    permission: ["file-upload:allow"],
   },
   secretSchema,
   handler,

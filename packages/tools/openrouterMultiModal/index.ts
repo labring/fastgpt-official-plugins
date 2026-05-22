@@ -65,6 +65,7 @@ const toolSet = defineToolSet({
     toolDescription:
       "This is an OpenRouter multi-modal tool set, supporting various model services provided by the OpenRouter platform",
     tags: ["multimodal"],
+    permission: ["file-upload:allow"],
   },
   secretSchema,
   children: [

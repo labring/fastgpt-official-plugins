@@ -107,6 +107,7 @@ const toolSet = defineToolSet({
   "tags": [
     "productivity"
   ],
+  "permission": ["file-upload:allow"],
   "author": "gary-Shen"
 },
   secretSchema,

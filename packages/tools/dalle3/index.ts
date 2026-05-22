@@ -58,6 +58,7 @@ const tool = defineTool({
       "zh-CN": "Default version",
     },
     tags: ["multimodal"],
+    permission: ["file-upload:allow"],
   },
   secretSchema,
   handler,

@@ -118,6 +118,7 @@ const toolSet = defineToolSet({
     },
     toolDescription: "gpt-image image generation tool set",
     tags: ["multimodal"],
+    permission: ["file-upload:allow"],
   },
   secretSchema,
   children: [
