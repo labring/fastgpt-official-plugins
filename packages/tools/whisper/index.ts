@@ -8,7 +8,8 @@ const secretSchema = z.object({
     description: "默认为：https://api.openai.com/v1"
   }),
   "apiKey": z.string().meta({
-    title: "API Key"
+    title: "API Key",
+    isSecret: true,
   })
 });
 const inputSchema = z.object({

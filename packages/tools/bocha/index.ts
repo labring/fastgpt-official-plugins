@@ -5,7 +5,8 @@ import z from "zod";
 const secretSchema = z.object({
   "apiKey": z.string().meta({
     title: "博查API密钥",
-    description: "博查API密钥"
+    description: "博查API密钥",
+    isSecret: true,
   })
 });
 const inputSchema = z.object({

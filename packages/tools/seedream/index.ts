@@ -5,7 +5,8 @@ import z from "zod";
 const secretSchema = z.object({
   "apiKey": z.string().meta({
     title: "API Key",
-    description: "豆包Seedream 4.0 图片生成模型"
+    description: "豆包Seedream 4.0 图片生成模型",
+    isSecret: true,
   })
 });
 const inputSchema = z.object({

@@ -5,15 +5,18 @@ import z from "zod";
 const secretSchema = z.object({
   "apiKey": z.string().optional().meta({
     title: "API密钥",
-    description: "SearchInfinity API密钥，与火山引擎Access Key和Secret Key二选一，获取链接https://console.volcengine.com/ask-echo/web-search"
+    description: "SearchInfinity API密钥，与火山引擎Access Key和Secret Key二选一，获取链接https://console.volcengine.com/ask-echo/web-search",
+    isSecret: true,
   }),
   "volcengineAccessKey": z.string().optional().meta({
     title: "火山引擎Access Key",
-    description: "火山引擎Access Key，用于火山引擎认证方式，与API密钥二选一"
+    description: "火山引擎Access Key，用于火山引擎认证方式，与API密钥二选一",
+    isSecret: true,
   }),
   "volcengineSecretKey": z.string().optional().meta({
     title: "火山引擎Secret Key",
-    description: "火山引擎Secret Key，用于火山引擎认证方式，与API密钥二选一"
+    description: "火山引擎Secret Key，用于火山引擎认证方式，与API密钥二选一",
+    isSecret: true,
   })
 });
 const inputSchema = z.object({

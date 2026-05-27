@@ -26,6 +26,7 @@ const secretSchema = z.object({
   }),
   password: z.string().meta({
     title: "数据库密码",
+    isSecret: true,
   }),
 });
 const inputSchema = z.object({

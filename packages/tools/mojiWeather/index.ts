@@ -5,7 +5,8 @@ import { InputType as toolInputType, OutputType as toolOutputType, tool as toolT
 const secretSchema = z.object({
   "apiKey": z.string().meta({
     title: "墨迹天气API密钥",
-    description: "墨迹天气API密钥，用于访问天气服务"
+    description: "墨迹天气API密钥，用于访问天气服务",
+    isSecret: true,
   })
 });
 

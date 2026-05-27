@@ -9,11 +9,13 @@ import {
 const secretSchema = z.object({
   "accessKey": z.string().meta({
     title: "accessKey",
-    description: "可以在 https://www.liblib.art/apis 获取"
+    description: "可以在 https://www.liblib.art/apis 获取",
+    isSecret: true,
   }),
   "secretKey": z.string().meta({
     title: "secretKey",
-    description: "可以在 https://www.liblib.art/apis 获取"
+    description: "可以在 https://www.liblib.art/apis 获取",
+    isSecret: true,
   })
 });
 const star3SecretSchema = z.object({});

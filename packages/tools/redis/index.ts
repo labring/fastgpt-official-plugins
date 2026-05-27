@@ -19,7 +19,8 @@ import {
 const secretSchema = z.object({
   "redisUrl": z.string().meta({
     title: "Redis 连接串",
-    description: "Redis 连接地址 (格式: redis://host:port 或 redis://user:password@host:port/db)"
+    description: "Redis 连接地址 (格式: redis://host:port 或 redis://user:password@host:port/db)",
+    isSecret: true,
   })
 });
 const delSecretSchema = z.object({});

@@ -8,7 +8,8 @@ import { InputType as wanAiInputType, OutputType as wanAiOutputType, tool as wan
 const secretSchema = z.object({
   "authorization": z.string().meta({
     title: "接口凭证（不需要 Bearer）",
-    description: "sk-xxxx"
+    description: "sk-xxxx",
+    isSecret: true,
   })
 });
 

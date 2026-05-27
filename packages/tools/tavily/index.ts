@@ -24,7 +24,8 @@ import {
 const secretSchema = z.object({
   "tavilyApiKey": z.string().meta({
     title: "Tavily API Key",
-    description: "Tavily API 密钥 (格式: tvly-xxxxxxxxxxxxxxxxxxxxxxxx), 在 https://app.tavily.com 获取"
+    description: "Tavily API 密钥 (格式: tvly-xxxxxxxxxxxxxxxxxxxxxxxx), 在 https://app.tavily.com 获取",
+    isSecret: true,
   })
 });
 const crawlSecretSchema = z.object({});

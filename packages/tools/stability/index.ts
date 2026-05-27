@@ -9,7 +9,8 @@ import {
 const secretSchema = z.object({
   "STABILITY_KEY": z.string().meta({
     title: "Stability API Key",
-    description: "可以在 https://platform.stability.ai 获取 API Key"
+    description: "可以在 https://platform.stability.ai 获取 API Key",
+    isSecret: true,
   })
 });
 const imageGenerateSecretSchema = z.object({});

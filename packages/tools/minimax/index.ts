@@ -9,7 +9,8 @@ import {
 const secretSchema = z.object({
   "apiKey": z.string().meta({
     title: "API Key",
-    description: "可以在 minimax 官网获取"
+    description: "可以在 minimax 官网获取",
+    isSecret: true,
   })
 });
 const ttsSecretSchema = z.object({});

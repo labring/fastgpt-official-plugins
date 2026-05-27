@@ -5,7 +5,8 @@ import z from "zod";
 const secretSchema = z.object({
   "apiKey": z.string().meta({
     title: "5118 API Key",
-    description: "在 5118 控制台获取 API Key。文档：https://www.5118.com/apistore/detail/8cf3d6ed-2b12-ed11-8da8-e43d1a103141/-1"
+    description: "在 5118 控制台获取 API Key。文档：https://www.5118.com/apistore/detail/8cf3d6ed-2b12-ed11-8da8-e43d1a103141/-1",
+    isSecret: true,
   })
 });
 const inputSchema = z.object({

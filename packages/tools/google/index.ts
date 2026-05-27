@@ -5,7 +5,8 @@ import z from 'zod';
 const secretSchema = z.object({
   "key": z.string().meta({
     title: "key",
-    description: "Google搜索key"
+    description: "Google搜索key",
+    isSecret: true,
   }),
   "cx": z.string().meta({
     title: "cx",

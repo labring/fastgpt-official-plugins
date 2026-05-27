@@ -8,7 +8,8 @@ import {
 
 const secretSchema = z.object({
   "apiKey": z.string().meta({
-    title: "API Key"
+    title: "API Key",
+    isSecret: true,
   })
 });
 const NanoBananaSecretSchema = z.object({});

@@ -5,7 +5,8 @@ import { InputType as findResultsInputType, OutputType as findResultsOutputType,
 const secretSchema = z.object({
   "apiKey": z.string().meta({
     title: "API Key",
-    description: "可以在 Perplexity 获取"
+    description: "可以在 Perplexity 获取",
+    isSecret: true,
   })
 });
 

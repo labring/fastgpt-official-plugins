@@ -12,7 +12,8 @@ const secretSchema = z.object({
     description: "Firecrawl 的 API 地址，如果使用官方的服务，这里可以留空。"
   }),
   "apiKey": z.string().meta({
-    title: "Firecrawl API Key"
+    title: "Firecrawl API Key",
+    isSecret: true,
   })
 });
 const scrapeSecretSchema = z.object({});

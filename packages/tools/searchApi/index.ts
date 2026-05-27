@@ -8,7 +8,8 @@ import { InputType as googleVideosSearchInputType, OutputType as googleVideosSea
 
 const secretSchema = z.object({
   "apiKey": z.string().meta({
-    title: "Search API Key"
+    title: "Search API Key",
+    isSecret: true,
   })
 });
 

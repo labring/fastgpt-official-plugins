@@ -9,7 +9,8 @@ import {
 const secretSchema = z.object({
   "apikey": z.string().meta({
     title: "apikey",
-    description: "Doc2X的API密钥，可以从Doc2X开放平台获得"
+    description: "Doc2X的API密钥，可以从Doc2X开放平台获得",
+    isSecret: true,
   })
 });
 const PDF2textSecretSchema = z.object({});

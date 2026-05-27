@@ -33,7 +33,8 @@ const secretSchema = z.object({
   }),
   "secret": z.string().optional().meta({
     title: "AppSecret",
-    description: "微信公众号开发者密钥(AppSecret)"
+    description: "微信公众号开发者密钥(AppSecret)",
+    isSecret: true,
   })
 });
 const getAuthTokenSecretSchema = z.object({});

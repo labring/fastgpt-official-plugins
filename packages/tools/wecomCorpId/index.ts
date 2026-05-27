@@ -5,14 +5,14 @@ import z from "zod";
 const secretSchema = z.object({});
 const inputSchema = z.object({});
 const outputSchema = z.object({
-  "access_token": z.string().meta({
+  access_token: z.string().meta({
     title: "访问令牌",
-    description: "企业微信访问令牌"
+    description: "企业微信访问令牌",
   }),
-  "expires_in": z.number().meta({
+  expires_in: z.number().meta({
     title: "过期时间（秒）",
-    description: "Token 过期时间（秒）"
-  })
+    description: "Token 过期时间（秒）",
+  }),
 });
 const handler = createToolHandler({
   inputSchema,
@@ -45,7 +45,6 @@ const tool = defineTool({
       "Get WeChat Work (WeCom) authorization token by corpId. Returns access_token and expires_in.",
     tags: ["tools"],
   },
-  secretSchema,
   handler,
 });
 

@@ -15,6 +15,7 @@ const secretSchema = z.object({
   token: z.string().optional().meta({
     title: "GitHub Token",
     description: "可选，填写后可提升API速率或访问更多信息",
+    isSecret: true,
   }),
 });
 

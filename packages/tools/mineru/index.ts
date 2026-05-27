@@ -10,7 +10,8 @@ const secretSchema = z.object({
   }),
   "token": z.string().optional().meta({
     title: "API Token",
-    description: "官方在线 MinerU 解析服务的 API Token，可在 https://mineru.net/apiManage/docs 申请获取"
+    description: "官方在线 MinerU 解析服务的 API Token，可在 https://mineru.net/apiManage/docs 申请获取",
+    isSecret: true,
   })
 });
 

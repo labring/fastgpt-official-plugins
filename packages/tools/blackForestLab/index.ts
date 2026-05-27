@@ -14,7 +14,8 @@ import {
 const secretSchema = z.object({
   "apiKey": z.string().meta({
     title: "API Key",
-    description: "可以在 https://api.bfl.ai/ 获取 API Key"
+    description: "可以在 https://api.bfl.ai/ 获取 API Key",
+    isSecret: true,
   })
 });
 const kontextEditingSecretSchema = z.object({});

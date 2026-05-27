@@ -6,7 +6,8 @@ import { InputType as jinaAiSearchInputType, OutputType as jinaAiSearchOutputTyp
 const secretSchema = z.object({
   "apiKey": z.string().meta({
     title: "Jina AI API密钥",
-    description: "Jina AI API密钥，格式：jina_xxxxxxxxxxxxxxxx"
+    description: "Jina AI API密钥，格式：jina_xxxxxxxxxxxxxxxx",
+    isSecret: true,
   })
 });
 

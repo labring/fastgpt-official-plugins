@@ -9,7 +9,8 @@ const secretSchema = z.object({
   }),
   "authorization": z.string().meta({
     title: "接口凭证（不需要 Bearer）",
-    description: "sk-xxxx"
+    description: "sk-xxxx",
+    isSecret: true,
   })
 });
 const inputSchema = z.object({

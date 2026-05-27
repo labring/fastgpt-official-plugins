@@ -73,7 +73,8 @@ const secretSchema = z.object({
   }),
   "appSecret": z.string().meta({
     title: "应用密钥 (App Secret)",
-    description: "飞书机器人应用的 App Secret"
+    description: "飞书机器人应用的 App Secret",
+    isSecret: true,
   })
 });
 const biTableCreateSecretSchema = z.object({});

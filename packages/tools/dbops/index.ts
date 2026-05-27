@@ -41,6 +41,7 @@ const secretSchema = z.object({
   }),
   password: z.string().meta({
     title: "数据库密码",
+    isSecret: true,
   }),
   maxConnections: z.string().optional().meta({
     title: "最大连接数",

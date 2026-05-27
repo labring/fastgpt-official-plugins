@@ -1,17 +1,15 @@
-import { z } from 'zod';
-import { getCorpToken } from '../utils/invoke/wecom/getAuthToken';
-import type { RunToolSecondParamsType } from '../utils/type/req';
+import { z } from "zod";
 
 export const InputType = z.object({});
 
 export const OutputType = z.object({
   access_token: z.string(),
-  expires_in: z.number()
+  expires_in: z.number(),
 });
 
 export async function tool(
   _params: z.infer<typeof InputType>,
-  { systemVar }: RunToolSecondParamsType
+  { systemVar }: RunToolSecondParamsType,
 ): Promise<z.infer<typeof OutputType>> {
   // 调用 wecom.getAuthToken 获取企业微信授权 token
   // const result = await invoke<getCorpTokenResult>('wecom.getCorpToken');
@@ -19,6 +17,6 @@ export async function tool(
 
   return {
     access_token: result.access_token,
-    expires_in: result.expires_in
+    expires_in: result.expires_in,
   };
 }

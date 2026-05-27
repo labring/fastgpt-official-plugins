@@ -5,7 +5,8 @@ import z from "zod";
 const secretSchema = z.object({
   "apiKey": z.string().meta({
     title: "API Key",
-    description: "可以在必优官网获取"
+    description: "可以在必优官网获取",
+    isSecret: true,
   })
 });
 const inputSchema = z.object({

@@ -18,7 +18,8 @@ const secretSchema = z.object({
   }),
   "apiKey": z.string().meta({
     title: "API Key",
-    description: "可以在 https://api.gpt.ge/pricing 获取"
+    description: "可以在 https://api.gpt.ge/pricing 获取",
+    isSecret: true,
   })
 });
 const imgEditingSecretSchema = z.object({});
