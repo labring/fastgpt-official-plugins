@@ -5,6 +5,7 @@
   "scripts": {
     "build": "turbo run build --continue=always --force --summarize",
     "build:cached": "turbo run build",
+    "build:full-package": "pnpm run pack && mkdir -p dist && find packages -name '*.pkg' -exec cp {} dist \\; && zip -j dist/fastgpt-official-plugins-$(git describe --always).zip dist/*.pkg",
     "pack": "turbo run pack --continue=always --summarize",
     "type-check": "turbo run type-check --parallel",
     "biome-check": "turbo run biome-check --parallel",
