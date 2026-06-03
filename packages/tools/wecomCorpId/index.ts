@@ -1,5 +1,4 @@
 import { createToolHandler, defineTool } from "@fastgpt-plugin/sdk-factory";
-import { InputType, OutputType, tool as toolCb } from "./src";
 import z from "zod";
 
 const secretSchema = z.object({});
@@ -19,9 +18,9 @@ const handler = createToolHandler({
   outputSchema,
   secretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await InputType.parseAsync(input);
-    const output = await toolCb(parsedInput, ctx);
-    return OutputType.parseAsync(output);
+    const [result, err] = await ctx.invoke.getWecomCorpToken();
+    if (err) return Promise.reject(err);
+    return result;
   },
 });
 
@@ -44,6 +43,7 @@ const tool = defineTool({
     toolDescription:
       "Get WeChat Work (WeCom) authorization token by corpId. Returns access_token and expires_in.",
     tags: ["tools"],
+    permission: ["teamInfo:read"],
   },
   handler,
 });
