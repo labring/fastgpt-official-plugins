@@ -1,0 +1,218 @@
+name: Publish All Tools to Marketplace
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref to publish. Defaults to the workflow run ref."
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-all-tools-to-marketplace-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  prepare-tools:
+    name: Prepare All Tool List
+    runs-on: ubuntu-latest
+
+    outputs:
+      count: ${{ steps.tools.outputs.count }}
+      tools: ${{ steps.tools.outputs.tools }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+
+      - name: Prepare all tool list
+        id: tools
+        shell: bash
+        env:
+          PUBLISH_REF: ${{ inputs.ref || github.ref }}
+        run: |
+          set -euo pipefail
+
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          import path from "node:path";
+
+          const root = process.cwd();
+          const toolsRoot = path.join(root, "packages", "tools");
+          const publishRef = process.env.PUBLISH_REF || "";
+          const repoUrl = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}`;
+
+          if (!fs.existsSync(toolsRoot)) {
+            throw new Error("packages/tools does not exist.");
+          }
+
+          const tools = fs
+            .readdirSync(toolsRoot, { withFileTypes: true })
+            .filter((entry) => entry.isDirectory())
+            .map((entry) => entry.name)
+            .filter((tool) => fs.existsSync(path.join(toolsRoot, tool, "package.json")))
+            .sort((a, b) => a.localeCompare(b));
+
+          if (tools.length === 0) {
+            throw new Error("No tools found under packages/tools.");
+          }
+
+          fs.writeFileSync("all-tools.txt", `${tools.join("\n")}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `count=${tools.length}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `tools=${JSON.stringify(tools)}\n`);
+
+          const summary = [
+            "## Full marketplace publish",
+            "",
+            "Review the build output and tool list before approving the `MarketplacePublish` environment gate.",
+            "",
+            "### Source",
+            `- Workflow ref: ${publishRef || "manual workflow dispatch context"}`,
+            `- Run: [${process.env.GITHUB_RUN_ID}](${repoUrl}/actions/runs/${process.env.GITHUB_RUN_ID})`,
+            "",
+            "### Tools",
+            ...tools.map((tool) => `- ${tool}`),
+            "",
+          ].join("\n");
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
+          NODE
+
+      - name: Upload tool list
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-tools
+          path: all-tools.txt
+          if-no-files-found: error
+
+  build-and-pack-tools:
+    name: Build and Pack All Tools
+    runs-on: ubuntu-latest
+    needs: prepare-tools
+    if: needs.prepare-tools.outputs.count != '0'
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Configure npm auth
+        shell: bash
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -n "${NPM_TOKEN:-}" ]; then
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          fi
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
+
+      - name: Download tool list
+        uses: actions/download-artifact@v4
+        with:
+          name: all-tools
+
+      - name: Build and pack all tools
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          while IFS= read -r tool; do
+            [ -n "$tool" ] || continue
+
+            pnpm --filter "./packages/tools/${tool}" run build
+            pnpm --filter "./packages/tools/${tool}" run pack
+          done < all-tools.txt
+
+      - name: Upload packed tool artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-tool-packages
+          path: packages/tools/**/*.pkg
+          if-no-files-found: error
+
+  publish-all-tools-to-marketplace:
+    name: Publish All Tools
+    runs-on: ubuntu-latest
+    needs:
+      - prepare-tools
+      - build-and-pack-tools
+    if: needs.prepare-tools.outputs.count != '0'
+    environment:
+      name: MarketplacePublish
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Configure npm auth
+        shell: bash
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -n "${NPM_TOKEN:-}" ]; then
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          fi
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
+
+      - name: Download tool list
+        uses: actions/download-artifact@v4
+        with:
+          name: all-tools
+
+      - name: Download packed tool artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: all-tool-packages
+          path: all-tool-packages
+
+      - name: Publish all tools to marketplace
+        shell: bash
+        env:
+          MARKETPLACE_BASE_URL: ${{ secrets.MARKETPLACE_BASE_URL }}
+          MARKETPLACE_AUTH: ${{ secrets.MARKETPLACE_AUTH }}
+        run: |
+          set -euo pipefail
+
+          mapfile -t pkg_files < <(find all-tool-packages -type f -name '*.pkg' | sort)
+          if [ "${#pkg_files[@]}" -eq 0 ]; then
+            echo "No .pkg files found in downloaded artifacts."
+            exit 1
+          fi
+
+          for pkg_file in "${pkg_files[@]}"; do
+            pnpm run upload -- "$pkg_file"
+          done
