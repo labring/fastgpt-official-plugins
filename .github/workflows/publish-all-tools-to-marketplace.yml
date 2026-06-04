@@ -214,5 +214,5 @@ jobs:
           fi
 
           for pkg_file in "${pkg_files[@]}"; do
-            pnpm run upload -- "$pkg_file"
+            pnpm run upload "$pkg_file"
           done

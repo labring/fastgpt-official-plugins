@@ -5,7 +5,7 @@
 ## Workflow
 
 - `Extract Updated Tools`：`packages/**` 变化合入 `main` 后，提取发生变化的 `packages/tools/<tool>` 列表，并触发 marketplace 发布 workflow。
-- `Publish Tools to Marketplace`：接收工具列表，等待人工 approval，通过后 build、pack 并调用 `pnpm run upload -- packages/tools/<tool>` 发布到 marketplace。
+- `Publish Tools to Marketplace`：接收工具列表，等待人工 approval，通过后 build、pack 并调用 `pnpm run upload packages/tools/<tool>` 发布到 marketplace。
 - `Publish All Tools to Marketplace`：手动触发，扫描 `packages/tools/*` 下所有插件，全部 build、pack，通过人工 approval 后上传到 marketplace。
 
 ## Environments
@@ -52,7 +52,7 @@
 5. reviewer 确认后，workflow 会对每个工具执行：
    - `pnpm --filter "./packages/tools/<tool>" run build`
    - `pnpm --filter "./packages/tools/<tool>" run pack`
-   - `pnpm run upload -- "packages/tools/<tool>"`
+   - `pnpm run upload "packages/tools/<tool>"`
 
 ### 全量发布
 
@@ -63,7 +63,7 @@
    - `pnpm --filter "./packages/tools/<tool>" run pack`
 4. build/pack 产物作为 artifact 保存。
 5. `Publish All Tools` job 进入 `MarketplacePublish` environment 等待人工 approval。
-6. reviewer 确认后，workflow 下载 `.pkg` artifact，并对每个 `.pkg` 文件执行 `pnpm run upload -- "<pkg-file>"`。
+6. reviewer 确认后，workflow 下载 `.pkg` artifact，并对每个 `.pkg` 文件执行 `pnpm run upload "<pkg-file>"`。
 
 ## 首次上线检查
 

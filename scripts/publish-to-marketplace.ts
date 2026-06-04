@@ -97,7 +97,7 @@ async function uploadPkg(
 }
 
 async function main() {
-  const input = process.argv[2];
+  const input = process.argv.slice(2).filter((arg) => arg !== "--")[0];
 
   if (!input) {
     throw new Error(

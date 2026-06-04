@@ -177,5 +177,5 @@ jobs:
           while IFS= read -r tool; do
             [ -n "$tool" ] || continue
 
-            pnpm run upload -- "packages/tools/${tool}"
+            pnpm run upload "packages/tools/${tool}"
           done < updated-tools.txt
