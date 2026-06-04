@@ -1,0 +1,26 @@
+{
+  "name": "fastgpt-tools-arxiv",
+  "version": "0.0.1",
+  "description": "Provides ArXiv paper search functionalities, including keyword search, sorting, etc.",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "node-fetch": "^3.3.2",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "latest",
+    "@types/xml2js": "latest",
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
+  }
+}

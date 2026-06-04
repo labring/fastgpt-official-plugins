@@ -1,0 +1,156 @@
+name: Publish Tools to Marketplace
+
+on:
+  workflow_dispatch:
+    inputs:
+      tools:
+        description: "JSON array of tool directory names under packages/tools."
+        required: true
+      source_sha:
+        description: "Source commit SHA that produced the tool list."
+        required: false
+      source_run_id:
+        description: "Source workflow run id that produced the tool list."
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publish-tools-to-marketplace-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  prepare-tools:
+    name: Prepare Tool List
+    runs-on: ubuntu-latest
+
+    outputs:
+      count: ${{ steps.tools.outputs.count }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha || github.sha }}
+
+      - name: Prepare tool list
+        id: tools
+        shell: bash
+        env:
+          TOOLS_JSON: ${{ inputs.tools }}
+        run: |
+          set -euo pipefail
+
+          node --input-type=module <<'NODE'
+          import fs from "node:fs";
+          import path from "node:path";
+
+          const root = process.cwd();
+          const tools = JSON.parse(process.env.TOOLS_JSON || "[]");
+
+          if (!Array.isArray(tools) || tools.length === 0) {
+            throw new Error("tools input must be a non-empty JSON array.");
+          }
+
+          const normalized = [];
+          for (const tool of tools) {
+            if (typeof tool !== "string" || !/^[A-Za-z0-9._-]+$/.test(tool)) {
+              throw new Error(`Invalid tool name: ${String(tool)}`);
+            }
+
+            const packageJsonPath = path.join(root, "packages", "tools", tool, "package.json");
+            if (!fs.existsSync(packageJsonPath)) {
+              throw new Error(`Tool package does not exist: packages/tools/${tool}`);
+            }
+
+            normalized.push(tool);
+          }
+
+          const uniqueTools = [...new Set(normalized)].sort((a, b) => a.localeCompare(b));
+          fs.writeFileSync("updated-tools.txt", `${uniqueTools.join("\n")}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `count=${uniqueTools.length}\n`);
+
+          const summary = [
+            "## Tools pending marketplace publish approval",
+            "",
+            ...uniqueTools.map((tool) => `- ${tool}`),
+            "",
+          ].join("\n");
+          fs.appendFileSync(process.env.GITHUB_STEP_SUMMARY, summary);
+          NODE
+
+      - name: Upload tool list
+        uses: actions/upload-artifact@v4
+        with:
+          name: updated-tools
+          path: updated-tools.txt
+          if-no-files-found: error
+
+  publish-tools-to-marketplace:
+    name: Build, Pack and Publish Tools
+    runs-on: ubuntu-latest
+    needs: prepare-tools
+    if: needs.prepare-tools.outputs.count != '0'
+    environment: MarketplacePublish
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.source_sha || github.sha }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Configure npm auth
+        shell: bash
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -n "${NPM_TOKEN:-}" ]; then
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          fi
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
+
+      - name: Download tool list
+        uses: actions/download-artifact@v4
+        with:
+          name: updated-tools
+
+      - name: Build and pack selected tools
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          while IFS= read -r tool; do
+            [ -n "$tool" ] || continue
+
+            pnpm --filter "./packages/tools/${tool}" run build
+            pnpm --filter "./packages/tools/${tool}" run pack
+          done < updated-tools.txt
+
+      - name: Publish selected tools to marketplace
+        shell: bash
+        env:
+          MARKETPLACE_BASE_URL: ${{ secrets.MARKETPLACE_BASE_URL }}
+          MARKETPLACE_AUTH: ${{ secrets.MARKETPLACE_AUTH }}
+        run: |
+          set -euo pipefail
+
+          while IFS= read -r tool; do
+            [ -n "$tool" ] || continue
+
+            pnpm run upload -- "packages/tools/${tool}"
+          done < updated-tools.txt

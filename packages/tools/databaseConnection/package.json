@@ -1,0 +1,27 @@
+{
+  "name": "fastgpt-tools-database-connection",
+  "version": "0.0.1",
+  "description": "Can connect to common databases and execute sql",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "mssql": "^11.0.1",
+    "mysql2": "^3.14.1",
+    "pg": "^8.16.0"
+  },
+  "devDependencies": {
+    "@types/mssql": "^9.1.7",
+    "@types/pg": "^8.15.2",
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
+  }
+}

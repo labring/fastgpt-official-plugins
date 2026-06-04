@@ -46,7 +46,7 @@ function main() {
         // Write back with proper formatting
         fs.writeFileSync(
           packageJsonPath,
-          JSON.stringify(packageJson, null, 2) + "\n"
+          JSON.stringify(packageJson, null, 2) + "\n",
         );
         console.log(`✓ Added biome-check to ${pkg}`);
         addedCount++;
@@ -60,7 +60,7 @@ function main() {
   }
 
   console.log(
-    `\nDone! Added: ${addedCount}, Skipped: ${skippedCount}, Total: ${packages.length}`
+    `\nDone! Added: ${addedCount}, Skipped: ${skippedCount}, Total: ${packages.length}`,
   );
 }
 
