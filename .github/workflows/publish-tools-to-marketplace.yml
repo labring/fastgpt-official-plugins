@@ -27,6 +27,7 @@ jobs:
 
     outputs:
       count: ${{ steps.tools.outputs.count }}
+      tools: ${{ steps.tools.outputs.tools }}
 
     steps:
       - name: Checkout code
@@ -39,6 +40,8 @@ jobs:
         shell: bash
         env:
           TOOLS_JSON: ${{ inputs.tools }}
+          SOURCE_SHA: ${{ inputs.source_sha }}
+          SOURCE_RUN_ID: ${{ inputs.source_run_id }}
         run: |
           set -euo pipefail
 
@@ -48,6 +51,9 @@ jobs:
 
           const root = process.cwd();
           const tools = JSON.parse(process.env.TOOLS_JSON || "[]");
+          const sourceSha = process.env.SOURCE_SHA?.trim() || "";
+          const sourceRunId = process.env.SOURCE_RUN_ID?.trim() || "";
+          const repoUrl = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}`;
 
           if (!Array.isArray(tools) || tools.length === 0) {
             throw new Error("tools input must be a non-empty JSON array.");
@@ -70,10 +76,28 @@ jobs:
           const uniqueTools = [...new Set(normalized)].sort((a, b) => a.localeCompare(b));
           fs.writeFileSync("updated-tools.txt", `${uniqueTools.join("\n")}\n`);
           fs.appendFileSync(process.env.GITHUB_OUTPUT, `count=${uniqueTools.length}\n`);
+          fs.appendFileSync(process.env.GITHUB_OUTPUT, `tools=${JSON.stringify(uniqueTools)}\n`);
+
+          const sourceLines = [];
+          if (sourceSha) {
+            sourceLines.push(`- Source commit: [\`${sourceSha.slice(0, 12)}\`](${repoUrl}/commit/${sourceSha})`);
+          }
+          if (sourceRunId) {
+            sourceLines.push(`- Source extraction run: [${sourceRunId}](${repoUrl}/actions/runs/${sourceRunId})`);
+          }
+          if (sourceLines.length === 0) {
+            sourceLines.push("- Source: manual workflow dispatch context");
+          }
 
           const summary = [
-            "## Tools pending marketplace publish approval",
+            "## Marketplace publish approval",
             "",
+            "Review the source and tool list before approving the `MarketplacePublish` environment gate.",
+            "",
+            "### Source",
+            ...sourceLines,
+            "",
+            "### Tools",
             ...uniqueTools.map((tool) => `- ${tool}`),
             "",
           ].join("\n");
@@ -92,7 +116,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: prepare-tools
     if: needs.prepare-tools.outputs.count != '0'
-    environment: MarketplacePublish
+    environment:
+      name: MarketplacePublish
 
     steps:
       - name: Checkout code
