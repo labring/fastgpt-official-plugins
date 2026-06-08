@@ -1,13 +1,95 @@
 ---
 name: develop-fastgpt-plugin
-description: 指导 Codex 开发新的 FastGPT 官方插件。Use when the user asks to create, scaffold, implement, test, build, check, or package a new FastGPT plugin/tool/tool-suite in this repository, especially under packages/tools, and when Codex should collect plugin requirements, call @fastgpt-plugin/cli skills/tools to create a template, then complete implementation and verification.
+description: 指导 Codex 或开发者从零准备环境并开发 FastGPT 官方插件。Use when the user asks to set up, fork, clone, install dependencies, create, scaffold, implement, test, build, check, or package a FastGPT plugin/tool/tool-suite in labring/fastgpt-official-plugins, especially under packages/tools, and when an agent may only have this raw SKILL.md text as onboarding context.
 ---
 
 # Develop FastGPT Plugin
 
-Use this skill to turn a user's plugin idea into a working FastGPT plugin in this repo.
+Use this skill to turn a plugin idea into a working FastGPT official plugin. Treat this file as self-contained onboarding text: first make sure the developer has the repository, tools, and dependencies, then scaffold and implement the plugin.
 
-## Workflow
+## Bootstrap From Raw Text
+
+Start here whenever the current machine may not already have this repo ready.
+
+1. Check whether you are inside this repository:
+
+   ```bash
+   git rev-parse --show-toplevel
+   git remote -v
+   test -f package.json && node -p "require('./package.json').name"
+   ```
+
+   The expected package name is `@fastgpt/official-plugins`. The expected upstream repository is `labring/fastgpt-official-plugins`.
+
+2. Install or verify required tools:
+
+   ```bash
+   git --version
+   gh --version
+   node --version
+   corepack --version
+   pnpm --version
+   ```
+
+   Required versions from the root `package.json`:
+
+   - Node.js `>=22`
+   - pnpm `>=10`, preferably the pinned `pnpm@10.28.2`
+
+   If `gh` is missing, guide the developer to install GitHub CLI from the official instructions at `https://github.com/cli/cli#installation`.
+   Common installation choices:
+
+   ```bash
+   # macOS with Homebrew
+   brew install gh
+
+   # Windows with WinGet
+   winget install --id GitHub.cli
+   ```
+
+   For Linux, follow the official distro-specific instructions in the GitHub CLI README. After installation, run:
+
+   ```bash
+   gh auth login
+   gh auth status
+   ```
+
+3. Fork and clone the official repository with `gh`:
+
+   ```bash
+   gh repo fork labring/fastgpt-official-plugins --clone
+   cd fastgpt-official-plugins
+   git remote -v
+   git remote get-url upstream || git remote add upstream https://github.com/labring/fastgpt-official-plugins.git
+   git remote set-url upstream https://github.com/labring/fastgpt-official-plugins.git
+   git fetch upstream
+   ```
+
+   If the repo is already cloned, make sure remotes are useful:
+
+   ```bash
+   git remote -v
+   git remote set-url upstream https://github.com/labring/fastgpt-official-plugins.git
+   git fetch upstream
+   ```
+
+4. Install dependencies:
+
+   ```bash
+   corepack enable
+   corepack prepare pnpm@10.28.2 --activate
+   pnpm install
+   ```
+
+   If installation needs network or sandbox approval, request approval for the install/fetch command and continue after it succeeds.
+
+5. Create a working branch:
+
+   ```bash
+   git checkout -b codex/<plugin-name>
+   ```
+
+## Plugin Workflow
 
 1. Collect just enough requirements:
    - plugin name and target directory
@@ -18,7 +100,7 @@ Use this skill to turn a user's plugin idea into a working FastGPT plugin in thi
 
 2. If core requirements are missing, ask at most three focused questions. If defaults are obvious, proceed and state the assumptions.
 
-3. Read the CLI skill before scaffolding:
+3. Read the CLI skill before scaffolding when dependencies are installed:
 
    ```bash
    sed -n '1,240p' node_modules/@fastgpt-plugin/cli/skills/cli-usage/SKILL.md
@@ -68,7 +150,7 @@ Use this skill to turn a user's plugin idea into a working FastGPT plugin in thi
    ```bash
    pnpm test
    pnpm build
-   pnpm fastgpt-plugin check --entry . --output ./dist
+   npx @fastgpt-plugin/cli check --entry . --output ./dist
    pnpm pack
    ```
 
@@ -77,7 +159,9 @@ Use this skill to turn a user's plugin idea into a working FastGPT plugin in thi
 ## Development Notes
 
 - Default location is `packages/tools/<plugin-name>` unless the user specifies another path.
-- Use `pnpm` in this repo; Node.js must satisfy the root `package.json` engines.
+- Use `pnpm` in this repo; Node.js and pnpm must satisfy the root `package.json` engines.
+- Keep `origin` pointing to the developer's fork and `upstream` pointing to `https://github.com/labring/fastgpt-official-plugins.git`.
+- Prefer branch names like `codex/<plugin-name>` or `feat/<plugin-name>`.
 - Reuse utilities already present in nearby plugins before adding dependencies.
 - Keep generated `dist/` and `.pkg` behavior consistent with existing plugins.
 - If CLI creation fails because dependencies are missing or network access is needed, request approval for the install/fetch step and keep the partially generated files intact for diagnosis.
