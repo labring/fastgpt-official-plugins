@@ -1,4 +1,4 @@
 interface:
   display_name: "Develop FastGPT Plugin"
-  short_description: "Create, implement, test FastGPT plugins"
-  default_prompt: "Use $develop-fastgpt-plugin to create and test a new FastGPT plugin from my requirements."
+  short_description: "Set up, create, test FastGPT plugins"
+  default_prompt: "Use $develop-fastgpt-plugin to set up the repo, create, and test a new FastGPT plugin from my requirements."
