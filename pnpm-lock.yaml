@@ -507,6 +507,31 @@ importers:
         specifier: 'catalog:'
         version: 4.3.6
 
+  packages/tools/excelOperation:
+    dependencies:
+      exceljs:
+        specifier: ^4.4.0
+        version: 4.4.0
+    devDependencies:
+      '@fastgpt-plugin/cli':
+        specifier: 'catalog:'
+        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+      '@fastgpt-plugin/sdk-factory':
+        specifier: 'catalog:'
+        version: 0.0.1-alpha.8
+      '@types/node':
+        specifier: 'catalog:'
+        version: 22.19.9
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.0.18(@types/node@22.19.9)(tsx@4.21.0)(yaml@2.8.3)
+      zod:
+        specifier: 'catalog:'
+        version: 4.3.6
+
   packages/tools/fastgptInfo:
     devDependencies:
       '@fastgpt-plugin/cli':
