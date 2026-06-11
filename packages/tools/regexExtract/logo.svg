@@ -1,0 +1,35 @@
+<svg viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg">
+  <rect width="36" height="36" fill="url(#paint0_linear_regex)" />
+  <path
+    d="M9.8 24.2L13.1 11.8"
+    stroke="white"
+    stroke-width="2.1"
+    stroke-linecap="round"
+  />
+  <circle cx="15.4" cy="21.4" r="1.55" fill="white" />
+  <path
+    d="M19.8 14.7V20.5M17.4 16.1L22.2 19M22.2 16.1L17.4 19"
+    stroke="white"
+    stroke-width="1.8"
+    stroke-linecap="round"
+  />
+  <path
+    d="M27 11.8L23.7 24.2"
+    stroke="white"
+    stroke-width="2.1"
+    stroke-linecap="round"
+  />
+  <defs>
+    <linearGradient
+      id="paint0_linear_regex"
+      x1="18"
+      y1="0"
+      x2="5.5"
+      y2="33"
+      gradientUnits="userSpaceOnUse"
+    >
+      <stop stop-color="#2CCB8E" />
+      <stop offset="1" stop-color="#2677E6" />
+    </linearGradient>
+  </defs>
+</svg>
