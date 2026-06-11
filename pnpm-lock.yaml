@@ -871,6 +871,28 @@ importers:
         specifier: 'catalog:'
         version: 4.3.6
 
+  packages/tools/neo4j:
+    dependencies:
+      neo4j-driver:
+        specifier: ^5.28.2
+        version: 5.28.3
+    devDependencies:
+      '@fastgpt-plugin/cli':
+        specifier: 'catalog:'
+        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+      '@fastgpt-plugin/sdk-factory':
+        specifier: 'catalog:'
+        version: 0.0.1-alpha.10
+      typescript:
+        specifier: 'catalog:'
+        version: 5.9.3
+      vitest:
+        specifier: 'catalog:'
+        version: 4.0.18(@types/node@22.19.9)(tsx@4.21.0)(yaml@2.8.3)
+      zod:
+        specifier: 'catalog:'
+        version: 4.3.6
+
   packages/tools/openrouterMultiModal:
     devDependencies:
       '@fastgpt-plugin/cli':
@@ -3161,6 +3183,15 @@ packages:
     engines: {node: '>= 4.4.x'}
     hasBin: true
 
+  neo4j-driver-bolt-connection@5.28.3:
+    resolution: {integrity: sha512-wqHBYcU0FVRDmdsoZ+Fk0S/InYmu9/4BT6fPYh45Jimg/J7vQBUcdkiHGU7nop7HRb1ZgJmL305mJb6g5Bv35Q==}
+
+  neo4j-driver-core@5.28.3:
+    resolution: {integrity: sha512-Jk+hAmjFmO5YzVH/U7FyKXigot9zmIfLz6SZQy0xfr4zfTE/S8fOYFOGqKQTHBE86HHOWH2RbTslbxIb+XtU2g==}
+
+  neo4j-driver@5.28.3:
+    resolution: {integrity: sha512-k7c0wEh3HoONv1v5AyLp9/BDAbYHJhz2TZvzWstSEU3g3suQcXmKEaYBfrK2UMzxcy3bCT0DrnfRbzsOW5G/Ag==}
+
   node-domexception@1.0.0:
     resolution: {integrity: sha512-/jKZoMpw0F8GRwl4/eLROPA3cfcXtLApP0QzLmUT/HuPCZWyB7IY9ZrMeKw2O/nFIqPQB3PVM9aYm0F312AXDQ==}
     engines: {node: '>=10.5.0'}
@@ -3394,6 +3425,9 @@ packages:
   run-applescript@7.1.0:
     resolution: {integrity: sha512-DPe5pVFaAsinSaV6QjQ6gdiedWDcRCbUuiQfQa2wmWV7+xC9bGulGI8+TdRmoFkAPaBXk8CrAbnlY2ISniJ47Q==}
     engines: {node: '>=18'}
+
+  rxjs@7.8.2:
+    resolution: {integrity: sha512-dhKf903U/PQZY6boNNtAGdWbG85WAbjT/1xYoZIC7FAY0yWapOBQVsVrDl58W86//e1VpMNBtRV4MaXfdMySFA==}
 
   safe-buffer@5.1.2:
     resolution: {integrity: sha512-Gd2UZBJDkXlY7GbJxfsE8/nvKkUEU1G38c1siN6QP6a9PT9MmHB8GnpscSmMJSoF8LOIrt8ud/wPtojys4G6+g==}
@@ -5563,6 +5597,20 @@ snapshots:
       iconv-lite: 0.6.3
       sax: 1.6.0
 
+  neo4j-driver-bolt-connection@5.28.3:
+    dependencies:
+      buffer: 6.0.3
+      neo4j-driver-core: 5.28.3
+      string_decoder: 1.3.0
+
+  neo4j-driver-core@5.28.3: {}
+
+  neo4j-driver@5.28.3:
+    dependencies:
+      neo4j-driver-bolt-connection: 5.28.3
+      neo4j-driver-core: 5.28.3
+      rxjs: 7.8.2
+
   node-domexception@1.0.0: {}
 
   node-fetch@2.7.0:
@@ -5866,6 +5914,10 @@ snapshots:
       fsevents: 2.3.3
 
   run-applescript@7.1.0: {}
+
+  rxjs@7.8.2:
+    dependencies:
+      tslib: 2.8.1
 
   safe-buffer@5.1.2: {}
 
