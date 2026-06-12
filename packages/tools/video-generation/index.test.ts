@@ -6,21 +6,21 @@ afterEach(() => {
 });
 
 test("exports video generation tool set", () => {
-  expect(toolSet.userToolManifest.pluginId).toBe("video-generation");
+  expect(toolSet.userToolManifest.pluginId).toBe("seedanceVideoGeneration");
   expect(toolSet.userToolManifest.name).toEqual({
     en: "Seedance Video Generation",
     "zh-CN": "Seedance 视频生成",
   });
   expect([...toolSet.childManifests.keys()]).toEqual([
-    "createVideoGenerationTask",
-    "queryVideoGenerationTask",
+    "createSeedanceVideoGenerationTask",
+    "querySeedanceVideoGenerationTask",
   ]);
 });
 
 test("children expose callable handlers", () => {
   expect([...toolSet.toolHandlers.keys()]).toEqual([
-    "createVideoGenerationTask",
-    "queryVideoGenerationTask",
+    "createSeedanceVideoGenerationTask",
+    "querySeedanceVideoGenerationTask",
   ]);
 });
 
@@ -32,7 +32,7 @@ test("create task posts Volcengine Ark payload", async () => {
     }),
   );
 
-  const handler = toolSet.toolHandlers.get("createVideoGenerationTask");
+  const handler = toolSet.toolHandlers.get("createSeedanceVideoGenerationTask");
   const result = await handler?.handler(
     {
       model: "doubao-seedance-1-5-pro-251215",
@@ -119,7 +119,7 @@ test("query task returns normalized task fields", async () => {
     ),
   );
 
-  const handler = toolSet.toolHandlers.get("queryVideoGenerationTask");
+  const handler = toolSet.toolHandlers.get("querySeedanceVideoGenerationTask");
   const result = await handler?.handler({ taskId: "cgt-1" }, {
     secrets: {
       apiKey: "test-key",

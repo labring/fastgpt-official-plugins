@@ -298,7 +298,7 @@ const queryTaskInputSchema = z.object({
     } satisfies InputSchemaMetaType),
 });
 
-const createVideoGenerationTaskHandler = createToolHandler({
+const createSeedanceVideoGenerationTaskHandler = createToolHandler({
   inputSchema: createTaskInputSchema,
   outputSchema: createTaskOutputSchema,
   secretSchema,
@@ -319,7 +319,7 @@ const createVideoGenerationTaskHandler = createToolHandler({
   },
 });
 
-const queryVideoGenerationTaskHandler = createToolHandler({
+const querySeedanceVideoGenerationTaskHandler = createToolHandler({
   inputSchema: queryTaskInputSchema,
   outputSchema: arkTaskOutputSchema,
   secretSchema,
@@ -341,7 +341,7 @@ const queryVideoGenerationTaskHandler = createToolHandler({
 export default defineToolSet({
   secretSchema,
   manifest: {
-    pluginId: "video-generation",
+    pluginId: "seedanceVideoGeneration",
     name: {
       en: "Seedance Video Generation",
       "zh-CN": "Seedance 视频生成",
@@ -361,7 +361,7 @@ export default defineToolSet({
   },
   children: [
     {
-      id: "createVideoGenerationTask",
+      id: "createSeedanceVideoGenerationTask",
       name: {
         en: "Create Seedance Video Generation Task",
         "zh-CN": "创建 Seedance 视频生成任务",
@@ -372,10 +372,10 @@ export default defineToolSet({
       },
       toolDescription:
         "Create a Volcengine Ark Seedance video generation task and return its task ID.",
-      handler: createVideoGenerationTaskHandler,
+      handler: createSeedanceVideoGenerationTaskHandler,
     },
     {
-      id: "queryVideoGenerationTask",
+      id: "querySeedanceVideoGenerationTask",
       name: {
         en: "Query Seedance Video Generation Task",
         "zh-CN": "查询 Seedance 视频生成任务",
@@ -386,7 +386,7 @@ export default defineToolSet({
       },
       toolDescription:
         "Query a Volcengine Ark Seedance video generation task and return status, video URL, error, and usage fields.",
-      handler: queryVideoGenerationTaskHandler,
+      handler: querySeedanceVideoGenerationTaskHandler,
     },
   ],
 });

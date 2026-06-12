@@ -4,8 +4,8 @@
 
 ## 工具
 
-- `createVideoGenerationTask`: 创建视频生成任务，支持文生视频、首帧图生视频、首尾帧图生视频。
-- `queryVideoGenerationTask`: 根据任务 ID 查询状态、视频 URL、尾帧 URL、错误信息和 token 用量。
+- `createSeedanceVideoGenerationTask`: 创建视频生成任务，支持文生视频、首帧图生视频、首尾帧图生视频。
+- `querySeedanceVideoGenerationTask`: 根据任务 ID 查询状态、视频 URL、尾帧 URL、错误信息和 token 用量。
 
 ## 密钥
 
