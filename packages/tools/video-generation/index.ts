@@ -73,6 +73,27 @@ const taskSchema = z.object({
 });
 
 type ArkTask = z.infer<typeof taskSchema>;
+type ArkSecret = z.infer<typeof secretSchema>;
+type CreateTaskInput = z.infer<typeof createTaskInputSchema>;
+type RequestArkOptions = {
+  apiKey: string;
+  baseUrl?: string;
+  path: string;
+  method: "GET" | "POST";
+  body?: unknown;
+};
+type ArkTextContent = {
+  type: "text";
+  text: string;
+};
+type ArkImageContent = {
+  type: "image_url";
+  image_url: {
+    url: string;
+  };
+  role: "first_frame" | "last_frame" | "reference_image";
+};
+type ArkContent = ArkTextContent | ArkImageContent;
 
 const createTaskResponseSchema = z.object({
   id: z.string(),
@@ -282,14 +303,13 @@ const createVideoGenerationTaskHandler = createToolHandler({
   outputSchema: createTaskOutputSchema,
   secretSchema,
   handler: async (input, ctx) => {
+    const secrets = secretSchema.parse(ctx.secrets);
     const response = await requestArk<z.infer<typeof createTaskResponseSchema>>(
-      {
-        apiKey: ctx.secrets.apiKey,
-        baseUrl: ctx.secrets.baseUrl,
+      buildRequestOptions(secrets, {
         path: "/contents/generations/tasks",
         method: "POST",
         body: buildCreateTaskBody(input),
-      },
+      }),
     );
 
     const task = createTaskResponseSchema.parse(response);
@@ -304,13 +324,14 @@ const queryVideoGenerationTaskHandler = createToolHandler({
   outputSchema: arkTaskOutputSchema,
   secretSchema,
   handler: async (input, ctx) => {
+    const secrets = secretSchema.parse(ctx.secrets);
     const taskId = encodeURIComponent(input.taskId);
-    const response = await requestArk<ArkTask>({
-      apiKey: ctx.secrets.apiKey,
-      baseUrl: ctx.secrets.baseUrl,
-      path: `/contents/generations/tasks/${taskId}`,
-      method: "GET",
-    });
+    const response = await requestArk<ArkTask>(
+      buildRequestOptions(secrets, {
+        path: `/contents/generations/tasks/${taskId}`,
+        method: "GET",
+      }),
+    );
 
     const task = taskSchema.parse(response);
     return toTaskOutput(task);
@@ -370,8 +391,8 @@ export default defineToolSet({
   ],
 });
 
-function buildCreateTaskBody(input: z.infer<typeof createTaskInputSchema>) {
-  const content = [{ type: "text", text: input.prompt }];
+function buildCreateTaskBody(input: CreateTaskInput) {
+  const content: ArkContent[] = [{ type: "text", text: input.prompt }];
 
   if (input.firstFrameImageUrl) {
     content.push({
@@ -425,32 +446,42 @@ function toTaskOutput(task: ArkTask) {
   };
 }
 
+function buildRequestOptions(
+  secrets: ArkSecret,
+  options: Omit<RequestArkOptions, "apiKey" | "baseUrl">,
+): RequestArkOptions {
+  return {
+    apiKey: secrets.apiKey,
+    ...options,
+    ...(secrets.baseUrl === undefined ? {} : { baseUrl: secrets.baseUrl }),
+  };
+}
+
 async function requestArk<T>({
   apiKey,
   baseUrl,
   path,
   method,
   body,
-}: {
-  apiKey: string;
-  baseUrl?: string;
-  path: string;
-  method: "GET" | "POST";
-  body?: unknown;
-}) {
+}: RequestArkOptions) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 60_000);
 
   try {
-    const response = await fetch(`${baseUrl ?? DEFAULT_BASE_URL}${path}`, {
+    const requestOptions: RequestInit = {
       method,
       signal: controller.signal,
       headers: {
         Authorization: `Bearer ${apiKey}`,
         ...(body === undefined ? {} : { "Content-Type": "application/json" }),
       },
-      body: body === undefined ? undefined : JSON.stringify(body),
-    });
+      ...(body === undefined ? {} : { body: JSON.stringify(body) }),
+    };
+
+    const response = await fetch(
+      `${baseUrl ?? DEFAULT_BASE_URL}${path}`,
+      requestOptions,
+    );
 
     const data = await readResponse(response);
     if (!response.ok) {
