@@ -101,7 +101,7 @@ Before implementing a new plugin, inspect nearby examples:
 - Search and web content: `packages/tools/tavily`, `packages/tools/searchApi`, `packages/tools/fetchUrl`
 - Document parsing and transformation: `packages/tools/Doc2X`, `packages/tools/markdownTransform`, `packages/tools/mineru`
 - Image generation and editing: `packages/tools/gptImage`, `packages/tools/aliModelStudio`, `packages/tools/blackForestLab`
-- Databases and storage: `packages/tools/dbops`, `packages/tools/databaseConnection`, `packages/tools/redis`
+- Databases, storage, and remote connections: `packages/tools/dbops`, `packages/tools/databaseConnection`, `packages/tools/redis`, `packages/tools/sshConnection`
 - Collaboration and notifications: `packages/tools/feishuBitable`, `packages/tools/wechatOfficialAccount`, `packages/tools/WeWorkWebhook`
 
 When creating or updating plugins, keep these conventions:

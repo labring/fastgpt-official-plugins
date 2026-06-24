@@ -101,7 +101,7 @@ pnpm fastgpt-plugin create <tool-name> --type tool-suite --cwd packages/tools --
 - 搜索和网页内容：`packages/tools/tavily`、`packages/tools/searchApi`、`packages/tools/fetchUrl`
 - 文档解析和转换：`packages/tools/Doc2X`、`packages/tools/markdownTransform`、`packages/tools/mineru`
 - 图片生成和编辑：`packages/tools/gptImage`、`packages/tools/aliModelStudio`、`packages/tools/blackForestLab`
-- 数据库和存储：`packages/tools/dbops`、`packages/tools/databaseConnection`、`packages/tools/redis`
+- 数据库、存储和远程连接：`packages/tools/dbops`、`packages/tools/databaseConnection`、`packages/tools/redis`、`packages/tools/sshConnection`
 - 协作和通知：`packages/tools/feishuBitable`、`packages/tools/wechatOfficialAccount`、`packages/tools/WeWorkWebhook`
 
 新增或修改插件时，优先保持以下约定：
