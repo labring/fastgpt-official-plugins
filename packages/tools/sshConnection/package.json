@@ -1,0 +1,24 @@
+{
+  "name": "fastgpt-tools-sshConnection",
+  "version": "0.0.1",
+  "description": "Execute remote commands over SSH",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "ssh2": "^1.17.0"
+  },
+  "devDependencies": {
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "@types/ssh2": "^1.15.5",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
+  }
+}
