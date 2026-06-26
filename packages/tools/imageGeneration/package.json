@@ -1,0 +1,21 @@
+{
+  "name": "@fastgpt-plugins/tool-image-generation",
+  "version": "0.0.11",
+  "description": "Unified image generation tool for OpenAI, Seedream, Wanx and Nano Banana",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
+  }
+}
