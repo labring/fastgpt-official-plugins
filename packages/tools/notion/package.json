@@ -1,0 +1,20 @@
+{
+  "name": "@tool/notion",
+  "version": "0.1.0",
+  "description": "Notion Tool Set",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
+  }
+}
