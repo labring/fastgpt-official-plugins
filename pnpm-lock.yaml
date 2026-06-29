@@ -10,8 +10,8 @@ catalogs:
       specifier: 2.3.13
       version: 2.3.13
     '@fastgpt-plugin/cli':
-      specifier: 0.1.0-beta.9
-      version: 0.1.0-beta.9
+      specifier: 0.2.0
+      version: 0.2.0
     '@fastgpt-plugin/sdk-factory':
       specifier: 0.0.1-alpha.10
       version: 0.0.1-alpha.10
@@ -46,7 +46,7 @@ importers:
         version: 2.3.13
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@types/node':
         specifier: 'catalog:'
         version: 22.19.9
@@ -67,7 +67,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -85,7 +85,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -103,7 +103,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -121,7 +121,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -143,7 +143,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -161,7 +161,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -179,7 +179,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -197,7 +197,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -222,7 +222,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -246,7 +246,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -264,7 +264,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -282,7 +282,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -300,7 +300,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -318,7 +318,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -336,7 +336,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -364,7 +364,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -407,7 +407,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -428,7 +428,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -446,7 +446,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -471,7 +471,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -493,7 +493,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -515,7 +515,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -536,7 +536,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -558,7 +558,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -579,7 +579,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -604,7 +604,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -635,7 +635,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -660,7 +660,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -682,7 +682,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -697,7 +697,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -715,7 +715,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -733,7 +733,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -755,7 +755,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -773,7 +773,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -791,7 +791,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -813,7 +813,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -831,7 +831,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -865,7 +865,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -893,7 +893,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -911,7 +911,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -933,7 +933,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -951,7 +951,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -969,7 +969,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -994,7 +994,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1016,7 +1016,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1034,7 +1034,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1059,7 +1059,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1077,7 +1077,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1099,7 +1099,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1124,7 +1124,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1142,7 +1142,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1164,7 +1164,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1182,7 +1182,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1204,7 +1204,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1222,7 +1222,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1240,7 +1240,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1258,7 +1258,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1276,7 +1276,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1298,7 +1298,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1323,7 +1323,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1345,7 +1345,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1373,7 +1373,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1395,7 +1395,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1423,7 +1423,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1441,7 +1441,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1463,7 +1463,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1481,7 +1481,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1503,7 +1503,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1525,7 +1525,7 @@ importers:
     devDependencies:
       '@fastgpt-plugin/cli':
         specifier: 'catalog:'
-        version: 0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
+        version: 0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)
       '@fastgpt-plugin/sdk-factory':
         specifier: 'catalog:'
         version: 0.0.1-alpha.10
@@ -1540,6 +1540,10 @@ importers:
         version: 4.3.6
 
 packages:
+
+  '@alcalzone/ansi-tokenize@0.3.0':
+    resolution: {integrity: sha512-p+CMKJ93HFmLkjXKlXiVGlMQEuRb6H0MokBSwUsX+S6BRX8eV5naFZpQJFfJHjRZY0Hmnqy1/r6UWl3x+19zYA==}
+    engines: {node: '>=18'}
 
   '@aws-crypto/crc32@5.2.0':
     resolution: {integrity: sha512-nLbCWqQNgUiwwtFsen1AdzAtvuLRsQS8rYgMuxCrdKf9kOssamGLuPwyTY9wyYblNr9+1XM8v6zoDTPPSIeANg==}
@@ -1975,8 +1979,8 @@ packages:
   '@fast-csv/parse@4.3.6':
     resolution: {integrity: sha512-uRsLYksqpbDmWaSmzvJcuApSEe38+6NQZBUsuAyMZKqHxH0g1wcJgsKUvN3WC8tewaqFjBMMGrkHmC+T7k8LvA==}
 
-  '@fastgpt-plugin/cli@0.1.0-beta.9':
-    resolution: {integrity: sha512-I+tP9NpV5RDudEN4NQ6JlooJGZp3h/P7Ig7fvyLVHBFWPVGxbqlQth6N49OkknUIpAo3f6IC8GpPqxZhV3JBlA==}
+  '@fastgpt-plugin/cli@0.2.0':
+    resolution: {integrity: sha512-7ERYAFaLIyX4GeblATTdEm0BLFcT6/BpqPZwjSo/dTCRgg7amxuUu7r8oPrXUiui8zwqy9ShRF8a3FAheFjrgA==}
     engines: {node: '>=22.12.0'}
     hasBin: true
 
@@ -2802,6 +2806,18 @@ packages:
     resolution: {integrity: sha512-MnA+YT8fwfJPgBx3m60MNqakm30XOkyIoH1y6huTQvC0PwZG7ki8NacLBcrPbNoo8vEZy7Jpuk7+jMO+CUovTQ==}
     engines: {node: '>= 14'}
 
+  ansi-escapes@7.3.0:
+    resolution: {integrity: sha512-BvU8nYgGQBxcmMuEeUEmNTvrMVjJNSH7RgW24vXexN4Ven6qCvy4TntnvlnwnMLTVlcRQQdbRY8NKnaIoeWDNg==}
+    engines: {node: '>=18'}
+
+  ansi-regex@6.2.2:
+    resolution: {integrity: sha512-Bq3SmSpyFHaWjPk8If9yc6svM8c56dB5BAtW4Qbw5jHTwwXXcTLoRMkpDJp6VL0XzlWaCHTXrkFURMYmD0sLqg==}
+    engines: {node: '>=12'}
+
+  ansi-styles@6.2.3:
+    resolution: {integrity: sha512-4Dj6M28JB+oAH8kFkTLUo+a2jwOFkuqb3yucU0CANcRRUbxS0cP0nZYCGjcc3BNXwRIsUVmDGgzawme7zvJHvg==}
+    engines: {node: '>=12'}
+
   ansis@4.2.0:
     resolution: {integrity: sha512-HqZ5rWlFjGiV0tDm3UxxgNRqsOTniqoKZu0pIAfh7TZQMGuZK+hH0drySty0si0QXj1ieop4+SkSfPZBPPkHig==}
     engines: {node: '>=14'}
@@ -2837,6 +2853,10 @@ packages:
 
   asynckit@0.4.0:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==}
+
+  auto-bind@5.0.1:
+    resolution: {integrity: sha512-ooviqdwwgfIfNmDwo94wlshcdzfO64XV0Cg6oDsDYBJfITDz1EngD2z7DkbvCWn+XIMsIqW27sEVF6qcpJrRcg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   aws-ssl-profiles@1.1.2:
     resolution: {integrity: sha512-NZKeq9AfyQvEeNlN0zSYAaWrmBffJh3IELMZfRpJVWgrpEbtEpnjvzqBPf+mxoI287JohRDoa+/nsfqqiZmF6g==}
@@ -2946,6 +2966,10 @@ packages:
   chainsaw@0.1.0:
     resolution: {integrity: sha512-75kWfWt6MEKNC8xYXIdRpDehRYY/tNSgwKaJq+dbbDcxORuVrrQ+SEHoWsniVn9XPYfP4gmdWIeDk/4YNp1rNQ==}
 
+  chalk@5.6.2:
+    resolution: {integrity: sha512-7NzBL0rN6fMUW+f7A6Io4h40qQlG+xGmtMxfbnH/K7TAtt8JQWVQK+6g0UXKMeVJoyV5EkkNsErQ8pVD3bLHbA==}
+    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
+
   chardet@2.1.1:
     resolution: {integrity: sha512-PsezH1rqdV9VvyNhxxOW32/d75r01NY7TQCmOqomRo15ZSOKbpTFVsfjghxo6JloQUCGnH4k1LGu0R4yCLlWQQ==}
 
@@ -2956,6 +2980,18 @@ packages:
     resolution: {integrity: sha512-WDrybc/gKFpTYQutKIK6UvfcuxijIZfMfXaYm8NMsPQxSYvf+13fXUJ4rztGGbJcBQ/GF55gvrZ0Bc0bj/mqvg==}
     engines: {node: '>=20.18.1'}
 
+  cli-boxes@4.0.1:
+    resolution: {integrity: sha512-5IOn+jcCEHEraYolBPs/sT4BxYCe2nHg374OPiItB1O96KZFseS2gthU4twyYzeDcFew4DaUM/xwc5BQf08JJw==}
+    engines: {node: '>=18.20 <19 || >=20.10'}
+
+  cli-cursor@4.0.0:
+    resolution: {integrity: sha512-VGtlMu3x/4DOtIUwEkRezxUZ2lBacNJCHash0N0WeZDBS+7Ux1dm3XWAgWYxLJFMMdOeXMHXorshEFhbMSGelg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
+  cli-truncate@6.1.0:
+    resolution: {integrity: sha512-ofWtXdvPO1WepoE9Gn4dPdZw+ADud1Yz9K+xm9FjK5vvrs/D60vrlKIQeSw1wJX4cphW2bnWi8GZSKvf9T6shw==}
+    engines: {node: '>=22'}
+
   cli-width@4.1.0:
     resolution: {integrity: sha512-ouuZd4/dm2Sw5Gmqy6bGyNNNe1qt9RpmxveLSO7KcgsTnU7RXfsw+/bukWGo1abgBiMAic068rclZsO4IWmmxQ==}
     engines: {node: '>= 12'}
@@ -2963,6 +2999,10 @@ packages:
   cluster-key-slot@1.1.2:
     resolution: {integrity: sha512-RMr0FhtfXemyinomL4hrWcYJxmX6deFdCxpJzhDttxgO1+bcCnkk+9drydLVDmAMG7NE6aN/fl4F7ucU/90gAA==}
     engines: {node: '>=0.10.0'}
+
+  code-excerpt@4.0.0:
+    resolution: {integrity: sha512-xxodCmBen3iy2i0WtAK8FlFNrRzjUqjRsMfho58xT/wvZU1YTM3fCnRjcy1gJPMepaRlgm/0e6w8SpWHpn3/cA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   combined-stream@1.0.8:
     resolution: {integrity: sha512-FQN4MRfuJeHf7cBbBMJFXhKSDq+2kAArBlmRBvcvFE5BB1HZKXtSFASDhdlz9zOYwxh8lDdnvmMOe/+5cdoEdg==}
@@ -2986,6 +3026,10 @@ packages:
   consola@3.4.2:
     resolution: {integrity: sha512-5IKcdX0nnYavi6G7TtOhwkYzyjfJlatbjMjuLSfE2kYT5pMDOilZ4OvMhi637CcDICTmz3wARPoyhqyX1Y+XvA==}
     engines: {node: ^14.18.0 || >=16.10.0}
+
+  convert-to-spaces@2.0.1:
+    resolution: {integrity: sha512-rcQ1bsQO9799wq24uE5AM2tAILy4gXGIK/njFWcVQkGNZ96edlpY+A7bjwvzjYvLDyzmG1MmMLZhpcsb+klNMQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   core-util-is@1.0.3:
     resolution: {integrity: sha512-ZQBvi1DcpJ4GDqanjucZ2Hj3wEO5pZDS89BWbkcrvdxksJorwUDDZamX9ldFkp9aw2lmBDLgkObEA4DWNJ9FYQ==}
@@ -3125,6 +3169,10 @@ packages:
     resolution: {integrity: sha512-TWrgLOFUQTH994YUyl1yT4uyavY5nNB5muff+RtWaqNVCAK408b5ZnnbNAUEWLTCpum9w6arT70i1XdQ4UeOPA==}
     engines: {node: '>=0.12'}
 
+  environment@1.1.0:
+    resolution: {integrity: sha512-xUtoPkMggbz0MPyPiIWr1Kp4aeWJjDZ6SMvURhimjdZgsRuDplF5/s9hcgGhyXMhs+6vpnuoiZ2kFiu3FMnS8Q==}
+    engines: {node: '>=18'}
+
   es-define-property@1.0.1:
     resolution: {integrity: sha512-e3nRfgfUZ4rNGL232gUgX06QNyyez04KdjFrF+LTRoOXmrOgFKDg4BCdsjW8EnT69eqdYGmRpJwiPVYNrCaW3g==}
     engines: {node: '>= 0.4'}
@@ -3151,6 +3199,10 @@ packages:
     resolution: {integrity: sha512-HyNQImnsOC7X9PMNaCIeAm4ISCQXs5a5YasTXVliKv4uuBo1dKrG0A+uQS8M5eXjVMnLg3WgXaKvprHlFJQffw==}
     engines: {node: '>=18'}
     hasBin: true
+
+  escape-string-regexp@2.0.0:
+    resolution: {integrity: sha512-UpzcLCXolUWcNu5HtVMHYdXJjArjsF9C0aNnquZYY4uW/Vu0miy5YoWvbV345HauVvcAUnpRuhMMcqTcGOY2+w==}
+    engines: {node: '>=8'}
 
   estree-walker@3.0.3:
     resolution: {integrity: sha512-7RUKfXgSMMkzt6ZuXmqapOurLGPPfgj6l9uRZ7lRGolvk0y2yocc35LdcxKC5PQZdn2DMqioAQ2NoWcrTKmm6g==}
@@ -3257,6 +3309,10 @@ packages:
   generate-function@2.3.1:
     resolution: {integrity: sha512-eeB5GfMNeevm/GRYq20ShmsaGcmI81kIX2K9XQx5miC8KdHaC6Jm0qQ8ZNeGOi7wYB8OsdxKs+Y2oVuTFuVwKQ==}
 
+  get-east-asian-width@1.6.0:
+    resolution: {integrity: sha512-QRbvDIbx6YklUe6RxeTeleMR0yv3cYH6PsPZHcnVn7xv7zO1BHN8r0XETu8n6Ye3Q+ahtSarc3WgtNWmehIBfA==}
+    engines: {node: '>=18'}
+
   get-intrinsic@1.3.0:
     resolution: {integrity: sha512-9fSjSaos/fRIVIp+xSJlE6lfwhES7LNtKaCBIamHsjr2na1BiABJPo0mOjjz8GJDURarmCPGqaiVg5mfjb98CQ==}
     engines: {node: '>= 0.4'}
@@ -3345,6 +3401,10 @@ packages:
     resolution: {integrity: sha512-bDxwDdF04gm550DfZHgffvlX+9kUlcz32UD0AeBTmVPFiWkrexF2XVmiuFFbDhiFuP8fQkrkvI2KdSNPYWAXkQ==}
     engines: {node: '>=20.19.0'}
 
+  indent-string@5.0.0:
+    resolution: {integrity: sha512-m6FAo/spmsW2Ab2fU35JTYwtOKa2yAwXSwgjSv1TJzh4Mh7mC3lzAOVLBprb72XsTrgkEIsl7YrFNAiDiRhIGg==}
+    engines: {node: '>=12'}
+
   inflight@1.0.6:
     resolution: {integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==}
     deprecated: This module is not supported, and leaks memory. Do not use it. Check out lru-cache if you want a good and tested way to coalesce async requests by a key value, which is much more comprehensive and powerful.
@@ -3354,6 +3414,19 @@ packages:
 
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
+
+  ink@7.1.0:
+    resolution: {integrity: sha512-VWE6/yeLtFCJBNLflyI2OSylyXK1Rc24LuXup8Qt+icwkmmycFNdbn8IkSp6Frc0h1iA0NOvvi1ajW44U/w3Qg==}
+    engines: {node: '>=22'}
+    peerDependencies:
+      '@types/react': '>=19.2.0'
+      react: '>=19.2.0'
+      react-devtools-core: '>=6.1.2'
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      react-devtools-core:
+        optional: true
 
   ioredis@5.10.1:
     resolution: {integrity: sha512-HuEDBTI70aYdx1v6U97SbNx9F1+svQKBDo30o0b9fw055LMepzpOOd0Ccg9Q6tbqmBSJaMuY0fB7yw9/vjBYCA==}
@@ -3366,6 +3439,15 @@ packages:
   is-docker@3.0.0:
     resolution: {integrity: sha512-eljcgEDlEns/7AXFosB5K/2nCM4P7FQPkGc/DWLy5rmFEWvZayGrik1d9/QIY5nJ4f9YsVvBkA6kJpHn9rISdQ==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    hasBin: true
+
+  is-fullwidth-code-point@5.1.0:
+    resolution: {integrity: sha512-5XHYaSyiqADb4RnZ1Bdad6cPp8Toise4TzEjcOYDHZkTCbKgiUl7WTUCpNWHuxmDt91wnsZBc9xinNzopv3JMQ==}
+    engines: {node: '>=18'}
+
+  is-in-ci@2.0.0:
+    resolution: {integrity: sha512-cFeerHriAnhrQSbpAxL37W1wcJKUUX07HyLWZCW1URJT/ra3GyUTzBgUnh24TMVfNTV2Hij2HLxkPHFZfOZy5w==}
+    engines: {node: '>=20'}
     hasBin: true
 
   is-inside-container@1.0.0:
@@ -3586,6 +3668,10 @@ packages:
     resolution: {integrity: sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw==}
     engines: {node: '>= 0.6'}
 
+  mimic-fn@2.1.0:
+    resolution: {integrity: sha512-OqbOk5oEQeAZ8WXWydlu9HJjz9WVdEIvamMCcXmuqUYjTknH/sqsWvhQ3vgwKFRR1HpjvNBKQ37nbJgYzGqGcg==}
+    engines: {node: '>=6'}
+
   minimatch@3.1.5:
     resolution: {integrity: sha512-VgjWUsnnT6n+NUk6eZq77zeFdpW2LWDzP6zFGrCbHXiYNul5Dzqk2HHQ5uFH2DNW5Xbp8+jVzaeNt94ssEEl4w==}
 
@@ -3726,6 +3812,10 @@ packages:
   once@1.4.0:
     resolution: {integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==}
 
+  onetime@5.1.2:
+    resolution: {integrity: sha512-kbpaSSGJTWdAY5KPVeMOKXSrPtr8C8C7wodJbcsd51jRnmD+GZu8Y0VoU6Dm5Z4vWr0Ig/1NKuWRKf7j5aaYSg==}
+    engines: {node: '>=6'}
+
   open@10.2.0:
     resolution: {integrity: sha512-YgBpdJHPyQ2UE5x+hlSXcnejzAvD0b22U2OuAP+8OnlJT+PjWPxtgmGqKKc+RgTM63U9gN0YzrYc71R2WT/hTA==}
     engines: {node: '>=18'}
@@ -3749,6 +3839,10 @@ packages:
 
   parse5@7.3.0:
     resolution: {integrity: sha512-IInvU7fabl34qmi9gY8XOVxhYyMyuH2xUNpb2q8/Y+7552KlejkRvqvD19nMoUW/uQGGbqNpA6Tufu5FL5BZgw==}
+
+  patch-console@2.0.0:
+    resolution: {integrity: sha512-0YNdUceMdaQwoKce1gatDScmMo5pu/tfABfnzEqeG0gtTmd7mh/WcwgUjtAeOU7N8nFFlbQBnFK2gXW5fGvmMA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   path-expression-matcher@1.5.0:
     resolution: {integrity: sha512-cbrerZV+6rvdQrrD+iGMcZFEiiSrbv9Tfdkvnusy6y0x0GKBXREFg/Y65GhIfm0tnLntThhzCnfKwp1WRjeCyQ==}
@@ -3858,6 +3952,16 @@ packages:
   queue@6.0.2:
     resolution: {integrity: sha512-iHZWu+q3IdFZFX36ro/lKBkSvfkztY5Y7HMiPlOUjhupPcG2JMfst2KKEpu5XndviX/3UhFbRngUPNKtgvtZiA==}
 
+  react-reconciler@0.33.0:
+    resolution: {integrity: sha512-KetWRytFv1epdpJc3J4G75I4WrplZE5jOL7Yq0p34+OVOKF4Se7WrdIdVC45XsSSmUTlht2FM/fM1FZb1mfQeA==}
+    engines: {node: '>=0.10.0'}
+    peerDependencies:
+      react: ^19.2.0
+
+  react@19.2.7:
+    resolution: {integrity: sha512-HNe9WslTbXmFK8o8cmwgAeJFSBvt1bPdHCVKtaaV+WlAN36mpT4hcRpwbf3fY56ar2oIXzsBpOAiIRHAdY0OlQ==}
+    engines: {node: '>=0.10.0'}
+
   readable-stream@2.3.8:
     resolution: {integrity: sha512-8p0AUk4XODgIewSi0l8Epjs+EVnWiK7NoDIEGU0HhE7+ZyY8D1IMY7odu5lRrFXGg71L15KG8QrPmum45RTtdA==}
 
@@ -3882,6 +3986,10 @@ packages:
 
   resolve-pkg-maps@1.0.0:
     resolution: {integrity: sha512-seS2Tj26TBVOC2NIc2rOe2y2ZO7efxITtLZcGSOnHHNOQ7CkiUBfw0Iw2ck6xkIhPwLhKNLS8BO+hEpngQlqzw==}
+
+  restore-cursor@4.0.0:
+    resolution: {integrity: sha512-I9fPXU9geO9bHOt9pHHOhOkYerIMsmVaWB0rA2AI9ERh/+x/i7MV5HKBNrg+ljO5eoPVgCcnFuRjJ9uH6I/3eg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
   rfdc@1.4.1:
     resolution: {integrity: sha512-q1b3N5QkRUWUl7iyylaaj3kOpIT0N2i9MqIEQXP73GVsN9cw3fdx8X63cEmWhJGi2PPCF23Ijp7ktmd39rawIA==}
@@ -3949,6 +4057,9 @@ packages:
     resolution: {integrity: sha512-5LBh1Tls8c9xgGjw3QrMwETmTMVk0oFgvrFSvWx62llR2hcEInrKNZ2GZCCuuy2lvWrdl5jhbpeqc5hRYKFOcw==}
     engines: {node: '>=10'}
 
+  scheduler@0.27.0:
+    resolution: {integrity: sha512-eNv+WrVbKu1f3vbYJT/xtiF5syA5HPIMtf9IgY/nKg0sWqzAUEvqY/xm7OcZc/qafLx/iO9FgOmeSAp4v5ti/Q==}
+
   semver@7.7.4:
     resolution: {integrity: sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==}
     engines: {node: '>=10'}
@@ -3960,9 +4071,16 @@ packages:
   siginfo@2.0.0:
     resolution: {integrity: sha512-ybx0WO1/8bSBLEWXZvEd7gMW3Sn3JFlW3TvX1nREbDLRNQNaeNN8WK0meBwPdAaOI7TtRRRJn/Es1zhrrCHu7g==}
 
+  signal-exit@3.0.7:
+    resolution: {integrity: sha512-wnD2ZE+l+SPC/uoS0vXeE9L1+0wuaMqKlfz9AMUo38JsyLSBWSFcHR1Rri62LZc12vLr1gb3jl7iwQhgwpAbGQ==}
+
   signal-exit@4.1.0:
     resolution: {integrity: sha512-bzyZ1e88w9O1iNJbKnOlvYTrWPDl46O1bG0D3XInv+9tkPrxrN8jUUTiFlDkkmKWgn1M6CfIA13SuGqOa9Korw==}
     engines: {node: '>=14'}
+
+  slice-ansi@9.0.0:
+    resolution: {integrity: sha512-SO/3iYL5S3W57LLEniscOGPZgOqZUPCx6d3dB+52B80yJ0XstzsC/eV8gnA4tM3MHDrKz+OCFSLNjswdSC+/bA==}
+    engines: {node: '>=22'}
 
   source-map-js@1.2.1:
     resolution: {integrity: sha512-UXWMKhLOwVKb728IUtQPXxfYU+usdybtUrK/8uGE8CQMvrhOpwvzDBwj0QhSL7MQc7vIsISBG8VQ8+IDQxpfQA==}
@@ -3990,6 +4108,10 @@ packages:
     resolution: {integrity: sha512-wPldCk3asibAjQ/kziWQQt1Wh3PgDFpC0XpwclzKcdT1vql6KeYxf5LIt4nlFkUeR8WuphYMKqUA56X4rjbfgQ==}
     engines: {node: '>=10.16.0'}
 
+  stack-utils@2.0.6:
+    resolution: {integrity: sha512-XlkWvfIm6RmsWtNJx+uqtKLS8eqFbxUg0ZzLXqY0caEy9l7hruX8IpiDnjsLavoBgqCCR71TqWO8MaXYheJ3RQ==}
+    engines: {node: '>=10'}
+
   stackback@0.0.2:
     resolution: {integrity: sha512-1XMJE5fQo1jGH6Y/7ebnwPOBEkIEnT4QF32d5R1+VXdXveM0IBMJt8zfaxX1P3QhVwrYe+576+jkANtSS2mBbw==}
 
@@ -4009,17 +4131,29 @@ packages:
     resolution: {integrity: sha512-QwiXZgpRcKkhTj2Scnn++4PKtWsH0kpzZ62L2R6c/LUVYv7hVnZqcg2+sMuT6R7Jusu1vviK/MFsu6kNJfWlEQ==}
     engines: {node: '>=4'}
 
+  string-width@8.2.1:
+    resolution: {integrity: sha512-IIaP0g3iy9Cyy18w3M9YcaDudujEAVHKt3a3QJg1+sr/oX96TbaGUubG0hJyCjCBThFH+tFpcIyoUHUn1ogaLA==}
+    engines: {node: '>=20'}
+
   string_decoder@1.1.1:
     resolution: {integrity: sha512-n/ShnvDi6FHbbVfviro+WojiFzv+s8MPMHBczVePfUpDJLwoLT0ht1l4YwBCbi8pJAveEEdnkHyPyTP/mzRfwg==}
 
   string_decoder@1.3.0:
     resolution: {integrity: sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==}
 
+  strip-ansi@7.2.0:
+    resolution: {integrity: sha512-yDPMNjp4WyfYBkHnjIRLfca1i6KMyGCtsVgoKe/z1+6vukgaENdgGBZt+ZmKPc4gavvEZ5OgHfHdrazhgNyG7w==}
+    engines: {node: '>=12'}
+
   striptags@3.2.0:
     resolution: {integrity: sha512-g45ZOGzHDMe2bdYMdIvdAfCQkCTDMGBazSw1ypMowwGIee7ZQ5dU0rBJ8Jqgl+jAKIv4dbeE1jscZq9wid1Tkw==}
 
   strnum@2.2.3:
     resolution: {integrity: sha512-oKx6RUCuHfT3oyVjtnrmn19H1SiCqgJSg+54XqURKp5aCMbrXrhLjRN9TjuwMjiYstZ0MzDrHqkGZ5dFTKd+zg==}
+
+  tagged-tag@1.0.0:
+    resolution: {integrity: sha512-yEFYrVhod+hdNyx7g5Bnkkb0G6si8HJurOoOEgC8B/O0uXLHlaey/65KRv6cuWBNhBgHKAROVpc7QyYqE5gFng==}
+    engines: {node: '>=20'}
 
   tar-stream@2.2.0:
     resolution: {integrity: sha512-ujeqbceABgwMZxEJnk2HDY2DlnUZ+9oEcb1KzTVfYHio0UE6dG71n60d8D2I4qNvleWrrXpmjpt7vZeF1LnMZQ==}
@@ -4036,6 +4170,10 @@ packages:
   tedious@19.2.1:
     resolution: {integrity: sha512-pk1Q16Yl62iocuQB+RWbg6rFUFkIyzqOFQ6NfysCltRvQqKwfurgj8v/f2X+CKvDhSL4IJ0cCOfCHDg9PWEEYA==}
     engines: {node: '>=18.17'}
+
+  terminal-size@4.0.1:
+    resolution: {integrity: sha512-avMLDQpUI9I5XFrklECw1ZEUPJhqzcwSWsyyI8blhRLT+8N1jLJWLWWYQpB2q2xthq8xDvjZPISVh53T/+CLYQ==}
+    engines: {node: '>=18'}
 
   through2@4.0.2:
     resolution: {integrity: sha512-iOqSav00cVxEEICeD7TjLB1sueEL+81Wpzp2bY17uZjZN0pWZPuo4suZ/61VujxmqSGFfgOcNuTZ85QJwNZQpw==}
@@ -4160,6 +4298,10 @@ packages:
 
   tweetnacl@0.14.5:
     resolution: {integrity: sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==}
+
+  type-fest@5.7.0:
+    resolution: {integrity: sha512-1URUxUqfHFM1c+zfSPsa3gnkO7Aq21qyH75SIduNYz4SzY964rn1X2vCMQaHSHhktiw+0kPa2iyb6PUpXqB6Vg==}
+    engines: {node: '>=20'}
 
   typescript-event-target@1.1.2:
     resolution: {integrity: sha512-TvkrTUpv7gCPlcnSoEwUVUBwsdheKm+HF5u2tPAKubkIGMfovdSizCTaZRY/NhR8+Ijy8iZZUapbVQAsNrkFrw==}
@@ -4312,12 +4454,32 @@ packages:
     engines: {node: '>=8'}
     hasBin: true
 
+  widest-line@6.0.0:
+    resolution: {integrity: sha512-U89AsyEeAsyoF0zVJBkG9zBgekjgjK7yk9sje3F4IQpXBJ10TF6ByLlIfjMhcmHMJgHZI4KHt4rdNfktzxIAMA==}
+    engines: {node: '>=20'}
+
   wikijs@6.4.1:
     resolution: {integrity: sha512-fnYyT9ISD9hFgAxFJu7Kzsomz48w7FpvvAfTuArvkMQY1bG9JPXoyURqUzYGcQA8FCq6MuZfjqT/6hP8Mh4hQA==}
     engines: {node: '>=0.10.4'}
 
+  wrap-ansi@10.0.0:
+    resolution: {integrity: sha512-SGcvg80f0wUy2/fXES19feHMz8E0JoXv2uNgHOu4Dgi2OrCy1lqwFYEJz1BLbDI0exjPMe/ZdzZ/YpGECBG/aQ==}
+    engines: {node: '>=20'}
+
   wrappy@1.0.2:
     resolution: {integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==}
+
+  ws@8.21.0:
+    resolution: {integrity: sha512-Vsp28b7DRcimFQvrqu2Wek3z1iYxDCWqHYB8Qsnk/S4RfaCQzPGPyBNuVjJV3cd6UiKtUtp6sNM77gWvzcCH+g==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      bufferutil: ^4.0.1
+      utf-8-validate: '>=5.0.2'
+    peerDependenciesMeta:
+      bufferutil:
+        optional: true
+      utf-8-validate:
+        optional: true
 
   wsl-utils@0.1.0:
     resolution: {integrity: sha512-h3Fbisa2nKGPxCpm89Hk33lBLsnaGBvctQopaBSOW/uIs6FTe1ATyAnKFJrzVs9vpGdsTe73WF3V4lIsk4Gacw==}
@@ -4357,6 +4519,9 @@ packages:
   yazl@3.3.1:
     resolution: {integrity: sha512-BbETDVWG+VcMUle37k5Fqp//7SDOK2/1+T7X8TD96M3D9G8jK5VLUdQVdVjGi8im7FGkazX7kk5hkU8X4L5Bng==}
 
+  yoga-layout@3.2.1:
+    resolution: {integrity: sha512-0LPOt3AxKqMdFBZA3HBAt/t/8vIKq7VaQYbuA8WxCgung+p9TVyKRYdpvCb80HcdTN2NkbIKbhNwKUfm3tQywQ==}
+
   youtube-caption-extractor@1.9.1:
     resolution: {integrity: sha512-KK1OparV3kpIIRkMgLRsQPE73Tu0hYy0CDKcWkF8O3eikyib0IqVjoDNDiGt0KhGbg0/jhh+VUOCcWn/G6nvAw==}
     engines: {node: '>=14.0.0'}
@@ -4380,6 +4545,11 @@ packages:
     resolution: {integrity: sha512-OFXkDJKcrlx5su2XbzJvj/34Q3m6PvyCZkVPHGYpcCJ52ek4U/ymZyfuV1nKE23AyBJ51E/6Yr0mhZ7xGTO4ag==}
 
 snapshots:
+
+  '@alcalzone/ansi-tokenize@0.3.0':
+    dependencies:
+      ansi-styles: 6.2.3
+      is-fullwidth-code-point: 5.1.0
 
   '@aws-crypto/crc32@5.2.0':
     dependencies:
@@ -4936,14 +5106,16 @@ snapshots:
       lodash.isundefined: 3.0.1
       lodash.uniq: 4.5.0
 
-  '@fastgpt-plugin/cli@0.1.0-beta.9(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)':
+  '@fastgpt-plugin/cli@0.2.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@types/node@22.19.9)(typescript@5.9.3)':
     dependencies:
       '@inquirer/prompts': 8.4.2(@types/node@22.19.9)
       '@oxc-parser/binding-wasm32-wasi': 0.112.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)
       commander: 14.0.3
       consola: 3.4.2
       es-toolkit: 1.46.1
+      ink: 7.1.0(react@19.2.7)
       oxc-parser: 0.112.0(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)
+      react: 19.2.7
       tsdown: 0.21.10(typescript@5.9.3)
       yaml: 2.8.3
       yazl: 3.3.1
@@ -4956,13 +5128,17 @@ snapshots:
       - '@tsdown/css'
       - '@tsdown/exe'
       - '@types/node'
+      - '@types/react'
       - '@typescript/native-preview'
       - '@vitejs/devtools'
+      - bufferutil
       - oxc-resolver
       - publint
+      - react-devtools-core
       - synckit
       - typescript
       - unplugin-unused
+      - utf-8-validate
       - vue-tsc
 
   '@fastgpt-plugin/sdk-factory@0.0.1-alpha.10': {}
@@ -5585,6 +5761,14 @@ snapshots:
 
   agent-base@7.1.4: {}
 
+  ansi-escapes@7.3.0:
+    dependencies:
+      environment: 1.1.0
+
+  ansi-regex@6.2.2: {}
+
+  ansi-styles@6.2.3: {}
+
   ansis@4.2.0: {}
 
   archiver-utils@2.1.0:
@@ -5640,6 +5824,8 @@ snapshots:
   async@3.2.6: {}
 
   asynckit@0.4.0: {}
+
+  auto-bind@5.0.1: {}
 
   aws-ssl-profiles@1.1.2: {}
 
@@ -5746,6 +5932,8 @@ snapshots:
     dependencies:
       traverse: 0.3.9
 
+  chalk@5.6.2: {}
+
   chardet@2.1.1: {}
 
   cheerio-select@2.1.0:
@@ -5771,9 +5959,24 @@ snapshots:
       undici: 7.25.0
       whatwg-mimetype: 4.0.0
 
+  cli-boxes@4.0.1: {}
+
+  cli-cursor@4.0.0:
+    dependencies:
+      restore-cursor: 4.0.0
+
+  cli-truncate@6.1.0:
+    dependencies:
+      slice-ansi: 9.0.0
+      string-width: 8.2.1
+
   cli-width@4.1.0: {}
 
   cluster-key-slot@1.1.2: {}
+
+  code-excerpt@4.0.0:
+    dependencies:
+      convert-to-spaces: 2.0.1
 
   combined-stream@1.0.8:
     dependencies:
@@ -5793,6 +5996,8 @@ snapshots:
   concat-map@0.0.1: {}
 
   consola@3.4.2: {}
+
+  convert-to-spaces@2.0.1: {}
 
   core-util-is@1.0.3: {}
 
@@ -5921,6 +6126,8 @@ snapshots:
 
   entities@7.0.1: {}
 
+  environment@1.1.0: {}
+
   es-define-property@1.0.1: {}
 
   es-errors@1.3.0: {}
@@ -5968,6 +6175,8 @@ snapshots:
       '@esbuild/win32-arm64': 0.27.2
       '@esbuild/win32-ia32': 0.27.2
       '@esbuild/win32-x64': 0.27.2
+
+  escape-string-regexp@2.0.0: {}
 
   estree-walker@3.0.3:
     dependencies:
@@ -6072,6 +6281,8 @@ snapshots:
     dependencies:
       is-property: 1.0.2
 
+  get-east-asian-width@1.6.0: {}
+
   get-intrinsic@1.3.0:
     dependencies:
       call-bind-apply-helpers: 1.0.2
@@ -6170,6 +6381,8 @@ snapshots:
 
   import-without-cache@0.3.3: {}
 
+  indent-string@5.0.0: {}
+
   inflight@1.0.6:
     dependencies:
       once: 1.4.0
@@ -6180,6 +6393,38 @@ snapshots:
       camelcase: 4.1.0
 
   inherits@2.0.4: {}
+
+  ink@7.1.0(react@19.2.7):
+    dependencies:
+      '@alcalzone/ansi-tokenize': 0.3.0
+      ansi-escapes: 7.3.0
+      ansi-styles: 6.2.3
+      auto-bind: 5.0.1
+      chalk: 5.6.2
+      cli-boxes: 4.0.1
+      cli-cursor: 4.0.0
+      cli-truncate: 6.1.0
+      code-excerpt: 4.0.0
+      es-toolkit: 1.46.1
+      indent-string: 5.0.0
+      is-in-ci: 2.0.0
+      patch-console: 2.0.0
+      react: 19.2.7
+      react-reconciler: 0.33.0(react@19.2.7)
+      scheduler: 0.27.0
+      signal-exit: 3.0.7
+      slice-ansi: 9.0.0
+      stack-utils: 2.0.6
+      string-width: 8.2.1
+      terminal-size: 4.0.1
+      type-fest: 5.7.0
+      widest-line: 6.0.0
+      wrap-ansi: 10.0.0
+      ws: 8.21.0
+      yoga-layout: 3.2.1
+    transitivePeerDependencies:
+      - bufferutil
+      - utf-8-validate
 
   ioredis@5.10.1:
     dependencies:
@@ -6198,6 +6443,12 @@ snapshots:
   ipaddr.js@2.3.0: {}
 
   is-docker@3.0.0: {}
+
+  is-fullwidth-code-point@5.1.0:
+    dependencies:
+      get-east-asian-width: 1.6.0
+
+  is-in-ci@2.0.0: {}
 
   is-inside-container@1.0.0:
     dependencies:
@@ -6385,6 +6636,8 @@ snapshots:
     dependencies:
       mime-db: 1.52.0
 
+  mimic-fn@2.1.0: {}
+
   minimatch@3.1.5:
     dependencies:
       brace-expansion: 1.1.14
@@ -6523,6 +6776,10 @@ snapshots:
     dependencies:
       wrappy: 1.0.2
 
+  onetime@5.1.2:
+    dependencies:
+      mimic-fn: 2.1.0
+
   open@10.2.0:
     dependencies:
       default-browser: 5.5.0
@@ -6574,6 +6831,8 @@ snapshots:
   parse5@7.3.0:
     dependencies:
       entities: 6.0.1
+
+  patch-console@2.0.0: {}
 
   path-expression-matcher@1.5.0: {}
 
@@ -6668,6 +6927,13 @@ snapshots:
     dependencies:
       inherits: 2.0.4
 
+  react-reconciler@0.33.0(react@19.2.7):
+    dependencies:
+      react: 19.2.7
+      scheduler: 0.27.0
+
+  react@19.2.7: {}
+
   readable-stream@2.3.8:
     dependencies:
       core-util-is: 1.0.3
@@ -6703,6 +6969,11 @@ snapshots:
       redis-errors: 1.2.0
 
   resolve-pkg-maps@1.0.0: {}
+
+  restore-cursor@4.0.0:
+    dependencies:
+      onetime: 5.1.2
+      signal-exit: 3.0.7
 
   rfdc@1.4.1: {}
 
@@ -6819,13 +7090,22 @@ snapshots:
     dependencies:
       xmlchars: 2.2.0
 
+  scheduler@0.27.0: {}
+
   semver@7.7.4: {}
 
   setimmediate@1.0.5: {}
 
   siginfo@2.0.0: {}
 
+  signal-exit@3.0.7: {}
+
   signal-exit@4.1.0: {}
+
+  slice-ansi@9.0.0:
+    dependencies:
+      ansi-styles: 6.2.3
+      is-fullwidth-code-point: 5.1.0
 
   source-map-js@1.2.1: {}
 
@@ -6849,6 +7129,10 @@ snapshots:
       cpu-features: 0.0.10
       nan: 2.27.0
 
+  stack-utils@2.0.6:
+    dependencies:
+      escape-string-regexp: 2.0.0
+
   stackback@0.0.2: {}
 
   standard-as-callback@2.1.0: {}
@@ -6863,6 +7147,11 @@ snapshots:
 
   strict-uri-encode@2.0.0: {}
 
+  string-width@8.2.1:
+    dependencies:
+      get-east-asian-width: 1.6.0
+      strip-ansi: 7.2.0
+
   string_decoder@1.1.1:
     dependencies:
       safe-buffer: 5.1.2
@@ -6871,9 +7160,15 @@ snapshots:
     dependencies:
       safe-buffer: 5.2.1
 
+  strip-ansi@7.2.0:
+    dependencies:
+      ansi-regex: 6.2.2
+
   striptags@3.2.0: {}
 
   strnum@2.2.3: {}
+
+  tagged-tag@1.0.0: {}
 
   tar-stream@2.2.0:
     dependencies:
@@ -6916,6 +7211,8 @@ snapshots:
     transitivePeerDependencies:
       - '@azure/core-client'
       - supports-color
+
+  terminal-size@4.0.1: {}
 
   through2@4.0.2:
     dependencies:
@@ -7021,6 +7318,10 @@ snapshots:
       '@mixmark-io/domino': 2.2.0
 
   tweetnacl@0.14.5: {}
+
+  type-fest@5.7.0:
+    dependencies:
+      tagged-tag: 1.0.0
 
   typescript-event-target@1.1.2: {}
 
@@ -7138,6 +7439,10 @@ snapshots:
       siginfo: 2.0.0
       stackback: 0.0.2
 
+  widest-line@6.0.0:
+    dependencies:
+      string-width: 8.2.1
+
   wikijs@6.4.1:
     dependencies:
       cross-fetch: 3.2.0
@@ -7146,7 +7451,15 @@ snapshots:
     transitivePeerDependencies:
       - encoding
 
+  wrap-ansi@10.0.0:
+    dependencies:
+      ansi-styles: 6.2.3
+      string-width: 8.2.1
+      strip-ansi: 7.2.0
+
   wrappy@1.0.2: {}
+
+  ws@8.21.0: {}
 
   wsl-utils@0.1.0:
     dependencies:
@@ -7179,6 +7492,8 @@ snapshots:
   yazl@3.3.1:
     dependencies:
       buffer-crc32: 1.0.0
+
+  yoga-layout@3.2.1: {}
 
   youtube-caption-extractor@1.9.1:
     dependencies:
