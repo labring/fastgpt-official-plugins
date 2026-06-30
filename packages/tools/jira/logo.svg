@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Jira">
+  <rect width="64" height="64" rx="14" fill="#0C66E4"/>
+  <path d="M32 12 18 26a9 9 0 0 0 0 12l14 14 7-7-13.8-13L39 19l-7-7Z" fill="#fff" opacity=".94"/>
+  <path d="M32 12 46 26a9 9 0 0 1 0 12L32 52l-7-7 13.8-13L25 19l7-7Z" fill="#B3D4FF"/>
+  <path d="m32 24 8 8-8 8-8-8 8-8Z" fill="#DEEBFF"/>
+</svg>
