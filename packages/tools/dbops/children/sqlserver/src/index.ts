@@ -1,4 +1,5 @@
 import type { SQLServerInputType, SQLDbOutputType } from '../../../types';
+import mssql from 'mssql';
 
 export async function main({
   host,
@@ -13,8 +14,6 @@ export async function main({
   instanceName
 }: SQLServerInputType): Promise<SQLDbOutputType> {
   try {
-    const mssqlModule = await loadMssql();
-    const mssql = (mssqlModule.default ?? mssqlModule) as typeof mssqlModule;
     const sql = await mssql.connect({
       port,
       domain,
@@ -44,8 +43,4 @@ export async function main({
       new Error('Microsoft SQL Server SQL execution error: An unknown error occurred')
     );
   }
-}
-
-function loadMssql(): Promise<typeof import('mssql')> {
-  return new Function('specifier', 'return import(specifier)')('mssql');
 }
