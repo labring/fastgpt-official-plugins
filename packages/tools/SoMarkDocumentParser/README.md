@@ -16,6 +16,15 @@ API Key 校验会按 Base URL 切换：
 - Base URL 为 `https://somark.cn/api/v1` 或 `https://somark.ai/api/v1` 时，API Key 必须非空且以 `sk-` 开头。
 - 自定义 Base URL 时跳过格式校验，API Key 会原样透传给后端。
 
+## 购买 / Purchase
+
+使用 SoMark API 前需要先购买服务：
+
+- **中国大陆**：[https://somark.cn/workbench/purchase](https://somark.cn/workbench/purchase)
+- **中国大陆以外（包括中国台湾、中国香港、中国澳门及海外）**：[https://somark.ai/studio/purchase](https://somark.ai/studio/purchase)
+
+If you are in Mainland China (中国大陆), purchase at [https://somark.cn/workbench/purchase](https://somark.cn/workbench/purchase). If you are outside Mainland China (including Taiwan, China; Hong Kong, China; Macau, China; and overseas), purchase at [https://somark.ai/studio/purchase](https://somark.ai/studio/purchase).
+
 ## 输入参数
 
 | 参数 | 类型 | 默认值 | 说明 |

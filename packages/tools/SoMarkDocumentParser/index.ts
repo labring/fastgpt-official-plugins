@@ -15,8 +15,10 @@ const secretSchema = z.object({
   apiKey: z.string().optional().meta({
     title: 'API Key',
     description:
-      'Required when using SoMark public API (somark.cn or somark.ai). Not required for self-hosted deployments. ' +
-      '使用 SoMark 公共 API（somark.cn 或 somark.ai）时需要填写；私有化部署无需填写。',
+      'Required when using SoMark public API (somark.cn or somark.ai). ' +
+      'Please purchase at https://somark.cn/workbench/purchase (Mainland China) or https://somark.ai/studio/purchase (outside Mainland China, including Taiwan, China; Hong Kong, China; Macau, China; and overseas). ' +
+      'Not required for self-hosted deployments. ' +
+      '使用 SoMark 公共 API（somark.cn 或 somark.ai）时需要填写。请先在 https://somark.cn/workbench/purchase（中国大陆）或 https://somark.ai/studio/purchase（中国大陆以外，包括中国台湾、中国香港、中国澳门及海外）购买服务。私有化部署无需填写。',
     isSecret: true
   })
 });
