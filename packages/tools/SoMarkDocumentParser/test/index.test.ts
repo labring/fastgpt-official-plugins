@@ -13,7 +13,8 @@ vi.mock('../utils/delay', () => ({
 const mockedPOST = vi.mocked(POST);
 const fetchMock = vi.fn();
 
-const DEFAULT_BASE_URL = 'https://somark.tech/api/v1';
+const CN_BASE_URL = 'https://somark.cn/api/v1';
+const AI_BASE_URL = 'https://somark.ai/api/v1';
 const SELF_HOST_BASE_URL = 'https://somark.internal/api/v1';
 const SAMPLE_FILE_URL = 'https://example.test/sample.pdf';
 const QPS_LIMIT_CODE = 1124;
@@ -29,7 +30,7 @@ function mockResponse(data: unknown): RequestResponse<unknown> {
 function createInput(overrides: Partial<InputProps> = {}): InputProps {
   return {
     apiKey: 'sk-test-api-key',
-    baseUrl: DEFAULT_BASE_URL,
+    baseUrl: CN_BASE_URL,
     file: [SAMPLE_FILE_URL],
     outputFormats: ['json', 'markdown'],
     imageFormat: 'url',
@@ -136,13 +137,13 @@ describe('SoMarkDocumentParser tool', () => {
 
     expect(result).toEqual({ results: [{ markdown: '# Parsed', json: { pages: 1 } }] });
     expect(mockedPOST).toHaveBeenNthCalledWith(1, '/parse/async', expect.any(FormData), {
-      baseURL: DEFAULT_BASE_URL,
+      baseURL: CN_BASE_URL,
       headers: {},
       timeout: 60_000,
       retries: 1
     });
     expect(mockedPOST).toHaveBeenNthCalledWith(2, '/parse/async_check', expect.any(FormData), {
-      baseURL: DEFAULT_BASE_URL,
+      baseURL: CN_BASE_URL,
       headers: {},
       timeout: 30_000,
       retries: 1

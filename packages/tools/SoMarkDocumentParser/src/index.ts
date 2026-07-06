@@ -7,7 +7,7 @@ const ImageFormatEnum = z.enum(['url', 'base64', 'none']);
 const FormulaFormatEnum = z.enum(['latex', 'mathml', 'ascii']);
 const TableFormatEnum = z.enum(['markdown', 'html', 'image']);
 const ChemicalStructureFormatEnum = z.enum(['image']);
-const DEFAULT_BASE_URL = 'https://somark.tech/api/v1';
+const PUBLIC_BASE_URLS = ['https://somark.cn/api/v1', 'https://somark.ai/api/v1'];
 
 export const InputType = z.object({
   baseUrl: z.string(),
@@ -321,7 +321,7 @@ export async function tool(props: InputProps): Promise<OutputProps> {
 
   const handledApiKey = apiKey.trim();
   if (
-    handledBaseUrl === DEFAULT_BASE_URL &&
+    PUBLIC_BASE_URLS.includes(handledBaseUrl) &&
     (handledApiKey.length === 0 || !handledApiKey.startsWith('sk-'))
   ) {
     throw new Error('API Key is invalid, please check the configuration and try again');
