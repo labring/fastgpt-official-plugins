@@ -1,3 +1,3 @@
-# searchInfinity
+# 火山融合信息搜索工具
 
-An advanced web search plugin based on ByteDance's powerful search capabilities. Features intelligent search, website filtering, time range control, and comprehensive result formatting.
+参考：https://bytedance.larkoffice.com/wiki/IBdwwBuBAiXlclkqExDcqdMinpg

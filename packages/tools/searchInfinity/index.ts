@@ -1,55 +1,61 @@
 import { createToolHandler, defineTool } from "@fastgpt-plugin/sdk-factory";
-import { InputType, OutputType, tool as toolCb } from "./src";
 import z from "zod";
+import { InputType, OutputType, tool as toolCb } from "./src";
 
 const secretSchema = z.object({
-  "apiKey": z.string().optional().meta({
+  apiKey: z.string().optional().meta({
     title: "API密钥",
-    description: "SearchInfinity API密钥，与火山引擎Access Key和Secret Key二选一，获取链接https://console.volcengine.com/ask-echo/web-search",
+    description:
+      "SearchInfinity API密钥，与火山引擎Access Key和Secret Key二选一，获取链接https://console.volcengine.com/ask-echo/web-search",
     isSecret: true,
   }),
-  "volcengineAccessKey": z.string().optional().meta({
+  volcengineAccessKey: z.string().optional().meta({
     title: "火山引擎Access Key",
     description: "火山引擎Access Key，用于火山引擎认证方式，与API密钥二选一",
     isSecret: true,
   }),
-  "volcengineSecretKey": z.string().optional().meta({
+  volcengineSecretKey: z.string().optional().meta({
     title: "火山引擎Secret Key",
     description: "火山引擎Secret Key，用于火山引擎认证方式，与API密钥二选一",
     isSecret: true,
-  })
+  }),
 });
 const inputSchema = z.object({
-  "query": z.string().meta({
+  query: z.string().meta({
     title: "搜索查询词",
     description: "搜索查询词",
-    toolDescription: "搜索查询词"
+    toolDescription: "搜索查询词",
   }),
-  "count": z.number().optional().meta({
+  count: z.number().optional().meta({
     title: "结果数量",
-    description: "返回结果的条数。可填范围：1-50，默认为10"
+    description: "返回结果的条数。可填范围：1-50，默认为10",
   }),
-  "searchType": z.enum(["web","web_summary"]).meta({
+  searchType: z.enum(["web", "web_summary"]).meta({
     title: "搜索类型",
-    description: "搜索类型。可填范围：web, web_summary(带总结结果的web搜索)"
+    description: "搜索类型。可填范围：web, web_summary(带总结结果的web搜索)",
   }),
-  "sites": z.string().optional().meta({
+  sites: z.string().optional().meta({
     title: "包含网站",
-    description: "指定搜索的site范围。多个域名使用|分隔，最多5个。例如：qq.com|m.163.com"
+    description:
+      "指定搜索的site范围。多个域名使用|分隔，最多5个。例如：qq.com|m.163.com",
   }),
-  "time_range": z.enum(["OneDay","OneWeek","OneMonth","OneYear"]).optional().meta({
-    title: "时间范围",
-    description: "搜索指定时间范围内的网页。支持：OneDay, OneWeek, OneMonth, OneYear"
-  })
+  time_range: z
+    .enum(["OneDay", "OneWeek", "OneMonth", "OneYear"])
+    .optional()
+    .meta({
+      title: "时间范围",
+      description:
+        "搜索指定时间范围内的网页。支持：OneDay, OneWeek, OneMonth, OneYear",
+    }),
 });
 const outputSchema = z.object({
-  "result": z.array(z.record(z.string(), z.unknown())).meta({
+  result: z.array(z.record(z.string(), z.unknown())).meta({
     title: "搜索结果",
-    description: "搜索返回的结果列表"
+    description: "搜索返回的结果列表",
   }),
-  "error": z.string().optional().meta({
-    title: "错误信息"
-  })
+  error: z.string().optional().meta({
+    title: "错误信息",
+  }),
 });
 const handler = createToolHandler({
   inputSchema,
@@ -58,9 +64,9 @@ const handler = createToolHandler({
   handler: async (input, ctx) => {
     const parsedInput = await InputType.parseAsync({
       ...input,
-      ...ctx.secrets
+      ...ctx.secrets,
     });
-    const output = await toolCb(parsedInput, ctx);
+    const output = await toolCb(parsedInput);
     return OutputType.parseAsync(output);
   },
 });
@@ -84,8 +90,9 @@ const tool = defineTool({
     },
     tags: ["search"],
     author: "火山引擎",
+    tutorialUrl:
+      "https://bytedance.larkoffice.com/wiki/IBdwwBuBAiXlclkqExDcqdMinpg",
   },
-  secretSchema,
   handler,
 });
 
