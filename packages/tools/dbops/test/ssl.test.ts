@@ -44,9 +44,10 @@ import { main as mysqlMain } from "../children/mysql/src";
 import { main as oracleMain } from "../children/oracle/src";
 import { main as postgresqlMain } from "../children/postgresql/src";
 import { getSqlServerOptions } from "../children/sqlserver/src";
+import dbopsToolSet from "../index";
 import { BaseSQLDbInputSchema } from "../types";
 
-describe("dbops SSL configuration", () => {
+describe("dbops connection configuration", () => {
   beforeEach(() => {
     vi.clearAllMocks();
 
@@ -133,6 +134,36 @@ describe("dbops SSL configuration", () => {
 
     expect(mocks.oracle.createPool).toHaveBeenCalledWith(
       expect.objectContaining({ sslServerDNMatch: true }),
+    );
+  });
+
+  it("builds the Oracle connect string from shared connection fields", async () => {
+    const handler = dbopsToolSet.getToolHandler("oracle");
+
+    expect(handler).toBeDefined();
+    await handler?.handler(
+      { sql: "SELECT 1" },
+      {
+        secrets: {
+          database: "ORCLPDB1",
+          host: "10.0.0.8",
+          port: 1521,
+          username: "user",
+          password: "password",
+          ssl: false,
+          maxConnections: "10",
+          connectionTimeout: "30000",
+        },
+        systemVar: {} as never,
+        invoke: {} as never,
+        streamResponse: vi.fn(),
+      },
+    );
+
+    expect(mocks.oracle.createPool).toHaveBeenCalledWith(
+      expect.objectContaining({
+        connectString: "10.0.0.8:1521/ORCLPDB1",
+      }),
     );
   });
 

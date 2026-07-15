@@ -95,9 +95,13 @@
 ### Oracle 连接配置
 
 **必填参数：**
+- **数据库名称** - Oracle 服务名（如：ORCLPDB1）
+- **主机名** - Oracle 数据库服务器地址
+- **数据库连接端口号** - Oracle 监听端口（默认：1521）
 - **数据库账号** - Oracle 用户名
 - **数据库密码** - Oracle 密码
-- **connectString** - 连接字符串（格式：host:port/SID，如：oracle.yourdomain.com:1521/ORCLCDB）
+
+插件会将以上参数组合为 `host:port/服务名` 格式的 Oracle `connectString`，例如：`oracle.yourdomain.com:1521/ORCLPDB1`。
 
 **可选参数：**
 - **最大连接数** - 连接池最大连接数（默认：10）
