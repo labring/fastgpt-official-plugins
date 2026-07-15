@@ -1,5 +1,5 @@
-import type { PostgreSQLInputType, SQLDbOutputType } from '../../../types';
-import postgres from 'postgres';
+import postgres from "postgres";
+import type { PostgreSQLInputType, SQLDbOutputType } from "../../../types";
 
 export async function main({
   host,
@@ -9,7 +9,8 @@ export async function main({
   database,
   sql: _sql,
   maxConnections,
-  connectionTimeout
+  connectionTimeout,
+  ssl,
 }: PostgreSQLInputType): Promise<SQLDbOutputType> {
   try {
     const sql = postgres({
@@ -19,15 +20,20 @@ export async function main({
       user: username,
       pass: password,
       max: maxConnections,
-      connect_timeout: connectionTimeout
+      connect_timeout: connectionTimeout,
+      ssl,
     });
     const result = await sql.unsafe(_sql);
     await sql.end();
     return { result };
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return Promise.reject(Error(`PostgreSQL SQL execution error: ${error.message}`));
+      return Promise.reject(
+        Error(`PostgreSQL SQL execution error: ${error.message}`),
+      );
     }
-    return Promise.reject(Error('PostgreSQL SQL execution error: An unknown error occurred'));
+    return Promise.reject(
+      Error("PostgreSQL SQL execution error: An unknown error occurred"),
+    );
   }
 }

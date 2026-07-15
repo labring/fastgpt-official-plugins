@@ -1,6 +1,6 @@
 {
   "name": "fastgpt-tools-sql",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "SQL connection tool, made by FastGPT",
   "type": "module",
   "main": "dist/index.js",

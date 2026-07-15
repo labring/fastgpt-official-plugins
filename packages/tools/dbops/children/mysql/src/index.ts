@@ -1,5 +1,5 @@
-import type { MySQLInputType, SQLDbOutputType } from '../../../types';
-import mysql from 'mysql2/promise';
+import mysql from "mysql2/promise";
+import type { MySQLInputType, SQLDbOutputType } from "../../../types";
 
 export async function main({
   host,
@@ -11,7 +11,8 @@ export async function main({
   maxConnections,
   connectionTimeout,
   charset,
-  timezone
+  timezone,
+  ssl,
 }: MySQLInputType): Promise<SQLDbOutputType> {
   try {
     const sql = await mysql.createConnection({
@@ -23,15 +24,20 @@ export async function main({
       timezone: timezone,
       database: database,
       maxIdle: maxConnections,
-      connectTimeout: connectionTimeout
+      connectTimeout: connectionTimeout,
+      ...(ssl ? { ssl: {} } : {}),
     });
     const [result] = await sql.execute(_sql);
     await sql.end();
     return { result };
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return Promise.reject(new Error(`MySQL SQL execution error: ${error.message}`));
+      return Promise.reject(
+        new Error(`MySQL SQL execution error: ${error.message}`),
+      );
     }
-    return Promise.reject(new Error('MySQL SQL execution error: An unknown error occurred'));
+    return Promise.reject(
+      new Error("MySQL SQL execution error: An unknown error occurred"),
+    );
   }
 }
