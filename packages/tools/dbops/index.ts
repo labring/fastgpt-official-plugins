@@ -43,6 +43,11 @@ const secretSchema = z.object({
     title: "数据库密码",
     isSecret: true,
   }),
+  ssl: z.boolean().optional().meta({
+    title: "启用 SSL",
+    description: "是否启用 SSL/TLS 连接",
+    isSecret: false,
+  }),
   maxConnections: z.string().optional().meta({
     title: "最大连接数",
   }),
@@ -70,7 +75,7 @@ const clickhouseHandler = createToolHandler({
   handler: async (input, ctx) => {
     const parsedInput = await clickhouseInputType.parseAsync({
       ...input,
-      ...ctx.secrets
+      ...ctx.secrets,
     });
     const output = await clickhouseTool(parsedInput, ctx);
     return clickhouseOutputType.parseAsync(output);
@@ -197,10 +202,10 @@ const toolSet = defineToolSet({
       "zh-CN":
         "数据库操作工具集，包含 MySQL、PostgreSQL、Microsoft SQL Server、Oracle、ClickHouse 数据库操作功能",
     },
-    version: "0.0.1",
+    version: "0.0.2",
     versionDescription: {
-      en: "Initial version",
-      "zh-CN": "Initial version",
+      en: "Add SSL connection support",
+      "zh-CN": "支持 SSL 连接",
     },
     tags: ["tools"],
   },

@@ -1,5 +1,5 @@
-import type { OracleInputType, SQLDbOutputType } from '../../../types';
-import oracle from 'oracledb';
+import oracle from "oracledb";
+import type { OracleInputType, SQLDbOutputType } from "../../../types";
 
 oracle.fetchAsString = [oracle.NUMBER, oracle.DATE];
 oracle.outFormat = oracle.OUT_FORMAT_OBJECT;
@@ -14,7 +14,8 @@ export async function main({
   username,
   password,
   maxConnections,
-  connectionTimeout
+  connectionTimeout,
+  ssl,
 }: OracleInputType): Promise<SQLDbOutputType> {
   let pool: oracle.Pool | undefined;
   let conn: oracle.Connection | undefined;
@@ -27,24 +28,29 @@ export async function main({
       poolMin: 0,
       poolTimeout: 60,
       poolMax: maxConnections,
-      connectTimeout: connectionTimeout
+      connectTimeout: connectionTimeout,
+      sslServerDNMatch: ssl,
     });
     conn = await pool.getConnection();
     const execResult = await conn.execute(sql, [], {
-      outFormat: oracle.OUT_FORMAT_OBJECT
+      outFormat: oracle.OUT_FORMAT_OBJECT,
     });
     const safeResult = sanitize({
       rows: execResult.rows ?? [],
-      metaData: execResult.metaData ?? []
+      metaData: execResult.metaData ?? [],
     });
     return {
-      result: safeResult
+      result: safeResult,
     };
   } catch (error: unknown) {
     if (error instanceof Error) {
-      return Promise.reject(Error(`Oracle SQL execution error: ${error.message}`));
+      return Promise.reject(
+        Error(`Oracle SQL execution error: ${error.message}`),
+      );
     }
-    return Promise.reject(Error('Oracle SQL execution error: An unknown error occurred'));
+    return Promise.reject(
+      Error("Oracle SQL execution error: An unknown error occurred"),
+    );
   } finally {
     await conn?.close();
     await pool?.close();

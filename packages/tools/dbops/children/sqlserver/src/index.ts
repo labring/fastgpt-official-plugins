@@ -1,5 +1,5 @@
-import type { SQLServerInputType, SQLDbOutputType } from '../../../types';
-import mssql from 'mssql';
+import mssql from "mssql";
+import type { SQLDbOutputType, SQLServerInputType } from "../../../types";
 
 export async function main({
   host,
@@ -11,7 +11,8 @@ export async function main({
   maxConnections,
   connectionTimeout,
   domain,
-  instanceName
+  instanceName,
+  ssl,
 }: SQLServerInputType): Promise<SQLDbOutputType> {
   try {
     const sql = await mssql.connect({
@@ -22,13 +23,10 @@ export async function main({
       password: password,
       database: database,
       connectionTimeout: connectionTimeout,
-      options: {
-        instanceName: instanceName,
-        trustServerCertificate: true
-      },
+      options: getSqlServerOptions(instanceName, ssl),
       pool: {
-        max: maxConnections
-      }
+        max: maxConnections,
+      },
     });
     const result = await sql.query(_sql);
     await sql.close();
@@ -36,11 +34,24 @@ export async function main({
   } catch (error: unknown) {
     if (error instanceof Error) {
       return Promise.reject(
-        new Error(`Microsoft SQL Server SQL execution error: ${error.message}`)
+        new Error(`Microsoft SQL Server SQL execution error: ${error.message}`),
       );
     }
     return Promise.reject(
-      new Error('Microsoft SQL Server SQL execution error: An unknown error occurred')
+      new Error(
+        "Microsoft SQL Server SQL execution error: An unknown error occurred",
+      ),
     );
   }
+}
+
+export function getSqlServerOptions(
+  instanceName: string | undefined,
+  ssl: boolean,
+) {
+  return {
+    ...(instanceName === undefined ? {} : { instanceName }),
+    trustServerCertificate: true,
+    encrypt: ssl,
+  };
 }
