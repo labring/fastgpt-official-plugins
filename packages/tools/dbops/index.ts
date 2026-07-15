@@ -122,14 +122,22 @@ const oracleOutputSchema = z.object({
     description: "执行结果",
   }),
 });
+const oracleConnectionPartsSchema = secretSchema.pick({
+  database: true,
+  host: true,
+  port: true,
+});
 const oracleHandler = createToolHandler({
   inputSchema: oracleInputSchema,
   outputSchema: oracleOutputSchema,
   secretSchema,
   handler: async (input, ctx) => {
+    const { database, host, port } =
+      await oracleConnectionPartsSchema.parseAsync(ctx.secrets);
     const parsedInput = await oracleInputType.parseAsync({
       ...input,
       ...ctx.secrets,
+      connectString: `${host}:${port}/${database}`,
     });
     const output = await oracleTool(parsedInput);
     return oracleOutputType.parseAsync(output);
@@ -204,8 +212,8 @@ const toolSet = defineToolSet({
     },
     version: "0.0.2",
     versionDescription: {
-      en: "Add SSL connection support",
-      "zh-CN": "支持 SSL 连接",
+      en: "Add SSL support and fix Oracle connection string mapping",
+      "zh-CN": "支持 SSL 连接并修复 Oracle 连接字符串映射",
     },
     tags: ["tools"],
   },
