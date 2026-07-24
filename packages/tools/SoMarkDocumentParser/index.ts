@@ -6,11 +6,18 @@ const secretSchema = z.object({
   baseUrl: z.string().meta({
     title: 'Base URL',
     description:
-      '使用 SoMark API 时填写 https://somark.tech/api/v1；私有化部署时填写本地部署的 Base URL。'
+      '中国大陆: https://somark.cn/api/v1 | 海外: https://somark.ai/api/v1 | 私有化: 本地地址',
+    toolDescription:
+      '中国大陆使用请填写 https://somark.cn/api/v1；中国大陆以外（包括中国台湾、中国香港、中国澳门及海外）使用请填写 https://somark.ai/api/v1；私有化部署请填写本地部署地址。' +
+      'Mainland China: https://somark.cn/api/v1 | Outside Mainland China (including Taiwan, China; Hong Kong, China; Macau, China; and overseas): https://somark.ai/api/v1 | Self-hosted: local URL'
   }),
   apiKey: z.string().optional().meta({
     title: 'API Key',
-    description: '使用 SoMark API 时填写；私有化部署无需填写。',
+    description:
+      '在 somark.cn/workbench/purchase (大陆) 或 somark.ai/studio/purchase (海外) 购买后获取，以 sk- 开头。',
+    toolDescription:
+      '使用 SoMark 公共 API 时需要填写（以 sk- 开头）。购买地址：https://somark.cn/workbench/purchase（中国大陆）或 https://somark.ai/studio/purchase（海外）。私有化部署无需填写。' +
+      'Required for public API. Purchase at https://somark.cn/workbench/purchase (Mainland China) or https://somark.ai/studio/purchase (outside Mainland China).',
     isSecret: true
   })
 });
