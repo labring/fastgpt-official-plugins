@@ -70,7 +70,7 @@ pnpm type-check
 # Biome 检查
 pnpm biome-check
 
-# 构建并汇总完整发布包
+# 打包全部官方插件并生成完整发布包（dist/fastgpt-official-plugins.zip）
 pnpm build:full-package
 ```
 
@@ -133,13 +133,20 @@ pnpm biome-check
 
 ## Marketplace 发布
 
-仓库包含三类发布相关 workflow：
+仓库包含四类发布相关 workflow：
 
 - `Extract Updated Tools`：`main` 分支合入 `packages/**` 变更后，提取变化的 `packages/tools/<tool>` 列表。
 - `Publish Tools to Marketplace`：对指定工具 build、pack，并在人工审批后上传。
 - `Publish All Tools to Marketplace`：手动触发全量 build、pack 和发布。
+- `Build Full Plugin Package`：`main` 分支合入 `packages/tools/**` 变更后，重新打包全部 `packages/tools/*` 插件，并作为滚动 `pkg-latest` release 资产发布。
 
-GitHub Actions 需要配置 `MarketplacePublish` environment，以及 `MARKETPLACE_BASE_URL`、`MARKETPLACE_AUTH` 等密钥。详细配置见 [docs/github-actions-config.md](./docs/github-actions-config.md)。
+用于批量重装的全量 zip 可直接免鉴权下载：
+
+```text
+https://github.com/labring/fastgpt-official-plugins/releases/download/pkg-latest/fastgpt-official-plugins.zip
+```
+
+GitHub Actions 需要配置 `MarketplacePublish` environment，以及 `MARKETPLACE_BASE_URL`、`MARKETPLACE_AUTH` 等密钥；全量包 workflow 需要 `contents: write` 权限来更新 release。详细配置见 [docs/github-actions-config.md](./docs/github-actions-config.md)。
 
 ## 相关仓库
 

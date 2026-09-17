@@ -1,0 +1,129 @@
+name: Build Full Plugin Package
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "packages/tools/**"
+      - "scripts/build-full-package.ts"
+      - "package.json"
+      - ".github/workflows/build-full-package.yml"
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Git ref to package. Defaults to the workflow run ref."
+        required: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-full-package-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build-full-package:
+    name: Build and Publish Full Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref || github.ref }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10.28.2
+
+      - name: Configure npm auth
+        shell: bash
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          if [ -n "${NPM_TOKEN:-}" ]; then
+            echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc
+          fi
+
+      - name: Install dependencies
+        run: pnpm install --no-frozen-lockfile --ignore-scripts
+
+      - name: Pack official tools
+        run: pnpm run pack:tools
+
+      - name: Build full plugin package
+        id: package
+        run: pnpm exec tsx scripts/build-full-package.ts --out dist/fastgpt-official-plugins.zip
+
+      - name: Upload package artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: fastgpt-official-plugins
+          path: dist/fastgpt-official-plugins.zip
+          if-no-files-found: error
+
+      - name: Resolve publish target
+        id: target
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          ref="${{ inputs.ref || github.ref }}"
+
+          case "$ref" in
+            main|refs/heads/main) publish="true" ;;
+            *) publish="false" ;;
+          esac
+
+          echo "publish=$publish" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Publish rolling release asset
+        if: steps.target.outputs.publish == 'true'
+        shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.RELEASE_TOKEN || secrets.GITHUB_TOKEN }}
+          SOURCE_SHA: ${{ steps.target.outputs.sha }}
+          PACKAGE_PATH: ${{ steps.package.outputs.output }}
+          PACKAGE_TOOLS: ${{ steps.package.outputs.tools }}
+          PACKAGE_PKGS: ${{ steps.package.outputs.pkgs }}
+          PACKAGE_BYTES: ${{ steps.package.outputs.bytes }}
+          PACKAGE_SHA256: ${{ steps.package.outputs.sha256 }}
+        run: |
+          set -euo pipefail
+
+          notes_file="$(mktemp)"
+          cat > "$notes_file" <<EOF
+          Rolling full plugin package for FastGPT system tools.
+
+          - Download: https://github.com/${GITHUB_REPOSITORY}/releases/download/pkg-latest/fastgpt-official-plugins.zip
+          - Source commit: https://github.com/${GITHUB_REPOSITORY}/commit/${SOURCE_SHA}
+          - Workflow run: https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}
+          - Tools packed: ${PACKAGE_TOOLS} (all of packages/tools/*)
+          - .pkg files: ${PACKAGE_PKGS}
+          - Size: ${PACKAGE_BYTES} bytes
+          - sha256: ${PACKAGE_SHA256}
+
+          The pkg-latest tag is a rolling pointer: the attached asset is always the newest build from main. Use the source commit above for provenance.
+          EOF
+
+          if gh release view pkg-latest --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release upload pkg-latest "$PACKAGE_PATH" --clobber --repo "$GITHUB_REPOSITORY"
+          else
+            gh release create pkg-latest "$PACKAGE_PATH" \
+              --target "$SOURCE_SHA" \
+              --title "Latest full plugin package" \
+              --prerelease \
+              --notes-file "$notes_file" \
+              --repo "$GITHUB_REPOSITORY"
+          fi
+
+          gh release edit pkg-latest --notes-file "$notes_file" --repo "$GITHUB_REPOSITORY"

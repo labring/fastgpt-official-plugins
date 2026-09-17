@@ -16,3 +16,6 @@ node_modules
 *.pkg
 .build-temp/
 .local
+
+# Generated full plugin package
+/fastgpt-official-plugins.zip
