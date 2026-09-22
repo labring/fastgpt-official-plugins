@@ -25,6 +25,7 @@ import {
   OutputType as sqlserverOutputType,
   tool as sqlserverTool,
 } from "./children/sqlserver";
+import { BaseSQLDbInputSchema } from "./types";
 
 const secretSchema = z.object({
   database: z.string().meta({
@@ -73,10 +74,15 @@ const clickhouseHandler = createToolHandler({
   outputSchema: clickhouseOutputSchema,
   secretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await clickhouseInputType.parseAsync({
-      ...input,
-      ...ctx.secrets,
-    });
+    const inputWithSecrets = { ...input, ...ctx.secrets };
+    if (!("url" in inputWithSecrets) || inputWithSecrets.url === undefined) {
+      const { host, port } = await BaseSQLDbInputSchema.pick({
+        host: true,
+        port: true,
+      }).parseAsync(ctx.secrets);
+      Object.assign(inputWithSecrets, { url: `http://${host}:${port}` });
+    }
+    const parsedInput = await clickhouseInputType.parseAsync(inputWithSecrets);
     const output = await clickhouseTool(parsedInput, ctx);
     return clickhouseOutputType.parseAsync(output);
   },

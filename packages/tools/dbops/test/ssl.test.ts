@@ -167,6 +167,103 @@ describe("dbops connection configuration", () => {
     );
   });
 
+  it.each([
+    { ssl: false, expectedUrl: "http://clickhouse.example.com:8123" },
+    { ssl: true, expectedUrl: "https://clickhouse.example.com:8123" },
+    { ssl: undefined, expectedUrl: "http://clickhouse.example.com:8123" },
+  ])("builds the ClickHouse URL from saved connection fields (ssl: $ssl)", async ({
+    ssl,
+    expectedUrl,
+  }) => {
+    const handler = dbopsToolSet.getToolHandler("clickhouse");
+
+    expect(handler).toBeDefined();
+    const output = await handler?.handler(
+      { sql: "SELECT 1 AS test" },
+      {
+        secrets: {
+          host: "clickhouse.example.com",
+          port: 8123,
+          database: "test_db",
+          username: "test_user",
+          password: "test_password",
+          ...(ssl === undefined ? {} : { ssl }),
+        },
+        systemVar: {} as never,
+        invoke: {} as never,
+        streamResponse: vi.fn(),
+      },
+    );
+
+    expect(mocks.clickhouse.createClient).toHaveBeenCalledWith(
+      expect.objectContaining({
+        url: expectedUrl,
+        username: "test_user",
+        password: "test_password",
+      }),
+    );
+    expect(mocks.clickhouse.query).toHaveBeenCalledWith({
+      query: "SELECT 1 AS test",
+      format: "JSON",
+    });
+    expect(output).toEqual({ result: [] });
+  });
+
+  it.each([
+    "host",
+    "port",
+  ])("rejects ClickHouse connection settings without %s", async (field) => {
+    const handler = dbopsToolSet.getToolHandler("clickhouse");
+
+    expect(handler).toBeDefined();
+    await expect(
+      handler?.handler(
+        { sql: "SELECT 1 AS test" },
+        {
+          secrets: {
+            host: "clickhouse.example.com",
+            port: 8123,
+            database: "test_db",
+            username: "test_user",
+            password: "test_password",
+            [field]: undefined,
+          },
+          systemVar: {} as never,
+          invoke: {} as never,
+          streamResponse: vi.fn(),
+        },
+      ),
+    ).rejects.toMatchObject({
+      issues: [expect.objectContaining({ path: [field] })],
+    });
+    expect(mocks.clickhouse.createClient).not.toHaveBeenCalled();
+  });
+
+  it("keeps an existing ClickHouse URL from saved secrets", async () => {
+    const handler = dbopsToolSet.getToolHandler("clickhouse");
+
+    expect(handler).toBeDefined();
+    await handler?.handler(
+      { sql: "SELECT 1 AS test" },
+      {
+        secrets: {
+          url: "http://legacy.example.com:8123",
+          database: "test_db",
+          username: "test_user",
+          password: "test_password",
+          ssl: false,
+        },
+        systemVar: {} as never,
+        invoke: {} as never,
+        streamResponse: vi.fn(),
+      },
+    );
+
+    expect(mocks.clickhouse.createClient).toHaveBeenCalledWith(
+      expect.objectContaining({ url: "http://legacy.example.com:8123" }),
+    );
+  });
+
   it("uses HTTPS for ClickHouse when SSL is enabled", async () => {
     await clickhouseMain({
       ...baseInput(),
