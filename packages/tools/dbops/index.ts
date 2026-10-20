@@ -80,7 +80,9 @@ const clickhouseHandler = createToolHandler({
         host: true,
         port: true,
       }).parseAsync(ctx.secrets);
-      Object.assign(inputWithSecrets, { url: `http://${host}:${port}` });
+      const urlHost =
+        host.includes(":") && !host.startsWith("[") ? `[${host}]` : host;
+      Object.assign(inputWithSecrets, { url: `http://${urlHost}:${port}` });
     }
     const parsedInput = await clickhouseInputType.parseAsync(inputWithSecrets);
     const output = await clickhouseTool(parsedInput, ctx);

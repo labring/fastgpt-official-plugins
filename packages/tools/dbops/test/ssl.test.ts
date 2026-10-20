@@ -168,10 +168,24 @@ describe("dbops connection configuration", () => {
   });
 
   it.each([
-    { ssl: false, expectedUrl: "http://clickhouse.example.com:8123" },
-    { ssl: true, expectedUrl: "https://clickhouse.example.com:8123" },
-    { ssl: undefined, expectedUrl: "http://clickhouse.example.com:8123" },
-  ])("builds the ClickHouse URL from saved connection fields (ssl: $ssl)", async ({
+    {
+      host: "clickhouse.example.com",
+      ssl: false,
+      expectedUrl: "http://clickhouse.example.com:8123",
+    },
+    {
+      host: "clickhouse.example.com",
+      ssl: true,
+      expectedUrl: "https://clickhouse.example.com:8123",
+    },
+    {
+      host: "clickhouse.example.com",
+      ssl: undefined,
+      expectedUrl: "http://clickhouse.example.com:8123",
+    },
+    { host: "::1", ssl: false, expectedUrl: "http://[::1]:8123" },
+  ])("builds the ClickHouse URL from saved connection fields ($host, ssl: $ssl)", async ({
+    host,
     ssl,
     expectedUrl,
   }) => {
@@ -182,7 +196,7 @@ describe("dbops connection configuration", () => {
       { sql: "SELECT 1 AS test" },
       {
         secrets: {
-          host: "clickhouse.example.com",
+          host,
           port: 8123,
           database: "test_db",
           username: "test_user",
