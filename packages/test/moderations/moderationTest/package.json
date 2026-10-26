@@ -1,0 +1,26 @@
+{
+  "name": "fastgpt-moderation-keyword-test",
+  "version": "0.0.1",
+  "description": "Local keyword moderation plugin for testing FastGPT moderation support",
+  "private": true,
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build:moderation": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "check": "npx @fastgpt-plugin/cli check --entry . --output ./dist",
+    "debug": "npx @fastgpt-plugin/cli debug .",
+    "debug:run": "npx @fastgpt-plugin/cli debug . --run --input '{\"content\":\"blocked phrase\"}' --secrets '{\"blockedKeywords\":\"blocked phrase\"}'",
+    "pack:moderation": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:"
+  }
+}

@@ -1,6 +1,7 @@
 packages:
   - packages/tools/*
   - packages/test/tools/*
+  - packages/test/moderations/*
 
 catalog:
   "@biomejs/biome": 2.3.13

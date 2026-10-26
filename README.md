@@ -26,15 +26,17 @@ This repository is the official tool collection for the FastGPT plugin ecosystem
 .
 ├── docs/                         # Publishing and repository operations docs
 ├── packages/
-│   ├── tools/                    # Official production plugins
-│   └── test/tools/               # Test and validation plugins
+│   ├── tools/                    # Official production tool plugins
+│   └── test/
+│       ├── tools/                # Tool test plugins
+│       └── moderations/          # Moderation test plugins, separate from tools
 ├── scripts/                      # Cleanup, change extraction, and Marketplace upload scripts
 ├── package.json                  # Root scripts and toolchain versions
 ├── pnpm-workspace.yaml           # Workspace and catalog dependency versions
 └── turbo.json                    # Monorepo task orchestration
 ```
 
-Each official plugin usually lives in `packages/tools/<tool-name>` and includes:
+Official tool plugins live in `packages/tools/<tool-name>`. Test plugins are grouped by plugin type under `packages/test/`, for example `packages/test/tools/<tool-name>` and `packages/test/moderations/<moderation-name>`; moderation is a distinct plugin type, not a tool. Plugin packages typically include:
 
 - `package.json`: package name, scripts, and dependencies.
 - `index.ts`: plugin entry point.
