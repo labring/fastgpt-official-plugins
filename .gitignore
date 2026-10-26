@@ -15,6 +15,7 @@ node_modules
 
 *.pkg
 !packages/moderations/keyword/keyword.pkg
+!packages/test/moderations/moderationTest/moderationTest.pkg
 .build-temp/
 .local
 
