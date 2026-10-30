@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
+  <defs>
+    <linearGradient id="fetch-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563EB" />
+      <stop offset="100%" stop-color="#1E3A8A" />
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#fetch-grad)" />
+  <!-- Document Sheet -->
+  <path d="M40 30 L74 30 L92 48 L92 98 C92 101.3 89.3 104 86 104 L40 104 C36.7 104 34 101.3 34 98 L34 36 C34 32.7 36.7 30 40 30 Z" fill="#FFFFFF" />
+  <!-- Folded Corner -->
+  <path d="M74 30 L74 48 L92 48 Z" fill="#DBEAFE" />
+  <!-- Document Lines -->
+  <line x1="46" y1="56" x2="68" y2="56" stroke="#3B82F6" stroke-width="4" stroke-linecap="round" />
+  <line x1="46" y1="70" x2="80" y2="70" stroke="#94A3B8" stroke-width="4" stroke-linecap="round" />
+  <line x1="46" y1="84" x2="74" y2="84" stroke="#94A3B8" stroke-width="4" stroke-linecap="round" />
+</svg>

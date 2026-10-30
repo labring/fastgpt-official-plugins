@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="100%" height="100%">
+  <defs>
+    <linearGradient id="ds-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4D6BFE" />
+      <stop offset="100%" stop-color="#1D4ED8" />
+    </linearGradient>
+    <linearGradient id="whale-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#E0E7FF" />
+    </linearGradient>
+  </defs>
+  <!-- Background -->
+  <rect width="128" height="128" rx="28" fill="url(#ds-grad)" />
+  <!-- Whale Body -->
+  <path d="M26 68 C28 52 42 38 64 38 C86 38 102 50 102 64 C102 74 95 82 85 86 C74 90 60 90 46 86 C35 83 26 77 26 68 Z" fill="url(#whale-grad)" />
+  <!-- Whale Tail -->
+  <path d="M30 64 C22 58 14 52 14 46 C18 52 26 56 32 60 Z" fill="url(#whale-grad)" />
+  <path d="M30 68 C22 74 14 80 14 86 C18 80 26 76 32 72 Z" fill="url(#whale-grad)" />
+  <!-- Whale Fin -->
+  <path d="M58 74 C62 82 70 86 76 84 C73 78 68 74 58 74 Z" fill="#93C5FD" />
+  <!-- Eye -->
+  <circle cx="84" cy="56" r="3.5" fill="#1D4ED8" />
+  <!-- Blowhole stream -->
+  <circle cx="68" cy="28" r="3" fill="#BFDBFE" />
+  <circle cx="76" cy="22" r="2.5" fill="#DBEAFE" />
+</svg>
+
