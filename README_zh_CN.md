@@ -27,16 +27,16 @@
 ├── docs/                         # 发布和仓库运维文档
 ├── packages/
 │   ├── tools/                    # 正式官方工具插件
+│   ├── moderations/              # 正式官方 moderation 插件
 │   └── test/
-│       ├── tools/                # 工具类测试插件
-│       └── moderations/          # moderation 类测试插件（独立于 tools）
+│       └── tools/                # 工具类测试插件
 ├── scripts/                      # 清理、提取变更、Marketplace 上传脚本
 ├── package.json                  # 根工程脚本和工具链版本
 ├── pnpm-workspace.yaml           # workspace 与 catalog 依赖版本
 └── turbo.json                    # monorepo 任务编排
 ```
 
-正式工具插件位于 `packages/tools/<tool-name>`。测试插件按类型放在 `packages/test/` 下，例如 `packages/test/tools/<tool-name>` 与 `packages/test/moderations/<moderation-name>`；moderation 是独立插件类型，不是 tool。每个插件通常包含：
+正式工具插件位于 `packages/tools/<tool-name>`，正式 moderation 插件位于 `packages/moderations/<moderation-name>`。测试插件按类型放在 `packages/test/` 下，例如 `packages/test/tools/<tool-name>`；moderation 是独立插件类型，不是 tool。每个插件通常包含：
 
 - `package.json`：插件包名、脚本和依赖。
 - `index.ts`：插件入口。

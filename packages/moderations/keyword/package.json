@@ -1,7 +1,7 @@
 {
-  "name": "fastgpt-moderation-keyword-test",
-  "version": "0.0.1",
-  "description": "Local keyword moderation plugin for testing FastGPT moderation support",
+  "name": "fastgpt-moderation-keyword",
+  "version": "1.0.0",
+  "description": "High-performance local keyword content moderation plugin powered by Aho-Corasick algorithm and open-source sensitive lexicon",
   "private": true,
   "type": "module",
   "main": "dist/index.js",
@@ -11,6 +11,7 @@
     "check": "npx @fastgpt-plugin/cli check --entry . --output ./dist",
     "debug": "npx @fastgpt-plugin/cli debug .",
     "debug:run": "npx @fastgpt-plugin/cli debug . --run --input '{\"content\":\"blocked phrase\"}' --secrets '{\"blockedKeywords\":\"blocked phrase\"}'",
+    "pack": "npx @fastgpt-plugin/cli pack",
     "pack:moderation": "npx @fastgpt-plugin/cli pack",
     "test": "vitest run",
     "type-check": "tsc --noEmit"

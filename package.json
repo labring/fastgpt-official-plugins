@@ -8,6 +8,7 @@
     "build:full-package": "pnpm run pack:tools && tsx scripts/build-full-package.ts",
     "pack": "turbo run pack --continue=always --summarize",
     "pack:tools": "turbo run pack --filter=\"./packages/tools/*\"",
+    "pack:moderations": "turbo run pack --filter=\"./packages/moderations/*\"",
     "type-check": "turbo run type-check --parallel",
     "biome-check": "turbo run biome-check --parallel",
     "postinstall": "lefthook install",
