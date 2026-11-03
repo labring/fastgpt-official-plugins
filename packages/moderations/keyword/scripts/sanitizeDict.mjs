@@ -153,5 +153,3 @@ console.log(`  Length > 10: ${politics.filter(w => w.length > 10).length} words`
 console.log('\nSample 2-char politics words (total', twoCharWords.length, '):', twoCharWords.slice(0, 40));
 console.log('\nSample latin politics words (total', latinWords.length, '):', latinWords.slice(0, 30));
 console.log('\nSample digit-containing politics words (total', digitWords.length, '):', digitWords.slice(0, 30));
-
-
