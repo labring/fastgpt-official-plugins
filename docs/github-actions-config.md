@@ -7,6 +7,7 @@
 - `Extract Updated Tools`：`packages/**` 变化合入 `main` 后，提取发生变化的 `packages/tools/<tool>` 列表，并触发 marketplace 发布 workflow。
 - `Publish Tools to Marketplace`：接收工具列表，等待人工 approval，通过后 build、pack 并调用 `pnpm run upload packages/tools/<tool>` 发布到 marketplace。
 - `Publish All Tools to Marketplace`：手动触发，扫描 `packages/tools/*` 下所有插件，全部 build、pack，通过人工 approval 后上传到 marketplace。
+- `Build Full Plugin Package`：`packages/tools/**` 变化合入 `main` 后，重新打包全部 `packages/tools/*` 插件，生成固定名 `fastgpt-official-plugins.zip`（扁平 `.pkg` 结构，不含 `packages/test/tools/*`），并更新滚动 release `pkg-latest` 的资产。无需人工 approval。
 
 ## Environments
 
@@ -31,6 +32,7 @@
 | `MARKETPLACE_BASE_URL` | 是 | marketplace 服务地址，例如 `https://marketplace.example.com`。 |
 | `MARKETPLACE_AUTH` | 是 | 调用 `/api/admin/pkg/upload` 的 `Authorization` header。 |
 | `NPM_TOKEN` | 私有 npm 包或未公开版本时必填 | 安装 `@fastgpt-plugin/*` 等依赖时写入 `~/.npmrc`。 |
+| `RELEASE_TOKEN` | 组织策略钳制 `GITHUB_TOKEN` 时必填 | 对目标仓库具备 `contents: write` 的 PAT，供 `Build Full Plugin Package` 创建和更新 `pkg-latest` release；未配置时回退到 `GITHUB_TOKEN`。 |
 
 ## Actions 权限
 
@@ -38,6 +40,7 @@
 
 - `Workflow permissions` 需要允许 workflow 获取 `contents: read`。
 - `Extract Updated Tools` 需要 `actions: write` 来触发 `Publish Tools to Marketplace`。
+- `Build Full Plugin Package` 使用 workflow 内的 `contents: write` 权限创建和更新 release；若仓库或组织把 `GITHUB_TOKEN` 限制为只读，需配置 `RELEASE_TOKEN`。
 
 如果组织限制了默认 token 权限，需要允许仓库 workflow 使用上述权限。
 
@@ -65,8 +68,16 @@
 5. `Publish All Tools` job 进入 `MarketplacePublish` environment 等待人工 approval。
 6. reviewer 确认后，workflow 下载 `.pkg` artifact，并对每个 `.pkg` 文件执行 `pnpm run upload "<pkg-file>"`。
 
+### 全量包发布（批量重装用 zip）
+
+1. 合并包含 `packages/tools/**`、`scripts/build-full-package.ts`、`package.json` 或 workflow 自身变化的 PR 到 `main`，`Build Full Plugin Package` 自动运行；也可手动 `workflow_dispatch` 并指定 `ref`（非 `main` 只产出 artifact，不更新 release）。
+2. workflow 执行 `pnpm run pack:tools` 打包全部 `packages/tools/*`，再执行 `pnpm exec tsx scripts/build-full-package.ts --out dist/fastgpt-official-plugins.zip` 生成扁平 zip。
+3. zip 作为 `fastgpt-official-plugins` artifact 保存，同时用 `gh release` 上传到滚动 release `pkg-latest`（`--clobber` 覆盖同名资产，notes 记录本次 source commit）。
+4. 用户下载地址固定为 `https://github.com/labring/fastgpt-official-plugins/releases/download/pkg-latest/fastgpt-official-plugins.zip`，在 FastGPT 后台 `添加插件` -> `导入/更新插件` 上传即可批量重装。
+
 ## 首次上线检查
 
 - `MarketplacePublish` 已配置 required reviewers。
 - `MARKETPLACE_BASE_URL` 和 `MARKETPLACE_AUTH` 已配置。
+- 如需在组织策略下发布 release，配置 `RELEASE_TOKEN`（`contents: write`）。
 - `pnpm-workspace.yaml` 中的 catalog 版本可被 GitHub runner 安装；如依赖在私有 registry 中，配置 `NPM_TOKEN`。

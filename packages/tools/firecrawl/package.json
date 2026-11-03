@@ -1,7 +1,7 @@
 {
   "name": "fastgpt-tools-firecrawl",
-  "version": "0.0.1",
-  "description": "Web scraper for LLMs. Power your AI apps with clean data crawled from any website. It's also open source. ",
+  "version": "0.0.2",
+  "description": "The context API to search, scrape, and interact with the web at scale. Search the web and turn any page into clean markdown or HTML for your AI apps.",
   "type": "module",
   "main": "dist/index.js",
   "scripts": {

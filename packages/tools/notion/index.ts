@@ -1,4 +1,9 @@
-import { createToolHandler, defineToolSet } from "@fastgpt-plugin/sdk-factory";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineToolSet,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import {
   InputType as createPageInputType,
@@ -29,49 +34,149 @@ import {
 const secretSchema = z.object({
   integrationToken: z.string().meta({
     title: "Notion Integration Token",
-    description: "Notion Internal Integration Secret，例如 ntn_...",
+    description: "Notion internal integration secret, for example ntn_... .",
+    "x-i18n": {
+      title: { en: "Notion Integration Token", "zh-CN": "Notion 集成令牌" },
+      description: {
+        en: "Notion internal integration secret, for example ntn_... .",
+        "zh-CN": "Notion 内部集成密钥，例如 ntn_...。",
+      },
+    },
     isSecret: true,
   }),
 });
 
 const searchSecretSchema = z.object({});
-const searchInputSchema = z.object({
-  query: z.string().optional().meta({
-    title: "Query",
-    description: "搜索关键词，留空时按 Notion 默认排序返回",
-    toolDescription: "Text query for Notion search.",
-  }),
-  objectType: z.enum(["page", "database", "data_source"]).optional().meta({
-    title: "Object Type",
-    description: "可选，限制搜索对象类型",
-    toolDescription: "Optional Notion object type filter.",
-  }),
-  pageSize: z.number().int().min(1).max(100).optional().meta({
-    title: "Page Size",
-    description: "返回数量，范围 1-100，默认 10",
-    toolDescription: "Maximum number of Notion search results.",
-  }),
-  cursor: z.string().optional().meta({
-    title: "Cursor",
-    description: "分页 cursor",
-    toolDescription: "Pagination cursor from a previous search call.",
-  }),
+const searchInputSchema = defineInputSchema({
+  query: {
+    type: z.string().optional(),
+    title: { en: "Query", "zh-CN": "查询词" },
+    description: {
+      en: "Text to search for in Notion; when omitted, results use Notion's default ordering.",
+      "zh-CN": "在 Notion 中搜索的文本；留空时按 Notion 默认排序返回结果。",
+    },
+    isToolParam: true,
+  },
+  objectType: {
+    type: z.enum(["page", "database", "data_source"]).optional(),
+    title: { en: "Object Type", "zh-CN": "对象类型" },
+    description: {
+      en: "Optional filter that limits results to pages, databases, or data sources.",
+      "zh-CN": "可选的对象类型筛选，可限制为页面、数据库或数据源。",
+    },
+    isToolParam: true,
+  },
+  pageSize: {
+    type: z.number().int().min(1).max(100).optional(),
+    title: { en: "Page Size", "zh-CN": "每页数量" },
+    description: {
+      en: "Number of results to return, from 1 to 100; defaults to 10.",
+      "zh-CN": "返回数量，范围为 1–100，默认 10。",
+    },
+    isToolParam: true,
+  },
+  cursor: {
+    type: z.string().optional(),
+    title: { en: "Cursor", "zh-CN": "分页游标" },
+    description: {
+      en: "Pagination cursor from a previous search call.",
+      "zh-CN": "上一次搜索调用返回的分页游标。",
+    },
+    isToolParam: true,
+  },
 });
-const searchOutputSchema = z.object({
-  results: z.array(
-    z.object({
-      object: z.string(),
-      id: z.string(),
-      title: z.string(),
-      url: z.string(),
-      archived: z.boolean(),
-      in_trash: z.boolean(),
-      created_time: z.string(),
-      last_edited_time: z.string(),
-    }),
-  ),
-  has_more: z.boolean(),
-  next_cursor: z.string(),
+const searchOutputSchema = defineOutputSchema({
+  results: {
+    type: z.array(
+      defineOutputSchema({
+        object: {
+          type: z.string(),
+          title: { en: "Object Type", "zh-CN": "对象类型" },
+          description: {
+            en: "Notion object type.",
+            "zh-CN": "Notion 对象类型。",
+          },
+        },
+        id: {
+          type: z.string(),
+          title: { en: "Object ID", "zh-CN": "对象 ID" },
+          description: {
+            en: "Notion object identifier.",
+            "zh-CN": "Notion 对象标识符。",
+          },
+        },
+        title: {
+          type: z.string(),
+          title: { en: "Title", "zh-CN": "标题" },
+          description: {
+            en: "Title of the Notion object.",
+            "zh-CN": "Notion 对象标题。",
+          },
+        },
+        url: {
+          type: z.string(),
+          title: { en: "URL", "zh-CN": "链接" },
+          description: {
+            en: "URL of the Notion object.",
+            "zh-CN": "Notion 对象链接。",
+          },
+        },
+        archived: {
+          type: z.boolean(),
+          title: { en: "Archived", "zh-CN": "已归档" },
+          description: {
+            en: "Whether the object is archived.",
+            "zh-CN": "该对象是否已归档。",
+          },
+        },
+        in_trash: {
+          type: z.boolean(),
+          title: { en: "In Trash", "zh-CN": "已移至回收站" },
+          description: {
+            en: "Whether the object is in the trash.",
+            "zh-CN": "该对象是否已移至回收站。",
+          },
+        },
+        created_time: {
+          type: z.string(),
+          title: { en: "Created At", "zh-CN": "创建时间" },
+          description: {
+            en: "Object creation timestamp.",
+            "zh-CN": "对象创建时间。",
+          },
+        },
+        last_edited_time: {
+          type: z.string(),
+          title: { en: "Last Edited At", "zh-CN": "最后编辑时间" },
+          description: {
+            en: "Timestamp of the most recent edit.",
+            "zh-CN": "对象最近一次编辑时间。",
+          },
+        },
+      }),
+    ),
+    title: { en: "Search Results", "zh-CN": "搜索结果" },
+    description: {
+      en: "Pages, databases, or data sources matching the search.",
+      "zh-CN": "符合搜索条件的页面、数据库或数据源。",
+    },
+  },
+  has_more: {
+    type: z.boolean(),
+    title: { en: "More Results Available", "zh-CN": "是否有更多结果" },
+    description: {
+      en: "Whether additional results are available.",
+      "zh-CN": "是否还有更多结果可供查询。",
+    },
+  },
+  next_cursor: {
+    type: z.string(),
+    title: { en: "Next Cursor", "zh-CN": "下一页游标" },
+    description: {
+      en: "Cursor to use when requesting the next page.",
+      "zh-CN": "请求下一页时使用的游标。",
+    },
+  },
 });
 const searchHandler = createToolHandler({
   inputSchema: searchInputSchema,
@@ -88,22 +193,79 @@ const searchHandler = createToolHandler({
 });
 
 const getPageSecretSchema = z.object({});
-const getPageInputSchema = z.object({
-  pageId: z.string().meta({
-    title: "Page ID",
-    description: "Notion page ID",
-    toolDescription: "Notion page ID to retrieve.",
-  }),
+const getPageInputSchema = defineInputSchema({
+  pageId: {
+    type: z.string(),
+    title: { en: "Page ID", "zh-CN": "页面 ID" },
+    description: {
+      en: "Notion page ID to retrieve.",
+      "zh-CN": "要读取的 Notion 页面 ID。",
+    },
+    isToolParam: true,
+  },
 });
-const getPageOutputSchema = z.object({
-  id: z.string(),
-  title: z.string(),
-  url: z.string(),
-  archived: z.boolean(),
-  in_trash: z.boolean(),
-  created_time: z.string(),
-  last_edited_time: z.string(),
-  properties_json: z.string(),
+const getPageOutputSchema = defineOutputSchema({
+  id: {
+    type: z.string(),
+    title: { en: "Page ID", "zh-CN": "页面 ID" },
+    description: {
+      en: "Notion page identifier.",
+      "zh-CN": "Notion 页面标识符。",
+    },
+  },
+  title: {
+    type: z.string(),
+    title: { en: "Title", "zh-CN": "标题" },
+    description: {
+      en: "Title of the Notion page.",
+      "zh-CN": "Notion 页面的标题。",
+    },
+  },
+  url: {
+    type: z.string(),
+    title: { en: "URL", "zh-CN": "链接" },
+    description: {
+      en: "URL of the Notion page.",
+      "zh-CN": "Notion 页面链接。",
+    },
+  },
+  archived: {
+    type: z.boolean(),
+    title: { en: "Archived", "zh-CN": "已归档" },
+    description: {
+      en: "Whether the page is archived.",
+      "zh-CN": "页面是否已归档。",
+    },
+  },
+  in_trash: {
+    type: z.boolean(),
+    title: { en: "In Trash", "zh-CN": "已移至回收站" },
+    description: {
+      en: "Whether the page is in the trash.",
+      "zh-CN": "页面是否已移至回收站。",
+    },
+  },
+  created_time: {
+    type: z.string(),
+    title: { en: "Created At", "zh-CN": "创建时间" },
+    description: { en: "Page creation timestamp.", "zh-CN": "页面创建时间。" },
+  },
+  last_edited_time: {
+    type: z.string(),
+    title: { en: "Last Edited At", "zh-CN": "最后编辑时间" },
+    description: {
+      en: "Timestamp of the most recent page edit.",
+      "zh-CN": "页面最近一次编辑时间。",
+    },
+  },
+  properties_json: {
+    type: z.string(),
+    title: { en: "Properties JSON", "zh-CN": "属性 JSON" },
+    description: {
+      en: "Page properties serialized as a JSON string.",
+      "zh-CN": "以 JSON 字符串序列化的页面属性。",
+    },
+  },
 });
 const getPageHandler = createToolHandler({
   inputSchema: getPageInputSchema,
@@ -120,36 +282,108 @@ const getPageHandler = createToolHandler({
 });
 
 const getBlockChildrenSecretSchema = z.object({});
-const getBlockChildrenInputSchema = z.object({
-  blockId: z.string().meta({
-    title: "Block ID",
-    description: "Notion block/page ID",
-    toolDescription: "Notion block or page ID whose children should be listed.",
-  }),
-  pageSize: z.number().int().min(1).max(100).optional().meta({
-    title: "Page Size",
-    description: "返回数量，范围 1-100，默认 20",
-    toolDescription: "Maximum number of child blocks.",
-  }),
-  cursor: z.string().optional().meta({
-    title: "Cursor",
-    description: "分页 cursor",
-    toolDescription: "Pagination cursor from a previous block children call.",
-  }),
+const getBlockChildrenInputSchema = defineInputSchema({
+  blockId: {
+    type: z.string(),
+    title: { en: "Block or Page ID", "zh-CN": "块或页面 ID" },
+    description: {
+      en: "Notion block or page ID whose children should be listed.",
+      "zh-CN": "要列出其子项的 Notion 块或页面 ID。",
+    },
+    isToolParam: true,
+  },
+  pageSize: {
+    type: z.number().int().min(1).max(100).optional(),
+    title: { en: "Page Size", "zh-CN": "每页数量" },
+    description: {
+      en: "Number of child blocks to return, from 1 to 100; defaults to 20.",
+      "zh-CN": "要返回的子块数量，范围为 1–100，默认 20。",
+    },
+    isToolParam: true,
+  },
+  cursor: {
+    type: z.string().optional(),
+    title: { en: "Cursor", "zh-CN": "分页游标" },
+    description: {
+      en: "Pagination cursor from a previous block-children call.",
+      "zh-CN": "上一次查询子块调用返回的分页游标。",
+    },
+    isToolParam: true,
+  },
 });
-const getBlockChildrenOutputSchema = z.object({
-  blocks: z.array(
-    z.object({
-      id: z.string(),
-      type: z.string(),
-      text: z.string(),
-      has_children: z.boolean(),
-      archived: z.boolean(),
-      in_trash: z.boolean(),
-    }),
-  ),
-  has_more: z.boolean(),
-  next_cursor: z.string(),
+const getBlockChildrenOutputSchema = defineOutputSchema({
+  blocks: {
+    type: z.array(
+      defineOutputSchema({
+        id: {
+          type: z.string(),
+          title: { en: "Block ID", "zh-CN": "块 ID" },
+          description: {
+            en: "Notion block identifier.",
+            "zh-CN": "Notion 块标识符。",
+          },
+        },
+        type: {
+          type: z.string(),
+          title: { en: "Block Type", "zh-CN": "块类型" },
+          description: { en: "Notion block type.", "zh-CN": "Notion 块类型。" },
+        },
+        text: {
+          type: z.string(),
+          title: { en: "Text", "zh-CN": "文本" },
+          description: {
+            en: "Plain text extracted from the block.",
+            "zh-CN": "从块中提取的纯文本。",
+          },
+        },
+        has_children: {
+          type: z.boolean(),
+          title: { en: "Has Children", "zh-CN": "包含子项" },
+          description: {
+            en: "Whether the block has child blocks.",
+            "zh-CN": "该块是否包含子块。",
+          },
+        },
+        archived: {
+          type: z.boolean(),
+          title: { en: "Archived", "zh-CN": "已归档" },
+          description: {
+            en: "Whether the block is archived.",
+            "zh-CN": "该块是否已归档。",
+          },
+        },
+        in_trash: {
+          type: z.boolean(),
+          title: { en: "In Trash", "zh-CN": "已移至回收站" },
+          description: {
+            en: "Whether the block is in the trash.",
+            "zh-CN": "该块是否已移至回收站。",
+          },
+        },
+      }),
+    ),
+    title: { en: "Child Blocks", "zh-CN": "子块列表" },
+    description: {
+      en: "Child blocks returned for the requested Notion block or page.",
+      "zh-CN": "所请求 Notion 块或页面返回的子块。",
+    },
+  },
+  has_more: {
+    type: z.boolean(),
+    title: { en: "More Blocks Available", "zh-CN": "是否有更多子块" },
+    description: {
+      en: "Whether additional child blocks are available.",
+      "zh-CN": "是否还有更多子块可供查询。",
+    },
+  },
+  next_cursor: {
+    type: z.string(),
+    title: { en: "Next Cursor", "zh-CN": "下一页游标" },
+    description: {
+      en: "Cursor to use when requesting the next block page.",
+      "zh-CN": "请求下一页子块时使用的游标。",
+    },
+  },
 });
 const getBlockChildrenHandler = createToolHandler({
   inputSchema: getBlockChildrenInputSchema,
@@ -166,49 +400,153 @@ const getBlockChildrenHandler = createToolHandler({
 });
 
 const queryDataSourceSecretSchema = z.object({});
-const queryDataSourceInputSchema = z.object({
-  dataSourceId: z.string().meta({
-    title: "Data Source ID",
-    description: "Notion data source ID",
-    toolDescription: "Notion data source ID to query.",
-  }),
-  filterJson: z.string().optional().meta({
-    title: "Filter JSON",
-    description: "Notion filter JSON object",
-    toolDescription: "Optional Notion filter JSON object.",
-  }),
-  sortsJson: z.string().optional().meta({
-    title: "Sorts JSON",
-    description: '形如 {"sorts":[...]} 的排序 JSON',
-    toolDescription: "Optional JSON object with a sorts array.",
-  }),
-  pageSize: z.number().int().min(1).max(100).optional().meta({
-    title: "Page Size",
-    description: "返回数量，范围 1-100，默认 20",
-    toolDescription: "Maximum number of pages to return.",
-  }),
-  cursor: z.string().optional().meta({
-    title: "Cursor",
-    description: "分页 cursor",
-    toolDescription: "Pagination cursor from a previous data source query.",
-  }),
+const queryDataSourceInputSchema = defineInputSchema({
+  dataSourceId: {
+    type: z.string(),
+    title: { en: "Data Source ID", "zh-CN": "数据源 ID" },
+    description: {
+      en: "Notion data source ID to query.",
+      "zh-CN": "要查询的 Notion 数据源 ID。",
+    },
+    isToolParam: true,
+  },
+  filterJson: {
+    type: z.string().optional(),
+    title: { en: "Filter JSON", "zh-CN": "筛选条件 JSON" },
+    description: {
+      en: "Optional Notion filter JSON object.",
+      "zh-CN": "可选的 Notion 筛选条件 JSON 对象。",
+    },
+    isToolParam: true,
+  },
+  sortsJson: {
+    type: z.string().optional(),
+    title: { en: "Sorts JSON", "zh-CN": "排序 JSON" },
+    description: {
+      en: 'Optional JSON object containing a sorts array, for example {"sorts":[...]}.',
+      "zh-CN": '可选的排序 JSON 对象，包含 sorts 数组，例如 {"sorts":[...]}。',
+    },
+    isToolParam: true,
+  },
+  pageSize: {
+    type: z.number().int().min(1).max(100).optional(),
+    title: { en: "Page Size", "zh-CN": "每页数量" },
+    description: {
+      en: "Number of results to return, from 1 to 100; defaults to 20.",
+      "zh-CN": "返回数量，范围为 1–100，默认 20。",
+    },
+    isToolParam: true,
+  },
+  cursor: {
+    type: z.string().optional(),
+    title: { en: "Cursor", "zh-CN": "分页游标" },
+    description: {
+      en: "Pagination cursor from a previous data-source query.",
+      "zh-CN": "上一次数据源查询返回的分页游标。",
+    },
+    isToolParam: true,
+  },
 });
-const queryDataSourceOutputSchema = z.object({
-  results: z.array(
-    z.object({
-      object: z.string(),
-      id: z.string(),
-      title: z.string(),
-      url: z.string(),
-      archived: z.boolean(),
-      in_trash: z.boolean(),
-      created_time: z.string(),
-      last_edited_time: z.string(),
-      properties_json: z.string(),
-    }),
-  ),
-  has_more: z.boolean(),
-  next_cursor: z.string(),
+const queryDataSourceOutputSchema = defineOutputSchema({
+  results: {
+    type: z.array(
+      defineOutputSchema({
+        object: {
+          type: z.string(),
+          title: { en: "Object Type", "zh-CN": "对象类型" },
+          description: {
+            en: "Notion object type.",
+            "zh-CN": "Notion 对象类型。",
+          },
+        },
+        id: {
+          type: z.string(),
+          title: { en: "Object ID", "zh-CN": "对象 ID" },
+          description: {
+            en: "Notion object identifier.",
+            "zh-CN": "Notion 对象标识符。",
+          },
+        },
+        title: {
+          type: z.string(),
+          title: { en: "Title", "zh-CN": "标题" },
+          description: {
+            en: "Title of the returned Notion page.",
+            "zh-CN": "返回的 Notion 页面标题。",
+          },
+        },
+        url: {
+          type: z.string(),
+          title: { en: "URL", "zh-CN": "链接" },
+          description: {
+            en: "URL of the returned Notion page.",
+            "zh-CN": "返回的 Notion 页面链接。",
+          },
+        },
+        archived: {
+          type: z.boolean(),
+          title: { en: "Archived", "zh-CN": "已归档" },
+          description: {
+            en: "Whether the page is archived.",
+            "zh-CN": "页面是否已归档。",
+          },
+        },
+        in_trash: {
+          type: z.boolean(),
+          title: { en: "In Trash", "zh-CN": "已移至回收站" },
+          description: {
+            en: "Whether the page is in the trash.",
+            "zh-CN": "页面是否已移至回收站。",
+          },
+        },
+        created_time: {
+          type: z.string(),
+          title: { en: "Created At", "zh-CN": "创建时间" },
+          description: {
+            en: "Page creation timestamp.",
+            "zh-CN": "页面创建时间。",
+          },
+        },
+        last_edited_time: {
+          type: z.string(),
+          title: { en: "Last Edited At", "zh-CN": "最后编辑时间" },
+          description: {
+            en: "Timestamp of the most recent page edit.",
+            "zh-CN": "页面最近一次编辑时间。",
+          },
+        },
+        properties_json: {
+          type: z.string(),
+          title: { en: "Properties JSON", "zh-CN": "属性 JSON" },
+          description: {
+            en: "Page properties serialized as a JSON string.",
+            "zh-CN": "以 JSON 字符串序列化的页面属性。",
+          },
+        },
+      }),
+    ),
+    title: { en: "Query Results", "zh-CN": "查询结果" },
+    description: {
+      en: "Pages returned from the Notion data-source query.",
+      "zh-CN": "Notion 数据源查询返回的页面。",
+    },
+  },
+  has_more: {
+    type: z.boolean(),
+    title: { en: "More Results Available", "zh-CN": "是否有更多结果" },
+    description: {
+      en: "Whether additional pages are available.",
+      "zh-CN": "是否还有更多页面可供查询。",
+    },
+  },
+  next_cursor: {
+    type: z.string(),
+    title: { en: "Next Cursor", "zh-CN": "下一页游标" },
+    description: {
+      en: "Cursor to use when requesting the next page.",
+      "zh-CN": "请求下一页时使用的游标。",
+    },
+  },
 });
 const queryDataSourceHandler = createToolHandler({
   inputSchema: queryDataSourceInputSchema,
@@ -225,35 +563,90 @@ const queryDataSourceHandler = createToolHandler({
 });
 
 const createPageSecretSchema = z.object({});
-const createPageInputSchema = z.object({
-  parentType: z.enum(["page_id", "data_source_id"]).meta({
-    title: "Parent Type",
-    description: "父级类型：page_id 或 data_source_id",
-    toolDescription: "Notion parent type for the new page.",
-  }),
-  parentId: z.string().meta({
-    title: "Parent ID",
-    description: "父级 page/data source ID",
-    toolDescription: "Notion parent page or data source ID.",
-  }),
-  propertiesJson: z.string().meta({
-    title: "Properties JSON",
-    description: "Notion properties JSON object",
-    toolDescription: "Notion page properties JSON object.",
-  }),
-  childrenJson: z.string().optional().meta({
-    title: "Children JSON",
-    description: "可选 Notion block children JSON array",
-    toolDescription: "Optional Notion children blocks JSON array.",
-  }),
+const createPageInputSchema = defineInputSchema({
+  parentType: {
+    type: z.enum(["page_id", "data_source_id"]),
+    title: { en: "Parent Type", "zh-CN": "父级类型" },
+    description: {
+      en: "Parent reference type for the new page: page_id or data_source_id.",
+      "zh-CN": "新页面的父级引用类型，可选 page_id 或 data_source_id。",
+    },
+    isToolParam: true,
+  },
+  parentId: {
+    type: z.string(),
+    title: { en: "Parent ID", "zh-CN": "父级 ID" },
+    description: {
+      en: "ID of the parent page or data source.",
+      "zh-CN": "父级页面或数据源的 ID。",
+    },
+    isToolParam: true,
+  },
+  propertiesJson: {
+    type: z.string(),
+    title: { en: "Properties JSON", "zh-CN": "属性 JSON" },
+    description: {
+      en: "Notion properties JSON object for the page to create.",
+      "zh-CN": "要创建页面的 Notion properties JSON 对象。",
+    },
+    isToolParam: true,
+  },
+  childrenJson: {
+    type: z.string().optional(),
+    title: { en: "Children JSON", "zh-CN": "子块 JSON" },
+    description: {
+      en: "Optional JSON array of Notion block children to add to the page.",
+      "zh-CN": "可选的 Notion block children JSON 数组，用于添加到页面。",
+    },
+    isToolParam: true,
+  },
 });
-const createPageOutputSchema = z.object({
-  id: z.string(),
-  url: z.string(),
-  archived: z.boolean(),
-  in_trash: z.boolean(),
-  created_time: z.string(),
-  last_edited_time: z.string(),
+const createPageOutputSchema = defineOutputSchema({
+  id: {
+    type: z.string(),
+    title: { en: "Page ID", "zh-CN": "页面 ID" },
+    description: {
+      en: "Identifier of the created Notion page.",
+      "zh-CN": "新建 Notion 页面的标识符。",
+    },
+  },
+  url: {
+    type: z.string(),
+    title: { en: "Page URL", "zh-CN": "页面链接" },
+    description: {
+      en: "URL of the created Notion page.",
+      "zh-CN": "新建 Notion 页面的链接。",
+    },
+  },
+  archived: {
+    type: z.boolean(),
+    title: { en: "Archived", "zh-CN": "已归档" },
+    description: {
+      en: "Whether the created page is archived.",
+      "zh-CN": "新建页面是否已归档。",
+    },
+  },
+  in_trash: {
+    type: z.boolean(),
+    title: { en: "In Trash", "zh-CN": "已移至回收站" },
+    description: {
+      en: "Whether the created page is in the trash.",
+      "zh-CN": "新建页面是否已移至回收站。",
+    },
+  },
+  created_time: {
+    type: z.string(),
+    title: { en: "Created At", "zh-CN": "创建时间" },
+    description: { en: "Page creation timestamp.", "zh-CN": "页面创建时间。" },
+  },
+  last_edited_time: {
+    type: z.string(),
+    title: { en: "Last Edited At", "zh-CN": "最后编辑时间" },
+    description: {
+      en: "Timestamp of the most recent page edit.",
+      "zh-CN": "页面最近一次编辑时间。",
+    },
+  },
 });
 const createPageHandler = createToolHandler({
   inputSchema: createPageInputSchema,
@@ -277,16 +670,15 @@ const toolSet = defineToolSet({
       "zh-CN": "Notion 工具集",
     },
     description: {
-      en: "Search, read, query, and create Notion pages with the Notion API.",
-      "zh-CN": "通过 Notion API 搜索、读取、查询和创建 Notion 页面。",
+      en: "Search Notion pages, databases, and data sources; retrieve pages and blocks; query data sources; and create pages.",
+      "zh-CN":
+        "搜索 Notion 页面、数据库和数据源；读取页面和子块；查询数据源；并创建页面。",
     },
     version: "0.1.0",
     versionDescription: {
       en: "Initial Notion tool suite",
       "zh-CN": "初始 Notion 工具集版本",
     },
-    toolDescription:
-      "Notion tool suite for search, page retrieval, block children, data source query, and page creation.",
     tags: ["productivity", "tools"],
   },
   secretSchema,
@@ -298,11 +690,10 @@ const toolSet = defineToolSet({
         "zh-CN": "搜索",
       },
       description: {
-        en: "Search Notion pages, databases, or data sources with cursor pagination.",
-        "zh-CN": "分页搜索 Notion 页面、database 或 data source。",
+        en: "Search Notion pages, databases, or data sources with optional type filters and cursor pagination.",
+        "zh-CN":
+          "搜索 Notion 页面、数据库或数据源，支持可选类型筛选和游标分页。",
       },
-      toolDescription:
-        "Search Notion pages, databases, or data sources using the Notion search API.",
       handler: searchHandler,
     },
     {
@@ -312,10 +703,10 @@ const toolSet = defineToolSet({
         "zh-CN": "获取页面",
       },
       description: {
-        en: "Retrieve a Notion page and return normalized metadata plus raw properties JSON.",
-        "zh-CN": "读取 Notion 页面并返回标准化元数据和 properties JSON。",
+        en: "Retrieve a Notion page by ID and return its metadata and properties as JSON.",
+        "zh-CN":
+          "根据 ID 读取 Notion 页面，并返回页面元数据和 JSON 格式的属性。",
       },
-      toolDescription: "Retrieve a Notion page by page ID.",
       handler: getPageHandler,
     },
     {
@@ -325,10 +716,9 @@ const toolSet = defineToolSet({
         "zh-CN": "获取子块",
       },
       description: {
-        en: "List child blocks for a Notion block or page and extract plain text.",
-        "zh-CN": "列出 Notion block/page 的子块并抽取纯文本。",
+        en: "List child blocks for a Notion block or page, extracting their plain text with cursor pagination.",
+        "zh-CN": "列出 Notion 块或页面的子块，提取纯文本并支持游标分页。",
       },
-      toolDescription: "List Notion child blocks for a block or page ID.",
       handler: getBlockChildrenHandler,
     },
     {
@@ -338,11 +728,10 @@ const toolSet = defineToolSet({
         "zh-CN": "查询数据源",
       },
       description: {
-        en: "Query a Notion data source with optional filter and sorts JSON.",
-        "zh-CN": "用可选 filter 和 sorts JSON 查询 Notion data source。",
+        en: "Query a Notion data source with optional filter and sorts JSON, returning page metadata and properties JSON.",
+        "zh-CN":
+          "使用可选的筛选条件和排序 JSON 查询 Notion 数据源，并返回页面元数据和属性 JSON。",
       },
-      toolDescription:
-        "Query a Notion data source and return page metadata plus raw properties JSON.",
       handler: queryDataSourceHandler,
     },
     {
@@ -352,12 +741,10 @@ const toolSet = defineToolSet({
         "zh-CN": "创建页面",
       },
       description: {
-        en: "Create a Notion page under a parent page or data source with Notion properties JSON.",
+        en: "Create a Notion page under a parent page or data source using properties JSON and optional block children.",
         "zh-CN":
-          "通过 Notion properties JSON 在页面或 data source 下创建页面。",
+          "使用 properties JSON 在父页面或数据源下创建 Notion 页面，并可选添加子块。",
       },
-      toolDescription:
-        "Create a Notion page under a parent page or data source using the Notion pages API.",
       handler: createPageHandler,
     },
   ],

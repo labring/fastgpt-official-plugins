@@ -1,10 +1,11 @@
 import {
   createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
   defineToolSet,
-  type InputSchemaMetaType,
-  type OutputSchemaMetaType,
   type SecretSchemaMetaType,
 } from "@fastgpt-plugin/sdk-factory";
+
 import z from "zod";
 
 const DEFAULT_BASE_URL = "https://ark.cn-beijing.volces.com/api/v3";
@@ -14,9 +15,16 @@ const secretSchema = z.object({
     .string()
     .min(1)
     .meta({
-      title: "API Key",
-      description: "火山方舟 API Key，用于调用 Seedance 视频生成 API。",
+      title: "Volcengine Ark API key",
+      description: "API key used to call the Seedance video generation API.",
       isSecret: true,
+      "x-i18n": {
+        title: { en: "Volcengine Ark API key", "zh-CN": "火山方舟 API Key" },
+        description: {
+          en: "API key used to call the Seedance video generation API.",
+          "zh-CN": "用于调用 Seedance 视频生成 API 的火山方舟 API Key。",
+        },
+      },
     } satisfies SecretSchemaMetaType),
   baseUrl: z
     .string()
@@ -24,8 +32,15 @@ const secretSchema = z.object({
     .optional()
     .meta({
       title: "Base URL",
-      description: `默认值：${DEFAULT_BASE_URL}`,
+      description: `Optional API base URL. Defaults to ${DEFAULT_BASE_URL}.`,
       isSecret: false,
+      "x-i18n": {
+        title: { en: "Base URL", "zh-CN": "基础 URL" },
+        description: {
+          en: `Optional API base URL. Defaults to ${DEFAULT_BASE_URL}.`,
+          "zh-CN": `可选 API 基础地址，默认值：${DEFAULT_BASE_URL}`,
+        },
+      },
     } satisfies SecretSchemaMetaType),
 });
 
@@ -99,203 +114,225 @@ const createTaskResponseSchema = z.object({
   id: z.string(),
 });
 
-const createTaskOutputSchema = z.object({
-  taskId: z.string().meta({
-    title: "任务 ID",
-    description: "创建成功后返回的视频生成任务 ID。",
-  } satisfies OutputSchemaMetaType),
+const createTaskOutputSchema = defineOutputSchema({
+  taskId: {
+    type: z.string(),
+    title: { en: "Task ID", "zh-CN": "任务 ID" },
+    description: {
+      en: "ID returned after successful video task creation.",
+      "zh-CN": "创建成功后返回的视频生成任务 ID。",
+    },
+  },
 });
 
-const arkTaskOutputSchema = z.object({
-  taskId: z.string().meta({
-    title: "任务 ID",
-    description: "视频生成任务 ID。",
-  } satisfies OutputSchemaMetaType),
-  status: videoStatusSchema.meta({
-    title: "任务状态",
-    description: "queued、running、cancelled、succeeded、failed 或 expired。",
-  } satisfies OutputSchemaMetaType),
-  videoUrl: z
-    .string()
-    .optional()
-    .meta({
-      title: "视频 URL",
-      description: "任务成功后返回的 mp4 视频 URL，有效期以火山方舟返回为准。",
-    } satisfies OutputSchemaMetaType),
-  lastFrameUrl: z
-    .string()
-    .optional()
-    .meta({
-      title: "尾帧 URL",
-      description: "启用返回尾帧后，任务成功时返回的尾帧图片 URL。",
-    } satisfies OutputSchemaMetaType),
-  errorCode: z
-    .string()
-    .optional()
-    .meta({
-      title: "错误码",
-    } satisfies OutputSchemaMetaType),
-  errorMessage: z
-    .string()
-    .optional()
-    .meta({
-      title: "错误信息",
-    } satisfies OutputSchemaMetaType),
-  model: z
-    .string()
-    .optional()
-    .meta({
-      title: "模型",
-    } satisfies OutputSchemaMetaType),
-  createdAt: z
-    .number()
-    .optional()
-    .meta({
-      title: "创建时间",
-    } satisfies OutputSchemaMetaType),
-  updatedAt: z
-    .number()
-    .optional()
-    .meta({
-      title: "更新时间",
-    } satisfies OutputSchemaMetaType),
-  usageTotalTokens: z
-    .number()
-    .optional()
-    .meta({
-      title: "总 Token 用量",
-    } satisfies OutputSchemaMetaType),
+const arkTaskOutputSchema = defineOutputSchema({
+  taskId: {
+    type: z.string(),
+    title: { en: "Task ID", "zh-CN": "任务 ID" },
+    description: {
+      en: "Video generation task ID.",
+      "zh-CN": "视频生成任务 ID。",
+    },
+  },
+  status: {
+    type: videoStatusSchema,
+    title: { en: "Task status", "zh-CN": "任务状态" },
+    description: {
+      en: "queued, running, cancelled, succeeded, failed, or expired.",
+      "zh-CN": "queued、running、cancelled、succeeded、failed 或 expired。",
+    },
+  },
+  videoUrl: {
+    type: z.string().optional(),
+    title: { en: "Video URL", "zh-CN": "视频 URL" },
+    description: {
+      en: "MP4 video URL returned on success; validity is determined by Volcengine Ark.",
+      "zh-CN": "任务成功后返回的 MP4 视频 URL，有效期以火山方舟返回为准。",
+    },
+  },
+  lastFrameUrl: {
+    type: z.string().optional(),
+    title: { en: "Last-frame URL", "zh-CN": "尾帧 URL" },
+    description: {
+      en: "Last-frame image URL returned on success when enabled.",
+      "zh-CN": "启用返回尾帧后，任务成功时返回的尾帧图片 URL。",
+    },
+  },
+  errorCode: {
+    type: z.string().optional(),
+    title: { en: "Error code", "zh-CN": "错误码" },
+  },
+  errorMessage: {
+    type: z.string().optional(),
+    title: { en: "Error message", "zh-CN": "错误信息" },
+  },
+  model: {
+    type: z.string().optional(),
+    title: { en: "Model", "zh-CN": "模型" },
+  },
+  createdAt: {
+    type: z.number().optional(),
+    title: { en: "Created at", "zh-CN": "创建时间" },
+  },
+  updatedAt: {
+    type: z.number().optional(),
+    title: { en: "Updated at", "zh-CN": "更新时间" },
+  },
+  usageTotalTokens: {
+    type: z.number().optional(),
+    title: { en: "Total token usage", "zh-CN": "总 Token 用量" },
+  },
 });
 
-const createTaskInputSchema = z.object({
-  model: z
-    .string()
-    .min(1)
-    .meta({
-      title: "模型 ID",
-      description:
+const createTaskInputSchema = defineInputSchema({
+  model: {
+    type: z.string().min(1),
+    title: { en: "Model ID", "zh-CN": "模型 ID" },
+    description: {
+      en: "The Volcengine Ark video generation model ID or Endpoint ID, e.g. doubao-seedance-1-5-pro-251215.",
+      "zh-CN":
         "火山方舟视频生成模型 ID 或 Endpoint ID，例如 doubao-seedance-1-5-pro-251215。",
-      toolDescription:
-        "The Volcengine Ark video generation model ID or Endpoint ID.",
-    } satisfies InputSchemaMetaType),
-  prompt: z
-    .string()
-    .min(1)
-    .meta({
-      title: "视频提示词",
-      description: "描述期望生成的视频内容。",
-      toolDescription: "The text prompt describing the video to generate.",
-    } satisfies InputSchemaMetaType),
-  firstFrameImageUrl: z
-    .string()
-    .optional()
-    .meta({
-      title: "首帧图片 URL",
-      description: "可选。公网图片 URL、Base64 图片或火山素材 ID。",
-    } satisfies InputSchemaMetaType),
-  lastFrameImageUrl: z
-    .string()
-    .optional()
-    .meta({
-      title: "尾帧图片 URL",
-      description: "可选。与首帧图片一起使用时，作为尾帧。",
-    } satisfies InputSchemaMetaType),
-  ratio: z
-    .enum(["16:9", "9:16", "1:1", "4:3", "3:4"])
-    .optional()
-    .meta({
-      title: "宽高比",
-      description: "按火山方舟文档作为请求体顶层 ratio 字段传入。",
-    } satisfies InputSchemaMetaType),
-  resolution: z
-    .enum(["480p", "720p", "1080p"])
-    .optional()
-    .meta({
-      title: "分辨率",
-      description: "按火山方舟文档作为请求体顶层 resolution 字段传入。",
-    } satisfies InputSchemaMetaType),
-  duration: z
-    .number()
-    .int()
-    .positive()
-    .optional()
-    .meta({
-      title: "时长",
-      description: "单位：秒。按火山方舟文档作为请求体顶层 duration 字段传入。",
-    } satisfies InputSchemaMetaType),
-  seed: z
-    .number()
-    .int()
-    .optional()
-    .meta({
-      title: "随机种子",
-      description: "按火山方舟文档作为请求体顶层 seed 字段传入。",
-    } satisfies InputSchemaMetaType),
-  cameraFixed: z
-    .boolean()
-    .optional()
-    .meta({
-      title: "固定镜头",
-      description: "按火山方舟文档作为请求体顶层 camera_fixed 字段传入。",
-    } satisfies InputSchemaMetaType),
-  watermark: z
-    .boolean()
-    .optional()
-    .meta({
-      title: "水印",
-      description: "按火山方舟文档作为请求体顶层 watermark 字段传入。",
-    } satisfies InputSchemaMetaType),
-  generateAudio: z
-    .boolean()
-    .optional()
-    .meta({
-      title: "生成音频",
-      description: "控制输出视频是否包含同步声音。",
-    } satisfies InputSchemaMetaType),
-  returnLastFrame: z
-    .boolean()
-    .optional()
-    .meta({
-      title: "返回尾帧",
-      description: "是否在查询结果中返回生成视频的尾帧图片。",
-    } satisfies InputSchemaMetaType),
-  callbackUrl: z
-    .string()
-    .url()
-    .optional()
-    .meta({
-      title: "回调 URL",
-      description: "任务状态变化时，火山方舟会向该地址推送结果。",
-    } satisfies InputSchemaMetaType),
-  safetyIdentifier: z
-    .string()
-    .max(64)
-    .optional()
-    .meta({
-      title: "安全标识",
-      description: "终端用户唯一标识，用于协助火山方舟做安全检测。",
-    } satisfies InputSchemaMetaType),
-  priority: z
-    .number()
-    .int()
-    .min(0)
-    .max(9)
-    .optional()
-    .meta({
-      title: "优先级",
-      description: "仅部分 Seedance 2.0 模型支持，取值 0-9。",
-    } satisfies InputSchemaMetaType),
+    },
+    isToolParam: true,
+  },
+  prompt: {
+    type: z.string().min(1),
+    title: { en: "Video prompt", "zh-CN": "视频提示词" },
+    description: {
+      en: "Text describing the video to generate.",
+      "zh-CN": "描述期望生成的视频内容。",
+    },
+    isToolParam: true,
+  },
+  firstFrameImageUrl: {
+    type: z.string().optional(),
+    title: { en: "First-frame image URL", "zh-CN": "首帧图片 URL" },
+    description: {
+      en: "Optional public image URL, base64 image, or Volcengine asset ID.",
+      "zh-CN": "可选。公网图片 URL、Base64 图片或火山素材 ID。",
+    },
+    isToolParam: true,
+  },
+  lastFrameImageUrl: {
+    type: z.string().optional(),
+    title: { en: "Last-frame image URL", "zh-CN": "尾帧图片 URL" },
+    description: {
+      en: "Optional ending frame used together with the first-frame image.",
+      "zh-CN": "可选。与首帧图片一起使用时，作为尾帧。",
+    },
+    isToolParam: true,
+  },
+  ratio: {
+    type: z.enum(["16:9", "9:16", "1:1", "4:3", "3:4"]).optional(),
+    title: { en: "Aspect ratio", "zh-CN": "宽高比" },
+    description: {
+      en: "Passed as the top-level ratio field in the request body per Volcengine Ark documentation.",
+      "zh-CN": "按火山方舟文档作为请求体顶层 ratio 字段传入。",
+    },
+    isToolParam: true,
+  },
+  resolution: {
+    type: z.enum(["480p", "720p", "1080p"]).optional(),
+    title: { en: "Resolution", "zh-CN": "分辨率" },
+    description: {
+      en: "Passed as the top-level resolution field in the request body per Volcengine Ark documentation.",
+      "zh-CN": "按火山方舟文档作为请求体顶层 resolution 字段传入。",
+    },
+    isToolParam: true,
+  },
+  duration: {
+    type: z.number().int().positive().optional(),
+    title: { en: "Duration", "zh-CN": "时长" },
+    description: {
+      en: "Duration in seconds; passed as the top-level duration field per Volcengine Ark documentation.",
+      "zh-CN": "单位：秒。按火山方舟文档作为请求体顶层 duration 字段传入。",
+    },
+    isToolParam: true,
+  },
+  seed: {
+    type: z.number().int().optional(),
+    title: { en: "Random seed", "zh-CN": "随机种子" },
+    description: {
+      en: "Passed as the top-level seed field per Volcengine Ark documentation.",
+      "zh-CN": "按火山方舟文档作为请求体顶层 seed 字段传入。",
+    },
+    isToolParam: true,
+  },
+  cameraFixed: {
+    type: z.boolean().optional(),
+    title: { en: "Fixed camera", "zh-CN": "固定镜头" },
+    description: {
+      en: "Passed as the top-level camera_fixed field per Volcengine Ark documentation.",
+      "zh-CN": "按火山方舟文档作为请求体顶层 camera_fixed 字段传入。",
+    },
+    isToolParam: true,
+  },
+  watermark: {
+    type: z.boolean().optional(),
+    title: { en: "Watermark", "zh-CN": "水印" },
+    description: {
+      en: "Passed as the top-level watermark field per Volcengine Ark documentation.",
+      "zh-CN": "按火山方舟文档作为请求体顶层 watermark 字段传入。",
+    },
+    isToolParam: true,
+  },
+  generateAudio: {
+    type: z.boolean().optional(),
+    title: { en: "Generate audio", "zh-CN": "生成音频" },
+    description: {
+      en: "Whether the output video includes synchronized sound.",
+      "zh-CN": "控制输出视频是否包含同步声音。",
+    },
+    isToolParam: true,
+  },
+  returnLastFrame: {
+    type: z.boolean().optional(),
+    title: { en: "Return last frame", "zh-CN": "返回尾帧" },
+    description: {
+      en: "Whether to return the generated video's last-frame image in query results.",
+      "zh-CN": "是否在查询结果中返回生成视频的尾帧图片。",
+    },
+    isToolParam: true,
+  },
+  callbackUrl: {
+    type: z.string().url().optional(),
+    title: { en: "Callback URL", "zh-CN": "回调 URL" },
+    description: {
+      en: "Volcengine Ark sends task updates to this URL when status changes.",
+      "zh-CN": "任务状态变化时，火山方舟会向该地址推送结果。",
+    },
+    isToolParam: true,
+  },
+  safetyIdentifier: {
+    type: z.string().max(64).optional(),
+    title: { en: "Safety identifier", "zh-CN": "安全标识" },
+    description: {
+      en: "Unique end-user identifier to help Volcengine Ark perform safety checks.",
+      "zh-CN": "终端用户唯一标识，用于协助火山方舟做安全检测。",
+    },
+    isToolParam: true,
+  },
+  priority: {
+    type: z.number().int().min(0).max(9).optional(),
+    title: { en: "Priority", "zh-CN": "优先级" },
+    description: {
+      en: "Supported by some Seedance 2.0 models only; range 0–9.",
+      "zh-CN": "仅部分 Seedance 2.0 模型支持，取值 0-9。",
+    },
+    isToolParam: true,
+  },
 });
 
-const queryTaskInputSchema = z.object({
-  taskId: z
-    .string()
-    .min(1)
-    .meta({
-      title: "任务 ID",
-      description: "创建视频生成任务返回的 ID。",
-      toolDescription: "The video generation task ID to query.",
-    } satisfies InputSchemaMetaType),
+const queryTaskInputSchema = defineInputSchema({
+  taskId: {
+    type: z.string().min(1),
+    title: { en: "Task ID", "zh-CN": "任务 ID" },
+    description: {
+      en: "Video generation task ID returned when the task was created; ID of the Volcengine Ark task to query.",
+      "zh-CN": "创建视频生成任务返回的 ID。",
+    },
+    isToolParam: true,
+  },
 });
 
 const createSeedanceVideoGenerationTaskHandler = createToolHandler({
@@ -367,11 +404,9 @@ export default defineToolSet({
         "zh-CN": "创建 Seedance 视频生成任务",
       },
       description: {
-        en: "Submit a text-to-video or image-to-video task to Volcengine Ark.",
-        "zh-CN": "向火山方舟提交文生视频或图生视频任务。",
+        en: "Create a Volcengine Ark Seedance video generation task and return its task ID. Submit a text-to-video or image-to-video task.",
+        "zh-CN": "向火山方舟提交文生视频或图生视频任务，并返回任务 ID。",
       },
-      toolDescription:
-        "Create a Volcengine Ark Seedance video generation task and return its task ID.",
       handler: createSeedanceVideoGenerationTaskHandler,
     },
     {
@@ -381,11 +416,10 @@ export default defineToolSet({
         "zh-CN": "查询 Seedance 视频生成任务",
       },
       description: {
-        en: "Query a Volcengine Ark video generation task by task ID.",
-        "zh-CN": "根据任务 ID 查询火山方舟视频生成任务状态和结果。",
+        en: "Query a Volcengine Ark Seedance video generation task by task ID and return status, video URL, errors, and usage.",
+        "zh-CN":
+          "根据任务 ID 查询火山方舟视频生成任务，并返回状态、视频 URL、错误及用量信息。",
       },
-      toolDescription:
-        "Query a Volcengine Ark Seedance video generation task and return status, video URL, error, and usage fields.",
       handler: querySeedanceVideoGenerationTaskHandler,
     },
   ],

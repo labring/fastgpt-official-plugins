@@ -1,22 +1,17 @@
+import type { ToolHandlerContext } from "@fastgpt-plugin/sdk-factory";
+
 import { z } from "zod";
 import { createGristClient, handleGristError } from "../../../client";
 
+type UploadContext = Pick<ToolHandlerContext<undefined>, "invoke">;
+type UploadFileInput = Parameters<UploadContext["invoke"]["uploadFile"]>[0];
 type UploadResult = {
-  accessUrl?: string;
-  accessURL?: string;
-  fileName?: string;
-  contentType?: string;
-  [key: string]: unknown;
-};
-
-type UploadContext = {
-  invoke?: {
-    uploadFile(input: {
-      file: Uint8Array;
-      fileName: string;
-      contentType: string;
-    }): Promise<[UploadResult | null, unknown]>;
-  };
+  accessURL: string;
+  etag?: string | undefined;
+  fileName?: string | undefined;
+  contentType?: string | undefined;
+  size?: number | undefined;
+  createTime?: Date | undefined;
 };
 
 const exportFormatSchema = z.enum(["grist", "xlsx", "csv", "tsv", "dsv"]);
@@ -42,18 +37,6 @@ export const OutputType = z.object({
   success: z.boolean(),
 });
 
-function getUploadErrorMessage(error: unknown): string {
-  if (!error) return "Failed to upload file";
-  if (error instanceof Error) return error.message;
-  if (typeof error === "string") return error;
-  if (typeof error === "object" && "reason" in error) {
-    const reason = (error as { reason?: { "zh-CN"?: string; en?: string } })
-      .reason;
-    return reason?.["zh-CN"] ?? reason?.en ?? "Failed to upload file";
-  }
-  return "Failed to upload file";
-}
-
 async function uploadOutputFile(
   file: Uint8Array,
   fileName: string,
@@ -62,16 +45,15 @@ async function uploadOutputFile(
 ): Promise<UploadResult & { accessUrl: string; accessURL: string }> {
   if (ctx?.invoke?.uploadFile) {
     const [result, error] = await ctx.invoke.uploadFile({
-      file,
+      file: Buffer.isBuffer(file) ? file : Buffer.from(file),
       fileName,
-      contentType,
+      contentType: contentType as UploadFileInput["contentType"],
     });
 
-    if (error || !result) {
-      throw new Error(getUploadErrorMessage(error));
-    }
+    if (error) throw error;
+    if (!result) throw new Error("Failed to upload file");
 
-    const accessUrl = result.accessUrl ?? result.accessURL;
+    const accessUrl = result.accessURL;
     if (!accessUrl) {
       throw new Error("Uploaded file result does not include accessUrl");
     }

@@ -1,8 +1,8 @@
 import {
   createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
   defineToolSet,
-  type InputSchemaMetaType,
-  type OutputSchemaMetaType,
   type SecretSchemaMetaType,
 } from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
@@ -13,17 +13,28 @@ const secretSchema = z.object({
     .string()
     .min(1)
     .meta({
-      title: "模型",
-      description: "填写模型名。",
+      title: "Model",
+      description: "Enter the model name.",
       isSecret: false,
+      "x-i18n": {
+        title: { en: "Model", "zh-CN": "模型" },
+        description: { en: "Enter the model name.", "zh-CN": "填写模型名。" },
+      },
     } satisfies SecretSchemaMetaType),
   apiKey: z
     .string()
     .min(1)
     .meta({
       title: "API Key",
-      description: "服务商 API Key。",
+      description: "Service provider API key.",
       isSecret: true,
+      "x-i18n": {
+        title: { en: "API key", "zh-CN": "API Key" },
+        description: {
+          en: "Service provider API key.",
+          "zh-CN": "服务商 API Key。",
+        },
+      },
     } satisfies SecretSchemaMetaType),
   baseUrl: z
     .string()
@@ -31,102 +42,125 @@ const secretSchema = z.object({
     .optional()
     .meta({
       title: "Base URL",
-      description: "可选。接入官方 API 时可不填；仅使用代理或兼容接口时填写。",
+      description:
+        "Optional. Leave blank for the official API; enter a value only for a proxy or compatible endpoint.",
       isSecret: false,
+      "x-i18n": {
+        title: { en: "Base URL", "zh-CN": "Base URL" },
+        description: {
+          en: "Optional. Leave blank for the official API; enter a value only for a proxy or compatible endpoint.",
+          "zh-CN": "可选。接入官方 API 时可不填；仅使用代理或兼容接口时填写。",
+        },
+      },
     } satisfies SecretSchemaMetaType),
 });
 
-const promptSchema = z
-  .string()
-  .min(1)
-  .meta({
-    title: "图片描述",
-    description: "描述要生成的图片内容。",
-    toolDescription: "The text prompt describing the image to generate.",
-  } satisfies InputSchemaMetaType);
-
-const sizeSchema = z
-  .string()
-  .optional()
-  .meta({
-    title: "图片尺寸",
-    description: "可选。例如 1024x1024。",
-  } satisfies InputSchemaMetaType);
-
-const imageCountSchema = z
-  .number()
-  .int()
-  .min(1)
-  .max(4)
-  .optional()
-  .meta({
-    title: "图片数量",
-    description: "可选。生成图片数量。",
-  } satisfies InputSchemaMetaType);
-
-const openaiInputSchema = z.object({
-  prompt: promptSchema,
-  size: sizeSchema,
-  imageCount: imageCountSchema,
+const promptSchema = z.string().min(1);
+const sizeSchema = z.string().optional();
+const imageCountSchema = z.number().int().min(1).max(4).optional();
+const prompt = {
+  type: promptSchema,
+  title: { en: "Image prompt", "zh-CN": "图片描述" },
+  description: {
+    en: "Text prompt describing the image to generate.",
+    "zh-CN": "描述要生成的图片内容",
+  },
+  isToolParam: true,
+};
+const size = {
+  type: sizeSchema,
+  title: { en: "Image size", "zh-CN": "图片尺寸" },
+  description: {
+    en: "Optional image dimensions, for example 1024x1024.",
+    "zh-CN": "可选图片尺寸，例如 1024x1024",
+  },
+  isToolParam: true,
+};
+const imageCount = {
+  type: imageCountSchema,
+  title: { en: "Image count", "zh-CN": "图片数量" },
+  description: {
+    en: "Optional number of images to generate (1–4).",
+    "zh-CN": "可选的生成图片数量（1–4）",
+  },
+  isToolParam: true,
+};
+const openaiInputSchema = defineInputSchema({ prompt, size, imageCount });
+const seedreamInputSchema = defineInputSchema({ prompt, size });
+const wanxInputSchema = defineInputSchema({
+  prompt,
+  imageCount,
+  negativePrompt: {
+    type: z.string().optional(),
+    title: { en: "Negative prompt", "zh-CN": "反向提示词" },
+    description: {
+      en: "Optional content to exclude from the image.",
+      "zh-CN": "不希望出现在图片中的内容",
+    },
+    isToolParam: true,
+  },
 });
-
-const seedreamInputSchema = z.object({
-  prompt: promptSchema,
-  size: sizeSchema,
+const nanobananaInputSchema = defineInputSchema({
+  prompt,
+  aspectRatio: {
+    type: z.string().optional(),
+    title: { en: "Aspect ratio", "zh-CN": "宽高比" },
+    description: {
+      en: "Optional aspect ratio, for example 1:1, 16:9, or 9:16.",
+      "zh-CN": "可选宽高比，例如 1:1、16:9 或 9:16",
+    },
+    isToolParam: true,
+  },
 });
-
-const wanxInputSchema = z.object({
-  prompt: promptSchema,
-  imageCount: imageCountSchema,
-  negativePrompt: z
-    .string()
-    .optional()
-    .meta({
-      title: "反向提示词",
-      description: "可选。不希望出现在图片中的内容。",
-    } satisfies InputSchemaMetaType),
-});
-
-const nanobananaInputSchema = z.object({
-  prompt: promptSchema,
-  aspectRatio: z
-    .string()
-    .optional()
-    .meta({
-      title: "宽高比",
-      description: "可选。例如 1:1、16:9、9:16。",
-    } satisfies InputSchemaMetaType),
-});
-
-const outputSchema = z.object({
-  imageUrl: z.string().meta({
-    title: "图片链接",
-    description: "第一张生成图片的可访问 URL。",
-  } satisfies OutputSchemaMetaType),
-  imageUrls: z.array(z.string()).meta({
-    title: "图片链接列表",
-    description: "全部生成图片的可访问 URL。",
-  } satisfies OutputSchemaMetaType),
-  provider: z.enum(["openai", "seedream", "wanx", "nanobanana"]).meta({
-    title: "服务商",
-  } satisfies OutputSchemaMetaType),
-  model: z.string().meta({
-    title: "模型",
-  } satisfies OutputSchemaMetaType),
-  taskId: z
-    .string()
-    .optional()
-    .meta({
-      title: "任务 ID",
-      description: "异步服务商返回的任务 ID。",
-    } satisfies OutputSchemaMetaType),
-  status: z
-    .string()
-    .optional()
-    .meta({
-      title: "状态",
-      description: "服务商返回或插件归一化后的任务状态。",
-    } satisfies OutputSchemaMetaType),
+const outputSchema = defineOutputSchema({
+  imageUrl: {
+    type: z.string(),
+    title: { en: "Image URL", "zh-CN": "图片链接" },
+    description: {
+      en: "Accessible URL of the first generated image.",
+      "zh-CN": "第一张生成图片的可访问 URL",
+    },
+  },
+  imageUrls: {
+    type: z.array(z.string()),
+    title: { en: "Image URLs", "zh-CN": "图片链接列表" },
+    description: {
+      en: "Accessible URLs of all generated images.",
+      "zh-CN": "全部生成图片的可访问 URL",
+    },
+  },
+  provider: {
+    type: z.enum(["openai", "seedream", "wanx", "nanobanana"]),
+    title: { en: "Provider", "zh-CN": "服务商" },
+    description: {
+      en: "Image generation provider used.",
+      "zh-CN": "实际使用的图像生成服务商",
+    },
+  },
+  model: {
+    type: z.string(),
+    title: { en: "Model", "zh-CN": "模型" },
+    description: {
+      en: "Image generation model used.",
+      "zh-CN": "实际使用的图像生成模型",
+    },
+  },
+  taskId: {
+    type: z.string().optional(),
+    title: { en: "Task ID", "zh-CN": "任务 ID" },
+    description: {
+      en: "Task ID returned by an asynchronous provider, if any.",
+      "zh-CN": "异步服务商返回的任务 ID（如有）",
+    },
+  },
+  status: {
+    type: z.string().optional(),
+    title: { en: "Status", "zh-CN": "状态" },
+    description: {
+      en: "Provider status or normalized task status.",
+      "zh-CN": "服务商返回或插件归一化后的任务状态",
+    },
+  },
 });
 
 function createImageGenerationHandler(
@@ -182,11 +216,9 @@ export default defineToolSet({
         "zh-CN": "OpenAI 图片生成",
       },
       description: {
-        en: "Generate images with OpenAI or OpenAI-compatible gateways.",
+        en: "Generate images with OpenAI or an OpenAI-compatible image generation endpoint.",
         "zh-CN": "使用 OpenAI 或 OpenAI-compatible 网关生成图片。",
       },
-      toolDescription:
-        "Generate images with OpenAI or an OpenAI-compatible image generation endpoint.",
       handler: createImageGenerationHandler("openai", openaiInputSchema),
     },
     {
@@ -199,7 +231,6 @@ export default defineToolSet({
         en: "Generate images with Volcengine Ark Seedream.",
         "zh-CN": "使用火山方舟 Seedream 生成图片。",
       },
-      toolDescription: "Generate images with Volcengine Ark Seedream.",
       handler: createImageGenerationHandler("seedream", seedreamInputSchema),
     },
     {
@@ -212,7 +243,6 @@ export default defineToolSet({
         en: "Generate images with Alibaba DashScope Wanx.",
         "zh-CN": "使用阿里百炼通义万相生成图片。",
       },
-      toolDescription: "Generate images with Alibaba DashScope Wanx.",
       handler: createImageGenerationHandler("wanx", wanxInputSchema),
     },
     {
@@ -225,7 +255,6 @@ export default defineToolSet({
         en: "Generate images with Google Gemini Nano Banana.",
         "zh-CN": "使用 Google Gemini Nano Banana 生成图片。",
       },
-      toolDescription: "Generate images with Google Gemini Nano Banana.",
       handler: createImageGenerationHandler(
         "nanobanana",
         nanobananaInputSchema,

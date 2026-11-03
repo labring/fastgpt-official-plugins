@@ -1,4 +1,9 @@
-import { createToolHandler, defineToolSet } from "@fastgpt-plugin/sdk-factory";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineToolSet,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import {
   InputType as clickhouseInputType,
@@ -25,75 +30,124 @@ import {
   OutputType as sqlserverOutputType,
   tool as sqlserverTool,
 } from "./children/sqlserver";
+import { BaseSQLDbInputSchema } from "./types";
 
 const secretSchema = z.object({
   database: z.string().meta({
     title: "数据库名称",
+    "x-i18n": { title: { en: "Database name", "zh-CN": "数据库名称" } },
+    isSecret: false,
   }),
   host: z.string().meta({
     title: "主机地址",
+    "x-i18n": { title: { en: "Host address", "zh-CN": "主机地址" } },
+    isSecret: false,
   }),
   port: z.number().meta({
     title: "端口",
+    "x-i18n": { title: { en: "Port", "zh-CN": "端口" } },
+    isSecret: false,
   }),
   username: z.string().meta({
     title: "数据库账号",
+    "x-i18n": { title: { en: "Database username", "zh-CN": "数据库账号" } },
+    isSecret: false,
   }),
   password: z.string().meta({
     title: "数据库密码",
+    "x-i18n": { title: { en: "Database password", "zh-CN": "数据库密码" } },
     isSecret: true,
   }),
-  ssl: z.boolean().optional().meta({
-    title: "启用 SSL",
-    description: "是否启用 SSL/TLS 连接",
-    isSecret: false,
-  }),
-  maxConnections: z.string().optional().meta({
-    title: "最大连接数",
-  }),
-  connectionTimeout: z.string().optional().meta({
-    title: "连接超时时间",
-  }),
+  ssl: z
+    .boolean()
+    .optional()
+    .meta({
+      title: "启用 SSL",
+      description: "是否启用 SSL/TLS 连接",
+      "x-i18n": {
+        title: { en: "Enable SSL", "zh-CN": "启用 SSL" },
+        description: {
+          en: "Whether to use an SSL/TLS connection.",
+          "zh-CN": "是否启用 SSL/TLS 连接。",
+        },
+      },
+      isSecret: false,
+    }),
+  maxConnections: z
+    .string()
+    .optional()
+    .meta({
+      title: "最大连接数",
+      "x-i18n": { title: { en: "Maximum connections", "zh-CN": "最大连接数" } },
+      isSecret: false,
+    }),
+  connectionTimeout: z
+    .string()
+    .optional()
+    .meta({
+      title: "连接超时时间",
+      "x-i18n": {
+        title: { en: "Connection timeout", "zh-CN": "连接超时时间" },
+      },
+      isSecret: false,
+    }),
 });
-const clickhouseInputSchema = z.object({
-  sql: z.string().meta({
-    title: "SQL",
-    description: "SQL 语句，可以传入 SQL 语句直接执行",
-    toolDescription: "SQL 语句，可以传入 SQL 语句直接执行",
-  }),
+const clickhouseInputSchema = defineInputSchema({
+  sql: {
+    type: z.string(),
+    title: { en: "SQL statement", "zh-CN": "SQL 语句" },
+    description: {
+      en: "SQL statement to execute.",
+      "zh-CN": "要执行的 SQL 语句。",
+    },
+    isToolParam: true,
+  },
 });
-const clickhouseOutputSchema = z.object({
-  result: z.string().meta({
-    title: "结果",
-    description: "执行结果",
-  }),
+const clickhouseOutputSchema = defineOutputSchema({
+  result: {
+    type: z.string(),
+    title: { en: "Result", "zh-CN": "结果" },
+    description: { en: "Execution result.", "zh-CN": "执行结果。" },
+  },
 });
 const clickhouseHandler = createToolHandler({
   inputSchema: clickhouseInputSchema,
   outputSchema: clickhouseOutputSchema,
   secretSchema,
   handler: async (input, ctx) => {
-    const parsedInput = await clickhouseInputType.parseAsync({
-      ...input,
-      ...ctx.secrets,
-    });
+    const inputWithSecrets = { ...input, ...ctx.secrets };
+    if (!("url" in inputWithSecrets) || inputWithSecrets.url === undefined) {
+      const { host, port } = await BaseSQLDbInputSchema.pick({
+        host: true,
+        port: true,
+      }).parseAsync(ctx.secrets);
+      const urlHost =
+        host.includes(":") && !host.startsWith("[") ? `[${host}]` : host;
+      Object.assign(inputWithSecrets, { url: `http://${urlHost}:${port}` });
+    }
+    const parsedInput = await clickhouseInputType.parseAsync(inputWithSecrets);
     const output = await clickhouseTool(parsedInput, ctx);
     return clickhouseOutputType.parseAsync(output);
   },
 });
 
-const mysqlInputSchema = z.object({
-  sql: z.string().meta({
-    title: "SQL",
-    description: "SQL 语句，可以传入 SQL 语句直接执行",
-    toolDescription: "SQL 语句，可以传入 SQL 语句直接执行",
-  }),
+const mysqlInputSchema = defineInputSchema({
+  sql: {
+    type: z.string(),
+    title: { en: "SQL statement", "zh-CN": "SQL 语句" },
+    description: {
+      en: "SQL statement to execute.",
+      "zh-CN": "要执行的 SQL 语句。",
+    },
+    isToolParam: true,
+  },
 });
-const mysqlOutputSchema = z.object({
-  result: z.string().meta({
-    title: "结果",
-    description: "执行结果",
-  }),
+const mysqlOutputSchema = defineOutputSchema({
+  result: {
+    type: z.string(),
+    title: { en: "Result", "zh-CN": "结果" },
+    description: { en: "Execution result.", "zh-CN": "执行结果。" },
+  },
 });
 const mysqlHandler = createToolHandler({
   inputSchema: mysqlInputSchema,
@@ -109,18 +163,23 @@ const mysqlHandler = createToolHandler({
   },
 });
 
-const oracleInputSchema = z.object({
-  sql: z.string().meta({
-    title: "SQL",
-    description: "SQL 语句，可以传入 SQL 语句直接执行",
-    toolDescription: "SQL 语句，可以传入 SQL 语句直接执行",
-  }),
+const oracleInputSchema = defineInputSchema({
+  sql: {
+    type: z.string(),
+    title: { en: "SQL statement", "zh-CN": "SQL 语句" },
+    description: {
+      en: "SQL statement to execute.",
+      "zh-CN": "要执行的 SQL 语句。",
+    },
+    isToolParam: true,
+  },
 });
-const oracleOutputSchema = z.object({
-  result: z.string().meta({
-    title: "结果",
-    description: "执行结果",
-  }),
+const oracleOutputSchema = defineOutputSchema({
+  result: {
+    type: z.string(),
+    title: { en: "Result", "zh-CN": "结果" },
+    description: { en: "Execution result.", "zh-CN": "执行结果。" },
+  },
 });
 const oracleConnectionPartsSchema = secretSchema.pick({
   database: true,
@@ -144,18 +203,23 @@ const oracleHandler = createToolHandler({
   },
 });
 
-const postgresqlInputSchema = z.object({
-  sql: z.string().meta({
-    title: "SQL",
-    description: "SQL 语句，可以传入 SQL 语句直接执行",
-    toolDescription: "SQL 语句，可以传入 SQL 语句直接执行",
-  }),
+const postgresqlInputSchema = defineInputSchema({
+  sql: {
+    type: z.string(),
+    title: { en: "SQL statement", "zh-CN": "SQL 语句" },
+    description: {
+      en: "SQL statement to execute.",
+      "zh-CN": "要执行的 SQL 语句。",
+    },
+    isToolParam: true,
+  },
 });
-const postgresqlOutputSchema = z.object({
-  result: z.string().meta({
-    title: "结果",
-    description: "执行结果",
-  }),
+const postgresqlOutputSchema = defineOutputSchema({
+  result: {
+    type: z.string(),
+    title: { en: "Result", "zh-CN": "结果" },
+    description: { en: "Execution result.", "zh-CN": "执行结果。" },
+  },
 });
 const postgresqlHandler = createToolHandler({
   inputSchema: postgresqlInputSchema,
@@ -171,18 +235,23 @@ const postgresqlHandler = createToolHandler({
   },
 });
 
-const sqlserverInputSchema = z.object({
-  sql: z.string().meta({
-    title: "SQL",
-    description: "SQL 语句，可以传入 SQL 语句直接执行",
-    toolDescription: "SQL 语句，可以传入 SQL 语句直接执行",
-  }),
+const sqlserverInputSchema = defineInputSchema({
+  sql: {
+    type: z.string(),
+    title: { en: "SQL statement", "zh-CN": "SQL 语句" },
+    description: {
+      en: "SQL statement to execute.",
+      "zh-CN": "要执行的 SQL 语句。",
+    },
+    isToolParam: true,
+  },
 });
-const sqlserverOutputSchema = z.object({
-  result: z.string().meta({
-    title: "结果",
-    description: "执行结果",
-  }),
+const sqlserverOutputSchema = defineOutputSchema({
+  result: {
+    type: z.string(),
+    title: { en: "Result", "zh-CN": "结果" },
+    description: { en: "Execution result.", "zh-CN": "执行结果。" },
+  },
 });
 const sqlserverHandler = createToolHandler({
   inputSchema: sqlserverInputSchema,

@@ -1,29 +1,51 @@
-import { createToolHandler, defineTool } from "@fastgpt-plugin/sdk-factory";
-import { InputType, OutputType, tool as toolCb } from "./src";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineTool,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
+import { InputType, OutputType, tool as toolCb } from "./src";
 
 const secretSchema = z.object({});
-const inputSchema = z.object({
-  markdown: z.string().meta({
-    title: "Markdown 内容",
-    description: "要转换的 Markdown 内容",
-    toolDescription: "要转换的 Markdown 内容",
-  }),
-  format: z.enum(["xlsx", "docx", "pptx"]).meta({
-    title: "转换格式",
-    description: "需要转换的格式，支持 xlsx 和 docx 和 pptx",
-    toolDescription: "需要转换的格式，支持 xlsx 和 docx 和 pptx",
-  }),
-  filename: z.string().optional().meta({
-    title: "文件名",
-    description: "自定义文件名（不包含扩展名）",
-    toolDescription: "自定义文件名（不包含扩展名）",
-  }),
+const inputSchema = defineInputSchema({
+  markdown: {
+    type: z.string(),
+    title: { en: "Markdown content", "zh-CN": "Markdown 内容" },
+    description: {
+      en: "Markdown content to convert.",
+      "zh-CN": "要转换的 Markdown 内容",
+    },
+    isToolParam: true,
+  },
+  format: {
+    type: z.enum(["xlsx", "docx", "pptx"]),
+    title: { en: "Output format", "zh-CN": "转换格式" },
+    description: {
+      en: "Output format: XLSX, DOCX, or PPTX.",
+      "zh-CN": "需要转换的格式，支持 XLSX、DOCX 和 PPTX",
+    },
+    isToolParam: true,
+  },
+  filename: {
+    type: z.string().optional(),
+    title: { en: "Filename", "zh-CN": "文件名" },
+    description: {
+      en: "Optional custom filename without an extension.",
+      "zh-CN": "可选的自定义文件名（不包含扩展名）",
+    },
+    isToolParam: true,
+  },
 });
-const outputSchema = z.object({
-  url: z.string().meta({
-    title: "文件链接",
-  }),
+const outputSchema = defineOutputSchema({
+  url: {
+    type: z.string(),
+    title: { en: "File URL", "zh-CN": "文件链接" },
+    description: {
+      en: "URL of the converted file.",
+      "zh-CN": "转换后文件的下载链接",
+    },
+  },
 });
 const handler = createToolHandler({
   inputSchema,

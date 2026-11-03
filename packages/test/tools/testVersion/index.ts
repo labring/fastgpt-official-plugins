@@ -1,11 +1,56 @@
-import { createToolHandler, defineTool } from "@fastgpt-plugin/sdk-factory";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineTool,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 
+const inputSchema = defineInputSchema({
+  delay: {
+    type: z.number(),
+    title: { en: "Delay (ms)", "zh-CN": "延迟时间（毫秒）" },
+    description: {
+      en: "Time to wait before returning, in milliseconds.",
+      "zh-CN": "返回结果前等待的时间，单位为毫秒。",
+    },
+    isToolParam: true,
+  },
+});
+const outputSchema = defineOutputSchema({});
+const inputSchemaV3 = defineInputSchema({
+  delay: {
+    type: z.number(),
+    title: { en: "Delay (ms)", "zh-CN": "延迟时间（毫秒）" },
+    description: {
+      en: "Time to wait before returning, in milliseconds.",
+      "zh-CN": "返回结果前等待的时间，单位为毫秒。",
+    },
+    isToolParam: true,
+  },
+  msg: {
+    type: z.string(),
+    title: { en: "Message", "zh-CN": "消息" },
+    description: {
+      en: "Message text to include in the version 3 response.",
+      "zh-CN": "要包含在版本 3 响应中的消息文本。",
+    },
+    isToolParam: true,
+  },
+});
+const outputSchemaV3 = defineOutputSchema({
+  msg: {
+    type: z.string(),
+    title: { en: "Response message", "zh-CN": "响应消息" },
+    description: {
+      en: "Message returned by version 3, prefixed with its version marker.",
+      "zh-CN": "版本 3 返回的消息，前面带有版本标记。",
+    },
+  },
+});
 const handler = createToolHandler({
-  inputSchema: z.object({
-    delay: z.number(),
-  }),
-  outputSchema: z.object({}),
+  inputSchema,
+  outputSchema,
   handler: async (input, _ctx) => {
     await new Promise((resolve) => setTimeout(resolve, input.delay));
     return {};
@@ -13,13 +58,8 @@ const handler = createToolHandler({
 });
 
 const handlerV3 = createToolHandler({
-  inputSchema: z.object({
-    delay: z.number(),
-    msg: z.string(),
-  }),
-  outputSchema: z.object({
-    msg: z.string(),
-  }),
+  inputSchema: inputSchemaV3,
+  outputSchema: outputSchemaV3,
   handler: async (input, _ctx) => {
     await new Promise((resolve) => setTimeout(resolve, input.delay));
     return {
@@ -27,6 +67,7 @@ const handlerV3 = createToolHandler({
     };
   },
 });
+
 const tool = defineTool({
   manifest: {
     description: {
@@ -46,7 +87,6 @@ const tool = defineTool({
   },
   handler,
 });
-
 const tool2 = defineTool({
   manifest: {
     description: {

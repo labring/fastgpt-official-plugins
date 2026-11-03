@@ -1,24 +1,41 @@
-import { createToolHandler, defineTool } from "@fastgpt-plugin/sdk-factory";
-import { InputType, OutputType, tool as toolCb } from "./src";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineTool,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
+import { InputType, OutputType, tool as toolCb } from "./src";
 
 const secretSchema = z.object({});
-const inputSchema = z.object({
-  "webhookUrl": z.string().optional().meta({
-    title: "企微机器人地址"
-  }),
-  "message": z.string().optional().meta({
-    title: "发送的消息"
-  })
+const inputSchema = defineInputSchema({
+  webhookUrl: {
+    type: z.string().optional(),
+    title: { en: "Webhook URL", "zh-CN": "企微机器人地址" },
+    description: {
+      en: "WeCom group bot webhook URL.",
+      "zh-CN": "企业微信群机器人的 webhook 地址。",
+    },
+    isToolParam: true,
+  },
+  message: {
+    type: z.string().optional(),
+    title: { en: "Message", "zh-CN": "发送的消息" },
+    description: {
+      en: "Message text to send to the group.",
+      "zh-CN": "要发送到群聊的消息内容。",
+    },
+    isToolParam: true,
+  },
 });
-const outputSchema = z.object({});
+const outputSchema = defineOutputSchema({});
 const handler = createToolHandler({
   inputSchema,
   outputSchema,
   secretSchema,
   handler: async (input, ctx) => {
     const parsedInput = await InputType.parseAsync(input);
-    const output = await toolCb(parsedInput, ctx);
+    const output = await toolCb(parsedInput);
     return OutputType.parseAsync(output);
   },
 });
@@ -37,11 +54,10 @@ const tool = defineTool({
     version: "0.1.1",
     versionDescription: {
       en: "Default version",
-      "zh-CN": "Default version",
+      "zh-CN": "默认版本",
     },
     tags: ["communication"],
   },
-  secretSchema,
   handler,
 });
 

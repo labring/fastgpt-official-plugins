@@ -1,4 +1,9 @@
-import { createToolHandler, defineToolSet } from "@fastgpt-plugin/sdk-factory";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineToolSet,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import {
   InputType as searchInputType,
@@ -23,17 +28,23 @@ import {
 
 const secretSchema = z.object({});
 const searchSecretSchema = z.object({});
-const searchInputSchema = z.object({
-  "query": z.string().meta({
-    title: "query",
-    description: "检索词",
-    toolDescription: "检索词"
-  })
+const searchInputSchema = defineInputSchema({
+  query: {
+    type: z.string(),
+    title: { en: "Search query", "zh-CN": "检索词" },
+    description: { en: "Terms to search for.", "zh-CN": "要检索的关键词。" },
+    isToolParam: true,
+  },
 });
-const searchOutputSchema = z.object({
-  "result": z.string().meta({
-    title: "检索结果"
-  })
+const searchOutputSchema = defineOutputSchema({
+  result: {
+    type: z.string(),
+    title: { en: "Search results", "zh-CN": "检索结果" },
+    description: {
+      en: "Results returned by the web search.",
+      "zh-CN": "网页搜索返回的结果。",
+    },
+  },
 });
 const searchHandler = createToolHandler({
   inputSchema: searchInputSchema,
@@ -41,24 +52,32 @@ const searchHandler = createToolHandler({
   secretSchema: searchSecretSchema,
   handler: async (input, ctx) => {
     const parsedInput = await searchInputType.parseAsync(input);
-    const output = await searchTool(parsedInput, ctx);
+    const output = await searchTool(parsedInput);
     return searchOutputType.parseAsync(output);
   },
 });
 
 const searchImgSecretSchema = z.object({});
-const searchImgInputSchema = z.object({
-  "query": z.string().meta({
-    title: "query",
-    description: "检索词",
-    toolDescription: "检索词"
-  })
+const searchImgInputSchema = defineInputSchema({
+  query: {
+    type: z.string(),
+    title: { en: "Image search query", "zh-CN": "图片检索词" },
+    description: {
+      en: "Terms to search for images.",
+      "zh-CN": "用于搜索图片的关键词。",
+    },
+    isToolParam: true,
+  },
 });
-const searchImgOutputSchema = z.object({
-  "result": z.string().meta({
-    title: "result",
-    description: " 检索结果"
-  })
+const searchImgOutputSchema = defineOutputSchema({
+  result: {
+    type: z.string(),
+    title: { en: "Image search results", "zh-CN": "图片检索结果" },
+    description: {
+      en: "Results returned by the image search.",
+      "zh-CN": "图片搜索返回的结果。",
+    },
+  },
 });
 const searchImgHandler = createToolHandler({
   inputSchema: searchImgInputSchema,
@@ -66,24 +85,32 @@ const searchImgHandler = createToolHandler({
   secretSchema: searchImgSecretSchema,
   handler: async (input, ctx) => {
     const parsedInput = await searchImgInputType.parseAsync(input);
-    const output = await searchImgTool(parsedInput, ctx);
+    const output = await searchImgTool(parsedInput);
     return searchImgOutputType.parseAsync(output);
   },
 });
 
 const searchNewsSecretSchema = z.object({});
-const searchNewsInputSchema = z.object({
-  "query": z.string().meta({
-    title: "query",
-    description: "检索词",
-    toolDescription: "检索词"
-  })
+const searchNewsInputSchema = defineInputSchema({
+  query: {
+    type: z.string(),
+    title: { en: "News search query", "zh-CN": "新闻检索词" },
+    description: {
+      en: "Terms to search for news.",
+      "zh-CN": "用于搜索新闻的关键词。",
+    },
+    isToolParam: true,
+  },
 });
-const searchNewsOutputSchema = z.object({
-  "result": z.string().meta({
-    title: "result",
-    description: " 检索结果"
-  })
+const searchNewsOutputSchema = defineOutputSchema({
+  result: {
+    type: z.string(),
+    title: { en: "News search results", "zh-CN": "新闻检索结果" },
+    description: {
+      en: "Results returned by the news search.",
+      "zh-CN": "新闻搜索返回的结果。",
+    },
+  },
 });
 const searchNewsHandler = createToolHandler({
   inputSchema: searchNewsInputSchema,
@@ -91,24 +118,32 @@ const searchNewsHandler = createToolHandler({
   secretSchema: searchNewsSecretSchema,
   handler: async (input, ctx) => {
     const parsedInput = await searchNewsInputType.parseAsync(input);
-    const output = await searchNewsTool(parsedInput, ctx);
+    const output = await searchNewsTool(parsedInput);
     return searchNewsOutputType.parseAsync(output);
   },
 });
 
 const searchVideoSecretSchema = z.object({});
-const searchVideoInputSchema = z.object({
-  "query": z.string().meta({
-    title: "query",
-    description: "检索词",
-    toolDescription: "检索词"
-  })
+const searchVideoInputSchema = defineInputSchema({
+  query: {
+    type: z.string(),
+    title: { en: "Video search query", "zh-CN": "视频检索词" },
+    description: {
+      en: "Terms to search for videos.",
+      "zh-CN": "用于搜索视频的关键词。",
+    },
+    isToolParam: true,
+  },
 });
-const searchVideoOutputSchema = z.object({
-  "result": z.string().meta({
-    title: "result",
-    description: " 检索结果"
-  })
+const searchVideoOutputSchema = defineOutputSchema({
+  result: {
+    type: z.string(),
+    title: { en: "Video search results", "zh-CN": "视频检索结果" },
+    description: {
+      en: "Results returned by the video search.",
+      "zh-CN": "视频搜索返回的结果。",
+    },
+  },
 });
 const searchVideoHandler = createToolHandler({
   inputSchema: searchVideoInputSchema,
@@ -116,7 +151,7 @@ const searchVideoHandler = createToolHandler({
   secretSchema: searchVideoSecretSchema,
   handler: async (input, ctx) => {
     const parsedInput = await searchVideoInputType.parseAsync(input);
-    const output = await searchVideoTool(parsedInput, ctx);
+    const output = await searchVideoTool(parsedInput);
     return searchVideoOutputType.parseAsync(output);
   },
 });
@@ -135,7 +170,7 @@ const toolSet = defineToolSet({
     version: "0.0.1",
     versionDescription: {
       en: "Initial version",
-      "zh-CN": "Initial version",
+      "zh-CN": "初始版本",
     },
     tags: ["search"],
   },

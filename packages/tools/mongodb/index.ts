@@ -1,4 +1,9 @@
-import { createToolHandler, defineToolSet } from "@fastgpt-plugin/sdk-factory";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineToolSet,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import {
   InputType as aggregateInputType,
@@ -28,69 +33,134 @@ import {
 
 const secretSchema = z.object({
   connectionUri: z.string().meta({
-    title: "MongoDB 连接串",
+    title: "MongoDB Connection URI",
     description:
-      "MongoDB connection URI，例如 mongodb://user:password@host:27017",
+      "MongoDB connection URI, for example mongodb://user:password@host:27017.",
+    "x-i18n": {
+      title: { en: "MongoDB Connection URI", "zh-CN": "MongoDB 连接串" },
+      description: {
+        en: "MongoDB connection URI, for example mongodb://user:password@host:27017.",
+        "zh-CN": "MongoDB 连接 URI，例如 mongodb://user:password@host:27017。",
+      },
+    },
     isSecret: true,
   }),
   database: z.string().meta({
-    title: "数据库名称",
-    description: "MongoDB database name",
+    title: "Database Name",
+    description: "Name of the MongoDB database.",
+    "x-i18n": {
+      title: { en: "Database Name", "zh-CN": "数据库名称" },
+      description: {
+        en: "Name of the MongoDB database.",
+        "zh-CN": "MongoDB 数据库名称。",
+      },
+    },
+    isSecret: false,
   }),
-  connectTimeoutMS: z.number().optional().meta({
-    title: "连接超时时间",
-    description: "连接超时时间，单位毫秒",
-  }),
-  socketTimeoutMS: z.number().optional().meta({
-    title: "Socket 超时时间",
-    description: "Socket 读写超时时间，单位毫秒",
-  }),
+  connectTimeoutMS: z
+    .number()
+    .optional()
+    .meta({
+      title: "Connection Timeout",
+      description: "Connection timeout in milliseconds.",
+      "x-i18n": {
+        title: { en: "Connection Timeout", "zh-CN": "连接超时时间" },
+        description: {
+          en: "Connection timeout in milliseconds.",
+          "zh-CN": "连接超时时间，单位毫秒。",
+        },
+      },
+      isSecret: false,
+    }),
+  socketTimeoutMS: z
+    .number()
+    .optional()
+    .meta({
+      title: "Socket Timeout",
+      description: "Socket read/write timeout in milliseconds.",
+      "x-i18n": {
+        title: { en: "Socket Timeout", "zh-CN": "Socket 超时时间" },
+        description: {
+          en: "Socket read/write timeout in milliseconds.",
+          "zh-CN": "Socket 读写超时时间，单位毫秒。",
+        },
+      },
+      isSecret: false,
+    }),
 });
 
-const resultOutputSchema = z.object({
-  result: z.unknown().meta({
-    title: "结果",
-    description: "MongoDB 操作结果",
-  }),
+const resultOutputSchema = defineOutputSchema({
+  result: {
+    type: z.unknown(),
+    title: { en: "Result", "zh-CN": "结果" },
+    description: {
+      en: "Result returned by the MongoDB operation.",
+      "zh-CN": "MongoDB 操作返回的结果。",
+    },
+  },
 });
 
-const collectionInputSchema = z.object({
-  collection: z.string().meta({
-    title: "集合名称",
-    description: "MongoDB collection name",
-    toolDescription: "MongoDB collection name",
-  }),
-});
+const collectionInputFields = {
+  collection: {
+    type: z.string(),
+    title: { en: "Collection Name", "zh-CN": "集合名称" },
+    description: {
+      en: "Name of the MongoDB collection to use.",
+      "zh-CN": "要操作的 MongoDB 集合名称。",
+    },
+    isToolParam: true,
+  },
+};
 
-const findInputSchema = collectionInputSchema.extend({
-  filter: z.string().default("{}").meta({
-    title: "查询条件",
-    description: "MongoDB filter JSON，支持 Extended JSON",
-    toolDescription:
-      "MongoDB filter JSON object. Use {} to match all documents.",
-  }),
-  projection: z.string().optional().meta({
-    title: "返回字段",
-    description: 'MongoDB projection JSON，例如 {"name":1,"_id":0}',
-    toolDescription: "Optional MongoDB projection JSON object.",
-  }),
-  sort: z.string().optional().meta({
-    title: "排序",
-    description: 'MongoDB sort JSON，例如 {"createdAt":-1}',
-    toolDescription: "Optional MongoDB sort JSON object.",
-  }),
-  limit: z.number().optional().meta({
-    title: "返回数量",
-    description: "最多返回 1000 条，默认 100",
-    toolDescription: "Maximum number of documents to return, default 100.",
-  }),
-  skip: z.number().optional().meta({
-    title: "跳过数量",
-    description: "跳过的文档数量，默认 0",
-    toolDescription: "Number of documents to skip, default 0.",
-  }),
+const findInputSchema = defineInputSchema({
+  ...collectionInputFields,
+  filter: {
+    type: z.string().default("{}"),
+    title: { en: "Filter", "zh-CN": "查询条件" },
+    description: {
+      en: "MongoDB filter JSON object in Extended JSON format. Use {} to match all documents.",
+      "zh-CN":
+        "MongoDB filter JSON 对象，支持 Extended JSON；使用 {} 匹配所有文档。",
+    },
+    isToolParam: true,
+  },
+  projection: {
+    type: z.string().optional(),
+    title: { en: "Projection", "zh-CN": "返回字段" },
+    description: {
+      en: 'Optional MongoDB projection JSON object, for example {"name":1,"_id":0}.',
+      "zh-CN": '可选的 MongoDB projection JSON 对象，例如 {"name":1,"_id":0}。',
+    },
+    isToolParam: true,
+  },
+  sort: {
+    type: z.string().optional(),
+    title: { en: "Sort", "zh-CN": "排序" },
+    description: {
+      en: 'Optional MongoDB sort JSON object, for example {"createdAt":-1}.',
+      "zh-CN": '可选的 MongoDB sort JSON 对象，例如 {"createdAt":-1}。',
+    },
+    isToolParam: true,
+  },
+  limit: {
+    type: z.number().optional(),
+    title: { en: "Result Limit", "zh-CN": "返回数量" },
+    description: {
+      en: "Maximum number of documents to return; defaults to 100 and is capped at 1000.",
+      "zh-CN": "最多返回的文档数量，默认 100，最多 1000 条。",
+    },
+    isToolParam: true,
+  },
+  skip: {
+    type: z.number().optional(),
+    title: { en: "Skip Count", "zh-CN": "跳过数量" },
+    description: {
+      en: "Number of documents to skip; defaults to 0.",
+      "zh-CN": "要跳过的文档数量，默认 0。",
+    },
+    isToolParam: true,
+  },
 });
-
 const findHandler = createToolHandler({
   inputSchema: findInputSchema,
   outputSchema: resultOutputSchema,
@@ -105,12 +175,18 @@ const findHandler = createToolHandler({
   },
 });
 
-const insertInputSchema = collectionInputSchema.extend({
-  documents: z.string().meta({
-    title: "文档",
-    description: "要插入的 JSON object 或 JSON object 数组，支持 Extended JSON",
-    toolDescription: "JSON object or array of JSON objects to insert.",
-  }),
+const insertInputSchema = defineInputSchema({
+  ...collectionInputFields,
+  documents: {
+    type: z.string(),
+    title: { en: "Documents", "zh-CN": "文档" },
+    description: {
+      en: "JSON document or array of JSON documents to insert, in Extended JSON format when needed.",
+      "zh-CN":
+        "要插入的 JSON 文档或 JSON 文档数组，必要时可使用 Extended JSON。",
+    },
+    isToolParam: true,
+  },
 });
 
 const insertHandler = createToolHandler({
@@ -127,35 +203,54 @@ const insertHandler = createToolHandler({
   },
 });
 
-const updateInputSchema = collectionInputSchema.extend({
-  filter: z.string().meta({
-    title: "匹配条件",
-    description: "MongoDB filter JSON",
-    toolDescription: "MongoDB filter JSON object for documents to update.",
-  }),
-  update: z.string().meta({
-    title: "更新内容",
-    description: 'MongoDB update JSON，例如 {"$set":{"status":"done"}}',
-    toolDescription:
-      "MongoDB update JSON object using operators such as $set, $inc or $unset.",
-  }),
-  multi: z.boolean().optional().meta({
-    title: "更新多条",
-    description: "true 时执行 updateMany，默认 updateOne",
-    toolDescription: "Whether to update multiple matching documents.",
-  }),
-  upsert: z.boolean().optional().meta({
-    title: "不存在时插入",
-    description: "MongoDB upsert option",
-    toolDescription:
-      "Whether to insert a document when no document matches the filter.",
-  }),
-  allowEmptyFilter: z.boolean().optional().meta({
-    title: "允许空条件",
-    description: "显式允许空 filter 执行全量更新",
-    toolDescription:
-      "Set true only when an empty filter should update the whole collection.",
-  }),
+const updateInputSchema = defineInputSchema({
+  ...collectionInputFields,
+  filter: {
+    type: z.string(),
+    title: { en: "Filter", "zh-CN": "匹配条件" },
+    description: {
+      en: "MongoDB filter JSON object selecting documents to update.",
+      "zh-CN": "用于筛选待更新文档的 MongoDB filter JSON 对象。",
+    },
+    isToolParam: true,
+  },
+  update: {
+    type: z.string(),
+    title: { en: "Update Document", "zh-CN": "更新内容" },
+    description: {
+      en: 'MongoDB update JSON object using operators such as $set, $inc, or $unset; for example {"$set":{"status":"done"}}.',
+      "zh-CN":
+        '使用 $set、$inc 或 $unset 等操作符的 MongoDB update JSON 对象，例如 {"$set":{"status":"done"}}。',
+    },
+    isToolParam: true,
+  },
+  multi: {
+    type: z.boolean().optional(),
+    title: { en: "Update Multiple Documents", "zh-CN": "更新多条文档" },
+    description: {
+      en: "When true, use updateMany; otherwise use updateOne.",
+      "zh-CN": "为 true 时执行 updateMany，否则执行 updateOne。",
+    },
+    isToolParam: true,
+  },
+  upsert: {
+    type: z.boolean().optional(),
+    title: { en: "Insert If Missing", "zh-CN": "不存在时插入" },
+    description: {
+      en: "Whether to insert a document when no document matches the filter.",
+      "zh-CN": "没有文档匹配筛选条件时，是否插入新文档。",
+    },
+    isToolParam: true,
+  },
+  allowEmptyFilter: {
+    type: z.boolean().optional(),
+    title: { en: "Allow Empty Filter", "zh-CN": "允许空条件" },
+    description: {
+      en: "Explicitly allow an empty filter to update the entire collection.",
+      "zh-CN": "显式允许使用空 filter 更新整个集合。",
+    },
+    isToolParam: true,
+  },
 });
 
 const updateHandler = createToolHandler({
@@ -172,23 +267,35 @@ const updateHandler = createToolHandler({
   },
 });
 
-const deleteInputSchema = collectionInputSchema.extend({
-  filter: z.string().meta({
-    title: "删除条件",
-    description: "MongoDB filter JSON",
-    toolDescription: "MongoDB filter JSON object for documents to delete.",
-  }),
-  multi: z.boolean().optional().meta({
-    title: "删除多条",
-    description: "true 时执行 deleteMany，默认 deleteOne",
-    toolDescription: "Whether to delete multiple matching documents.",
-  }),
-  allowEmptyFilter: z.boolean().optional().meta({
-    title: "允许空条件",
-    description: "显式允许空 filter 执行全量删除",
-    toolDescription:
-      "Set true only when an empty filter should delete the whole collection.",
-  }),
+const deleteInputSchema = defineInputSchema({
+  ...collectionInputFields,
+  filter: {
+    type: z.string(),
+    title: { en: "Filter", "zh-CN": "删除条件" },
+    description: {
+      en: "MongoDB filter JSON object selecting documents to delete.",
+      "zh-CN": "用于筛选待删除文档的 MongoDB filter JSON 对象。",
+    },
+    isToolParam: true,
+  },
+  multi: {
+    type: z.boolean().optional(),
+    title: { en: "Delete Multiple Documents", "zh-CN": "删除多条文档" },
+    description: {
+      en: "When true, use deleteMany; otherwise use deleteOne.",
+      "zh-CN": "为 true 时执行 deleteMany，否则执行 deleteOne。",
+    },
+    isToolParam: true,
+  },
+  allowEmptyFilter: {
+    type: z.boolean().optional(),
+    title: { en: "Allow Empty Filter", "zh-CN": "允许空条件" },
+    description: {
+      en: "Explicitly allow an empty filter to delete the entire collection.",
+      "zh-CN": "显式允许使用空 filter 删除整个集合。",
+    },
+    isToolParam: true,
+  },
 });
 
 const deleteHandler = createToolHandler({
@@ -205,24 +312,35 @@ const deleteHandler = createToolHandler({
   },
 });
 
-const aggregateInputSchema = collectionInputSchema.extend({
-  pipeline: z.string().meta({
-    title: "聚合管道",
-    description: "MongoDB aggregation pipeline JSON array",
-    toolDescription: "MongoDB aggregation pipeline as a JSON array.",
-  }),
-  limit: z.number().optional().meta({
-    title: "返回数量",
-    description: "最多返回 1000 条，默认 100",
-    toolDescription:
-      "Maximum number of aggregation results to return, default 100.",
-  }),
-  allowDiskUse: z.boolean().optional().meta({
-    title: "允许使用磁盘",
-    description: "MongoDB allowDiskUse option",
-    toolDescription:
-      "Whether MongoDB can write temporary aggregation data to disk.",
-  }),
+const aggregateInputSchema = defineInputSchema({
+  ...collectionInputFields,
+  pipeline: {
+    type: z.string(),
+    title: { en: "Aggregation Pipeline", "zh-CN": "聚合管道" },
+    description: {
+      en: "MongoDB aggregation pipeline encoded as a JSON array.",
+      "zh-CN": "以 JSON 数组编码的 MongoDB aggregation pipeline。",
+    },
+    isToolParam: true,
+  },
+  limit: {
+    type: z.number().optional(),
+    title: { en: "Result Limit", "zh-CN": "返回数量" },
+    description: {
+      en: "Maximum number of aggregation results to return; defaults to 100 and is capped at 1000.",
+      "zh-CN": "最多返回的聚合结果数量，默认 100，最多 1000 条。",
+    },
+    isToolParam: true,
+  },
+  allowDiskUse: {
+    type: z.boolean().optional(),
+    title: { en: "Allow Disk Use", "zh-CN": "允许使用磁盘" },
+    description: {
+      en: "Whether MongoDB may write temporary aggregation data to disk.",
+      "zh-CN": "是否允许 MongoDB 将临时聚合数据写入磁盘。",
+    },
+    isToolParam: true,
+  },
 });
 
 const aggregateHandler = createToolHandler({
@@ -247,17 +365,15 @@ const toolSet = defineToolSet({
       "zh-CN": "MongoDB 操作",
     },
     description: {
-      en: "Independent MongoDB operations toolset for querying, inserting, updating, deleting and aggregating documents",
+      en: "Query, insert, update, delete, and aggregate MongoDB documents using JSON or Extended JSON parameters.",
       "zh-CN":
-        "独立的 MongoDB 操作工具集，支持查询、插入、更新、删除和聚合文档",
+        "使用 JSON 或 Extended JSON 参数查询、插入、更新、删除和聚合 MongoDB 文档。",
     },
     version: "0.1.0",
     versionDescription: {
-      en: "Initial version",
-      "zh-CN": "Initial version",
+      en: "Initial release",
+      "zh-CN": "初始版本",
     },
-    toolDescription:
-      "MongoDB operations toolset. Use it to query, insert, update, delete and aggregate documents in MongoDB collections with JSON or Extended JSON parameters.",
     tags: ["tools"],
   },
   secretSchema,
@@ -269,11 +385,10 @@ const toolSet = defineToolSet({
         "zh-CN": "查询文档",
       },
       description: {
-        en: "Find documents from a MongoDB collection",
-        "zh-CN": "从 MongoDB 集合查询文档",
+        en: "Find documents in a MongoDB collection using a filter, optional projection, sort, limit, and skip.",
+        "zh-CN":
+          "使用筛选条件查询 MongoDB 集合中的文档，并可指定返回字段、排序、数量上限和跳过数量。",
       },
-      toolDescription:
-        "Find documents from a MongoDB collection using a filter JSON object.",
       handler: findHandler,
     },
     {
@@ -283,11 +398,9 @@ const toolSet = defineToolSet({
         "zh-CN": "插入文档",
       },
       description: {
-        en: "Insert one or multiple documents into a MongoDB collection",
-        "zh-CN": "向 MongoDB 集合插入一个或多个文档",
+        en: "Insert one JSON document or an array of JSON documents into a MongoDB collection.",
+        "zh-CN": "向 MongoDB 集合插入一个 JSON 文档或 JSON 文档数组。",
       },
-      toolDescription:
-        "Insert one JSON document or an array of JSON documents into a collection.",
       handler: insertHandler,
     },
     {
@@ -297,11 +410,10 @@ const toolSet = defineToolSet({
         "zh-CN": "更新文档",
       },
       description: {
-        en: "Update one or multiple documents in a MongoDB collection",
-        "zh-CN": "更新 MongoDB 集合中的一个或多个文档",
+        en: "Update matching MongoDB documents with update operators, optionally allowing multiple matches or upsert.",
+        "zh-CN":
+          "使用更新操作符修改匹配的 MongoDB 文档，并可选择更新多条文档或启用 upsert。",
       },
-      toolDescription:
-        "Update documents in a MongoDB collection with a filter and update operators.",
       handler: updateHandler,
     },
     {
@@ -311,11 +423,9 @@ const toolSet = defineToolSet({
         "zh-CN": "删除文档",
       },
       description: {
-        en: "Delete one or multiple documents from a MongoDB collection",
-        "zh-CN": "从 MongoDB 集合删除一个或多个文档",
+        en: "Delete matching documents from a MongoDB collection, with explicit support for multiple matches.",
+        "zh-CN": "从 MongoDB 集合删除匹配的文档，并显式支持删除多条文档。",
       },
-      toolDescription:
-        "Delete documents from a MongoDB collection using a filter JSON object.",
       handler: deleteHandler,
     },
     {
@@ -325,10 +435,10 @@ const toolSet = defineToolSet({
         "zh-CN": "聚合文档",
       },
       description: {
-        en: "Run an aggregation pipeline on a MongoDB collection",
-        "zh-CN": "在 MongoDB 集合上执行聚合管道",
+        en: "Run a MongoDB aggregation pipeline on a collection with optional result limits and disk use.",
+        "zh-CN":
+          "在 MongoDB 集合上运行聚合管道，并可设置结果数量上限和是否使用磁盘。",
       },
-      toolDescription: "Run a MongoDB aggregation pipeline on a collection.",
       handler: aggregateHandler,
     },
   ],

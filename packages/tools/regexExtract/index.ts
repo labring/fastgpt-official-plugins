@@ -1,65 +1,84 @@
 import {
   createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
   defineTool,
-  type InputSchemaMetaType,
-  type OutputSchemaMetaType,
 } from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import { InputType, OutputType, tool as toolCb } from "./src";
 
 const secretSchema = z.object({});
-const inputSchema = z.object({
-  text: z.string().meta({
-    title: "文本内容",
-    description: "需要被正则表达式提取的文本内容",
-    toolDescription: "需要被正则表达式提取的文本内容",
-  } satisfies InputSchemaMetaType),
-  pattern: z.string().meta({
-    title: "正则表达式",
-    description: "JavaScript 正则表达式内容，不需要包含前后的 /",
-    toolDescription:
-      "用于提取文本内容的 JavaScript 正则表达式，不需要包含前后的 /",
-  } satisfies InputSchemaMetaType),
-  flags: z
-    .string()
-    .optional()
-    .meta({
-      title: "正则标志",
-      description: "可选的正则标志，支持 gimsuyd；g 会自动启用",
-      toolDescription: "可选的正则标志，例如 i、m、s；g 会自动启用",
-    } satisfies InputSchemaMetaType),
-  group: z
-    .union([z.string(), z.number()])
-    .optional()
-    .meta({
-      title: "提取分组",
-      description: "可选的捕获分组，支持数字分组或命名分组",
-      toolDescription: "可选的捕获分组，支持数字分组如 1，或命名分组如 email",
-    } satisfies InputSchemaMetaType),
+const inputSchema = defineInputSchema({
+  text: {
+    type: z.string(),
+    title: { en: "Text", "zh-CN": "文本内容" },
+    description: {
+      en: "Text to extract content from using a regular expression.",
+      "zh-CN": "需要使用正则表达式提取内容的文本。",
+    },
+    isToolParam: true,
+  },
+  pattern: {
+    type: z.string(),
+    title: { en: "Regular Expression", "zh-CN": "正则表达式" },
+    description: {
+      en: "JavaScript regular expression without the surrounding slashes. Use this pattern to extract text.",
+      "zh-CN": "用于提取文本的 JavaScript 正则表达式，不需要包含前后的斜杠。",
+    },
+    isToolParam: true,
+  },
+  flags: {
+    type: z.string().optional(),
+    title: { en: "Regex Flags", "zh-CN": "正则标志" },
+    description: {
+      en: "Optional regular expression flags; supports gimsuyd. The global flag g is enabled automatically.",
+      "zh-CN": "可选的正则标志，支持 gimsuyd；会自动启用全局标志 g。",
+    },
+    isToolParam: true,
+  },
+  group: {
+    type: z.union([z.string(), z.number()]).optional(),
+    title: { en: "Capture Group", "zh-CN": "提取分组" },
+    description: {
+      en: "Optional capture group to return, specified by number (such as 1) or name (such as email).",
+      "zh-CN": "可选的捕获分组，可用数字（例如 1）或名称（例如 email）指定。",
+    },
+    isToolParam: true,
+  },
 });
-const outputSchema = z.object({
-  matches: z.array(z.string()).meta({
-    title: "匹配结果",
-    description: "正则表达式提取到的内容列表",
-  } satisfies OutputSchemaMetaType),
-  firstMatch: z
-    .string()
-    .optional()
-    .meta({
-      title: "首个匹配结果",
-      description: "正则表达式提取到的第一条内容",
-    } satisfies OutputSchemaMetaType),
-  count: z.number().meta({
-    title: "匹配数量",
-    description: "正则表达式提取到的内容数量",
-  } satisfies OutputSchemaMetaType),
-  error: z
-    .string()
-    .optional()
-    .meta({
-      title: "错误信息",
-      description: "正则表达式无效或分组无效时返回的错误信息",
-    } satisfies OutputSchemaMetaType),
+const outputSchema = defineOutputSchema({
+  matches: {
+    type: z.array(z.string()),
+    title: { en: "Matches", "zh-CN": "匹配结果" },
+    description: {
+      en: "List of values extracted by the regular expression.",
+      "zh-CN": "正则表达式提取到的内容列表。",
+    },
+  },
+  firstMatch: {
+    type: z.string().optional(),
+    title: { en: "First Match", "zh-CN": "首个匹配结果" },
+    description: {
+      en: "First value extracted by the regular expression, if any.",
+      "zh-CN": "正则表达式提取到的第一条内容（如果存在）。",
+    },
+  },
+  count: {
+    type: z.number(),
+    title: { en: "Match Count", "zh-CN": "匹配数量" },
+    description: {
+      en: "Number of extracted values.",
+      "zh-CN": "提取到的内容数量。",
+    },
+  },
+  error: {
+    type: z.string().optional(),
+    title: { en: "Error Message", "zh-CN": "错误信息" },
+    description: {
+      en: "Error details returned when the regular expression or capture group is invalid.",
+      "zh-CN": "正则表达式或捕获分组无效时返回的错误信息。",
+    },
+  },
 });
 const handler = createToolHandler({
   inputSchema,
@@ -85,8 +104,8 @@ const tool = defineTool({
     },
     version: "0.1.0",
     versionDescription: {
-      en: "Initial version",
-      "zh-CN": "Initial version",
+      en: "Initial release",
+      "zh-CN": "初始版本",
     },
     tags: ["tools"],
   },

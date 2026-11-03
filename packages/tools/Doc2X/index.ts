@@ -1,4 +1,9 @@
-import { createToolHandler, defineToolSet } from "@fastgpt-plugin/sdk-factory";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineToolSet,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import {
   InputType as PDF2textInputType,
@@ -7,31 +12,56 @@ import {
 } from "./children/PDF2text";
 
 const secretSchema = z.object({
-  "apikey": z.string().meta({
-    title: "apikey",
-    description: "Doc2X的API密钥，可以从Doc2X开放平台获得",
+  apikey: z.string().meta({
+    title: "API key",
+    description: "Doc2X API key, available from the Doc2X developer platform.",
+    "x-i18n": {
+      title: { en: "API key", "zh-CN": "API 密钥" },
+      description: {
+        en: "Doc2X API key, available from the Doc2X developer platform.",
+        "zh-CN": "Doc2X 的 API 密钥，可从 Doc2X 开放平台获取。",
+      },
+    },
     isSecret: true,
-  })
+  }),
 });
 const PDF2textSecretSchema = z.object({});
-const PDF2textInputSchema = z.object({
-  "files": z.array(z.string()).meta({
-    title: "files",
-    description: "需要处理的PDF地址"
-  })
+const PDF2textInputSchema = defineInputSchema({
+  files: {
+    type: z.array(z.string()),
+    title: { en: "Files", "zh-CN": "文件" },
+    description: {
+      en: "URLs of PDF files to process.",
+      "zh-CN": "需要处理的 PDF 地址。",
+    },
+    isToolParam: true,
+  },
 });
-const PDF2textOutputSchema = z.object({
-  "result": z.string().meta({
-    title: "结果",
-    description: "处理结果，由文档内容组成，多个文件之间由横线分隔开"
-  }),
-  "success": z.boolean().meta({
-    title: "成功",
-    description: "成功信息"
-  }),
-  "error": z.string().optional().meta({
-    title: "错误信息"
-  })
+const PDF2textOutputSchema = defineOutputSchema({
+  result: {
+    type: z.string(),
+    title: { en: "Result", "zh-CN": "结果" },
+    description: {
+      en: "Parsed document contents, with multiple files separated by horizontal rules.",
+      "zh-CN": "处理结果，由文档内容组成，多个文件之间由横线分隔开。",
+    },
+  },
+  success: {
+    type: z.boolean(),
+    title: { en: "Success", "zh-CN": "成功" },
+    description: {
+      en: "Whether processing succeeded.",
+      "zh-CN": "处理是否成功。",
+    },
+  },
+  error: {
+    type: z.string().optional(),
+    title: { en: "Error", "zh-CN": "错误信息" },
+    description: {
+      en: "Error message when processing fails.",
+      "zh-CN": "处理失败时返回的错误信息。",
+    },
+  },
 });
 const PDF2textHandler = createToolHandler({
   inputSchema: PDF2textInputSchema,
@@ -40,9 +70,9 @@ const PDF2textHandler = createToolHandler({
   handler: async (input, ctx) => {
     const parsedInput = await PDF2textInputType.parseAsync({
       ...input,
-      ...ctx.secrets
+      ...ctx.secrets,
     });
-    const output = await PDF2textTool(parsedInput, ctx);
+    const output = await PDF2textTool(parsedInput);
     return PDF2textOutputType.parseAsync(output);
   },
 });
@@ -62,7 +92,7 @@ const toolSet = defineToolSet({
     version: "0.0.1",
     versionDescription: {
       en: "Initial version",
-      "zh-CN": "Initial version",
+      "zh-CN": "初始版本",
     },
     tags: ["productivity"],
   },

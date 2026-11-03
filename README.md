@@ -70,7 +70,7 @@ pnpm type-check
 # Biome check
 pnpm biome-check
 
-# Build and collect the full release package
+# Pack all official plugins and build the full plugin package (dist/fastgpt-official-plugins.zip)
 pnpm build:full-package
 ```
 
@@ -108,6 +108,8 @@ When creating or updating plugins, keep these conventions:
 
 - Use TypeScript ESM.
 - Reuse `@fastgpt-plugin/sdk-factory` for entries and schemas.
+- Define public fields with `defineInputSchema` and `defineOutputSchema`, using English and Simplified Chinese titles and descriptions.
+- Keep plugin and child names/descriptions bilingual (`en` and `zh-CN`); do not use the legacy `toolDescription` field.
 - Use `fastgpt-tools-<tool-name>` as the package name.
 - Declare external credentials as plugin secrets or input parameters, and keep them out of source code.
 - Reuse local helper functions from nearby plugins for network requests, file uploads, and error handling.
@@ -133,13 +135,20 @@ pnpm biome-check
 
 ## Marketplace Publishing
 
-The repository includes three publishing workflows:
+The repository includes four publishing workflows:
 
 - `Extract Updated Tools`: extracts changed `packages/tools/<tool>` directories after `packages/**` changes land on `main`.
 - `Publish Tools to Marketplace`: builds, packs, and uploads selected tools after manual approval.
 - `Publish All Tools to Marketplace`: manually triggers full build, pack, and publishing.
+- `Build Full Plugin Package`: rebuilds the full zip (every `packages/tools/*` plugin) after `packages/tools/**` changes land on `main`, and publishes it as the rolling `pkg-latest` release asset.
 
-GitHub Actions requires the `MarketplacePublish` environment and secrets such as `MARKETPLACE_BASE_URL` and `MARKETPLACE_AUTH`. See [docs/github-actions-config.md](./docs/github-actions-config.md) for details.
+The full zip used for bulk reinstallation is downloadable without authentication:
+
+```text
+https://github.com/labring/fastgpt-official-plugins/releases/download/pkg-latest/fastgpt-official-plugins.zip
+```
+
+GitHub Actions requires the `MarketplacePublish` environment and secrets such as `MARKETPLACE_BASE_URL` and `MARKETPLACE_AUTH`. The full package workflow needs `contents: write` to update the release. See [docs/github-actions-config.md](./docs/github-actions-config.md) for details.
 
 ## Related Repositories
 

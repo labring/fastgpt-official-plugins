@@ -1,31 +1,52 @@
-import { createToolHandler, defineTool } from "@fastgpt-plugin/sdk-factory";
-import { InputType, OutputType, tool as toolCb } from "./src";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineTool,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
+import { InputType, OutputType, tool as toolCb } from "./src";
 
 const secretSchema = z.object({
-  "apiKey": z.string().meta({
+  apiKey: z.string().meta({
     title: "API Key",
     description: "可以在必优官网获取",
+    "x-i18n": {
+      title: { en: "API key", "zh-CN": "API Key" },
+      description: {
+        en: "Get an API key from the Biyou website.",
+        "zh-CN": "可以在必优官网获取。",
+      },
+    },
     isSecret: true,
-  })
-});
-const inputSchema = z.object({
-  "text": z.string().meta({
-    title: "描述文本",
-    description: "生成PPT的描述文本",
-    toolDescription: "生成PPT的描述文本"
   }),
-  "color": z.string().optional().meta({
-    title: "主题色",
-    description: "PPT的主题色",
-    toolDescription: "PPT的主题色"
-  })
 });
-const outputSchema = z.object({
-  "preview_url": z.string().meta({
-    title: "PPT的预览URL",
-    description: "PPT的预览URL"
-  })
+const inputSchema = defineInputSchema({
+  text: {
+    type: z.string(),
+    title: { en: "Description", "zh-CN": "描述文本" },
+    description: {
+      en: "Description of the presentation to generate.",
+      "zh-CN": "生成 PPT 的描述文本",
+    },
+    isToolParam: true,
+  },
+  color: {
+    type: z.string().optional(),
+    title: { en: "Theme color", "zh-CN": "主题色" },
+    description: { en: "Presentation theme color.", "zh-CN": "PPT 的主题色" },
+    isToolParam: true,
+  },
+});
+const outputSchema = defineOutputSchema({
+  preview_url: {
+    type: z.string(),
+    title: { en: "Presentation preview URL", "zh-CN": "PPT 预览链接" },
+    description: {
+      en: "URL for previewing the generated presentation.",
+      "zh-CN": "生成的 PPT 预览链接",
+    },
+  },
 });
 const handler = createToolHandler({
   inputSchema,
@@ -34,9 +55,9 @@ const handler = createToolHandler({
   handler: async (input, ctx) => {
     const parsedInput = await InputType.parseAsync({
       ...input,
-      ...ctx.secrets
+      ...ctx.secrets,
     });
-    const output = await toolCb(parsedInput, ctx);
+    const output = await toolCb(parsedInput);
     return OutputType.parseAsync(output);
   },
 });
@@ -55,12 +76,10 @@ const tool = defineTool({
     version: "0.1.1",
     versionDescription: {
       en: "Default version",
-      "zh-CN": "Default version",
+      "zh-CN": "默认版本",
     },
-    toolDescription: "ChatPPT, one-click generate PPT",
     tags: ["productivity"],
   },
-  secretSchema,
   handler,
 });
 

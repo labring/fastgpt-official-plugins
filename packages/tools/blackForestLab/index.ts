@@ -1,4 +1,9 @@
-import { createToolHandler, defineToolSet } from "@fastgpt-plugin/sdk-factory";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineToolSet,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import {
   InputType as kontextEditingInputType,
@@ -12,52 +17,119 @@ import {
 } from "./children/kontextGeneration";
 
 const secretSchema = z.object({
-  "apiKey": z.string().meta({
+  apiKey: z.string().meta({
     title: "API Key",
-    description: "可以在 https://api.bfl.ai/ 获取 API Key",
+    description: "BFL API key available from https://api.bfl.ai/.",
+    "x-i18n": {
+      title: { en: "API key", "zh-CN": "API 密钥" },
+      description: {
+        en: "BFL API key available from https://api.bfl.ai/.",
+        "zh-CN": "可在 https://api.bfl.ai/ 获取 BFL API 密钥。",
+      },
+    },
     isSecret: true,
-  })
+  }),
 });
 const kontextEditingSecretSchema = z.object({});
-const kontextEditingInputSchema = z.object({
-  "prompt": z.string().meta({
-    title: "编辑描述",
-    description: "描述您想要对图像进行的编辑操作",
-    toolDescription: "图像描述"
-  }),
-  "input_image": z.string().meta({
-    title: "输入图像",
-    description: "要编辑的图像，可以是 URL 或 base64 编码的图像数据，支持最大 20MB 或 20 百万像素"
-  }),
-  "aspect_ratio": z.enum(["3:7","4:7","1:2","9:16","2:3","3:4","1:1","4:3","3:2","16:9","2:1","7:4","7:3"]).optional().meta({
-    title: "宽高比",
-    description: "图像的宽高比，支持从 3:7 到 7:3"
-  }),
-  "seed": z.number().optional().meta({
-    title: "随机种子",
-    description: "用于可重复生成的种子值，留空则使用随机种子"
-  }),
-  "prompt_upsampling": z.boolean().optional().meta({
-    title: "提示词增强",
-    description: "是否对提示词进行优化增强"
-  }),
-  "safety_tolerance": z.number().optional().meta({
-    title: "安全等级",
-    description: "内容审核的严格程度，0 最严格，2 最宽松"
-  }),
-  "output_format": z.enum(["jpeg","png"]).optional().meta({
-    title: "输出格式",
-    description: "生成图像的文件格式"
-  })
+const kontextEditingInputSchema = defineInputSchema({
+  prompt: {
+    type: z.string(),
+    title: { en: "Edit prompt", "zh-CN": "编辑描述" },
+    description: {
+      en: "Describe the edits you want made to the image.",
+      "zh-CN": "描述您想要对图像进行的编辑操作。",
+    },
+    isToolParam: true,
+  },
+  input_image: {
+    type: z.string(),
+    title: { en: "Input image", "zh-CN": "输入图像" },
+    description: {
+      en: "Image to edit, as a URL or base64-encoded image; supports up to 20 MB or 20 megapixels.",
+      "zh-CN":
+        "要编辑的图像，可以是 URL 或 base64 编码的图像数据，支持最大 20 MB 或 20 百万像素。",
+    },
+    isToolParam: true,
+  },
+  aspect_ratio: {
+    type: z
+      .enum([
+        "3:7",
+        "4:7",
+        "1:2",
+        "9:16",
+        "2:3",
+        "3:4",
+        "1:1",
+        "4:3",
+        "3:2",
+        "16:9",
+        "2:1",
+        "7:4",
+        "7:3",
+      ])
+      .optional(),
+    title: { en: "Aspect ratio", "zh-CN": "宽高比" },
+    description: {
+      en: "Image aspect ratio, from 3:7 to 7:3.",
+      "zh-CN": "图像的宽高比，支持从 3:7 到 7:3。",
+    },
+    isToolParam: true,
+  },
+  seed: {
+    type: z.number().optional(),
+    title: { en: "Seed", "zh-CN": "随机种子" },
+    description: {
+      en: "Seed for reproducible generation; leave empty for a random seed.",
+      "zh-CN": "用于可重复生成的种子值，留空则使用随机种子。",
+    },
+    isToolParam: true,
+  },
+  prompt_upsampling: {
+    type: z.boolean().optional(),
+    title: { en: "Prompt enhancement", "zh-CN": "提示词增强" },
+    description: {
+      en: "Whether to enhance the prompt.",
+      "zh-CN": "是否对提示词进行优化增强。",
+    },
+    isToolParam: true,
+  },
+  safety_tolerance: {
+    type: z.number().optional(),
+    title: { en: "Safety tolerance", "zh-CN": "安全等级" },
+    description: {
+      en: "Content moderation strictness: 0 is strictest and 2 is most permissive.",
+      "zh-CN": "内容审核的严格程度，0 最严格，2 最宽松。",
+    },
+    isToolParam: true,
+  },
+  output_format: {
+    type: z.enum(["jpeg", "png"]).optional(),
+    title: { en: "Output format", "zh-CN": "输出格式" },
+    description: {
+      en: "File format of the generated image.",
+      "zh-CN": "生成图像的文件格式。",
+    },
+    isToolParam: true,
+  },
 });
-const kontextEditingOutputSchema = z.object({
-  "image_url": z.string().meta({
-    title: "图片URL",
-    description: "编辑后的图片URL"
-  }),
-  "error": z.string().optional().meta({
-    title: "错误信息"
-  })
+const kontextEditingOutputSchema = defineOutputSchema({
+  image_url: {
+    type: z.string(),
+    title: { en: "Image URL", "zh-CN": "图片 URL" },
+    description: {
+      en: "URL of the edited image.",
+      "zh-CN": "编辑后的图片 URL。",
+    },
+  },
+  error: {
+    type: z.string().optional(),
+    title: { en: "Error", "zh-CN": "错误信息" },
+    description: {
+      en: "Error message, if any.",
+      "zh-CN": "发生错误时返回的错误信息。",
+    },
+  },
 });
 const kontextEditingHandler = createToolHandler({
   inputSchema: kontextEditingInputSchema,
@@ -66,49 +138,87 @@ const kontextEditingHandler = createToolHandler({
   handler: async (input, ctx) => {
     const parsedInput = await kontextEditingInputType.parseAsync({
       ...input,
-      ...ctx.secrets
+      ...ctx.secrets,
     });
-    const output = await kontextEditingTool(parsedInput, ctx);
+    const output = await kontextEditingTool(parsedInput);
     return kontextEditingOutputType.parseAsync(output);
   },
 });
 
 const kontextGenerationSecretSchema = z.object({});
-const kontextGenerationInputSchema = z.object({
-  "prompt": z.string().meta({
-    title: "图像描述",
-    description: "描述您想要生成的图像",
-    toolDescription: "图像描述"
-  }),
-  "aspect_ratio": z.enum(["1:1","16:9","9:16","4:3","3:4","21:9","9:21"]).meta({
-    title: "宽高比",
-    description: "图像的宽高比，例如 \"1:1\", \"16:9\", \"3:4\" 等，支持从 3:7 到 7:3"
-  }),
-  "seed": z.number().optional().meta({
-    title: "随机种子",
-    description: "用于可重复生成的种子值，留空则使用随机种子"
-  }),
-  "prompt_upsampling": z.boolean().meta({
-    title: "提示词增强",
-    description: "是否对提示词进行优化增强"
-  }),
-  "safety_tolerance": z.number().meta({
-    title: "安全等级",
-    description: "内容审核的严格程度，0 最严格，6 最宽松"
-  }),
-  "output_format": z.enum(["jpeg","png"]).meta({
-    title: "输出格式",
-    description: "生成图像的文件格式"
-  })
+const kontextGenerationInputSchema = defineInputSchema({
+  prompt: {
+    type: z.string(),
+    title: { en: "Image prompt", "zh-CN": "图像描述" },
+    description: {
+      en: "Describe the image to generate.",
+      "zh-CN": "描述您想要生成的图像。",
+    },
+    isToolParam: true,
+  },
+  aspect_ratio: {
+    type: z.enum(["1:1", "16:9", "9:16", "4:3", "3:4", "21:9", "9:21"]),
+    title: { en: "Aspect ratio", "zh-CN": "宽高比" },
+    description: {
+      en: "Image aspect ratio, for example 1:1, 16:9, or 3:4.",
+      "zh-CN": "图像的宽高比，例如 1:1、16:9、3:4 等。",
+    },
+    isToolParam: true,
+  },
+  seed: {
+    type: z.number().optional(),
+    title: { en: "Seed", "zh-CN": "随机种子" },
+    description: {
+      en: "Seed for reproducible generation; leave empty for a random seed.",
+      "zh-CN": "用于可重复生成的种子值，留空则使用随机种子。",
+    },
+    isToolParam: true,
+  },
+  prompt_upsampling: {
+    type: z.boolean(),
+    title: { en: "Prompt enhancement", "zh-CN": "提示词增强" },
+    description: {
+      en: "Whether to enhance the prompt.",
+      "zh-CN": "是否对提示词进行优化增强。",
+    },
+    isToolParam: true,
+  },
+  safety_tolerance: {
+    type: z.number(),
+    title: { en: "Safety tolerance", "zh-CN": "安全等级" },
+    description: {
+      en: "Content moderation strictness: 0 is strictest and 6 is most permissive.",
+      "zh-CN": "内容审核的严格程度，0 最严格，6 最宽松。",
+    },
+    isToolParam: true,
+  },
+  output_format: {
+    type: z.enum(["jpeg", "png"]),
+    title: { en: "Output format", "zh-CN": "输出格式" },
+    description: {
+      en: "File format of the generated image.",
+      "zh-CN": "生成图像的文件格式。",
+    },
+    isToolParam: true,
+  },
 });
-const kontextGenerationOutputSchema = z.object({
-  "image_url": z.string().meta({
-    title: "图片URL",
-    description: "生成的图片URL"
-  }),
-  "error": z.string().optional().meta({
-    title: "错误信息"
-  })
+const kontextGenerationOutputSchema = defineOutputSchema({
+  image_url: {
+    type: z.string(),
+    title: { en: "Image URL", "zh-CN": "图片 URL" },
+    description: {
+      en: "URL of the generated image.",
+      "zh-CN": "生成的图片 URL。",
+    },
+  },
+  error: {
+    type: z.string().optional(),
+    title: { en: "Error", "zh-CN": "错误信息" },
+    description: {
+      en: "Error message, if any.",
+      "zh-CN": "发生错误时返回的错误信息。",
+    },
+  },
 });
 const kontextGenerationHandler = createToolHandler({
   inputSchema: kontextGenerationInputSchema,
@@ -117,9 +227,9 @@ const kontextGenerationHandler = createToolHandler({
   handler: async (input, ctx) => {
     const parsedInput = await kontextGenerationInputType.parseAsync({
       ...input,
-      ...ctx.secrets
+      ...ctx.secrets,
     });
-    const output = await kontextGenerationTool(parsedInput, ctx);
+    const output = await kontextGenerationTool(parsedInput);
     return kontextGenerationOutputType.parseAsync(output);
   },
 });
@@ -138,7 +248,7 @@ const toolSet = defineToolSet({
     version: "0.0.1",
     versionDescription: {
       en: "Initial version",
-      "zh-CN": "Initial version",
+      "zh-CN": "初始版本",
     },
     tags: ["multimodal"],
   },

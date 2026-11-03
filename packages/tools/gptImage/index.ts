@@ -1,4 +1,9 @@
-import { createToolHandler, defineToolSet } from "@fastgpt-plugin/sdk-factory";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineToolSet,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import {
   InputType as imgEditingInputType,
@@ -12,40 +17,75 @@ import {
 } from "./children/imgGeneration";
 
 const secretSchema = z.object({
-  "baseUrl": z.string().optional().meta({
-    title: "BaseUrl",
-    description: "默认为：https://api.openai.com/v1"
-  }),
-  "apiKey": z.string().meta({
+  baseUrl: z
+    .string()
+    .optional()
+    .meta({
+      title: "Base URL",
+      description: "默认为：https://api.openai.com/v1",
+      "x-i18n": {
+        title: { en: "Base URL", "zh-CN": "基础 URL" },
+        description: {
+          en: "Defaults to https://api.openai.com/v1.",
+          "zh-CN": "默认为：https://api.openai.com/v1。",
+        },
+      },
+      isSecret: false,
+    }),
+  apiKey: z.string().meta({
     title: "API Key",
     description: "可以在 https://api.gpt.ge/pricing 获取",
+    "x-i18n": {
+      title: { en: "API key", "zh-CN": "API 密钥" },
+      description: {
+        en: "Obtain an API key at https://api.gpt.ge/pricing.",
+        "zh-CN": "可以在 https://api.gpt.ge/pricing 获取。",
+      },
+    },
     isSecret: true,
-  })
+  }),
 });
 const imgEditingSecretSchema = z.object({});
-const imgEditingInputSchema = z.object({
-  "image": z.string().meta({
-    title: "原始图片",
-    description: "要编辑的原始图片，支持图片URL或base64编码，文件大小需小于4MB",
-    toolDescription: "The original image to be edited (URL or base64)"
-  }),
-  "prompt": z.string().meta({
-    title: "编辑描述",
-    description: "描述要对图片进行的修改",
-    toolDescription: "Describe what changes you want to make to the image"
-  }),
-  "size": z.enum(["1024x1024","1024x1536","1536x1024"]).optional().meta({
-    title: "图片尺寸"
-  }),
-  "quality": z.enum(["medium","high","low"]).optional().meta({
-    title: "图片质量"
-  })
+const imgEditingInputSchema = defineInputSchema({
+  image: {
+    type: z.string(),
+    title: { en: "Source image", "zh-CN": "原始图片" },
+    description: {
+      en: "Image to edit, provided as a URL or base64 data; file size must be under 4 MB.",
+      "zh-CN":
+        "要编辑的原始图片，支持图片 URL 或 base64 编码，文件大小需小于 4MB。",
+    },
+    isToolParam: true,
+  },
+  prompt: {
+    type: z.string(),
+    title: { en: "Editing instructions", "zh-CN": "编辑描述" },
+    description: {
+      en: "Describe the changes to make to the image.",
+      "zh-CN": "描述要对图片进行的修改。",
+    },
+    isToolParam: true,
+  },
+  size: {
+    type: z.enum(["1024x1024", "1024x1536", "1536x1024"]).optional(),
+    title: { en: "Image size", "zh-CN": "图片尺寸" },
+    isToolParam: true,
+  },
+  quality: {
+    type: z.enum(["medium", "high", "low"]).optional(),
+    title: { en: "Image quality", "zh-CN": "图片质量" },
+    isToolParam: true,
+  },
 });
-const imgEditingOutputSchema = z.object({
-  "imageUrl": z.string().meta({
-    title: "编辑后图片链接",
-    description: "编辑后的图片文件链接"
-  })
+const imgEditingOutputSchema = defineOutputSchema({
+  imageUrl: {
+    type: z.string(),
+    title: { en: "Edited image URL", "zh-CN": "编辑后图片链接" },
+    description: {
+      en: "URL of the edited image file.",
+      "zh-CN": "编辑后的图片文件链接。",
+    },
+  },
 });
 const imgEditingHandler = createToolHandler({
   inputSchema: imgEditingInputSchema,
@@ -54,7 +94,7 @@ const imgEditingHandler = createToolHandler({
   handler: async (input, ctx) => {
     const parsedInput = await imgEditingInputType.parseAsync({
       ...input,
-      ...ctx.secrets
+      ...ctx.secrets,
     });
     const output = await imgEditingTool(parsedInput, ctx);
     return imgEditingOutputType.parseAsync(output);
@@ -62,30 +102,46 @@ const imgEditingHandler = createToolHandler({
 });
 
 const imgGenerationSecretSchema = z.object({});
-const imgGenerationInputSchema = z.object({
-  "prompt": z.string().meta({
-    title: "图像描述",
-    description: "详细描述要生成的图像内容",
-    toolDescription: "Describe the image you want to generate in detail"
-  }),
-  "size": z.enum(["1024x1024","1024x1536","1536x1024"]).optional().meta({
-    title: "图片尺寸"
-  }),
-  "quality": z.enum(["medium","high","low"]).optional().meta({
-    title: "图片质量"
-  }),
-  "background": z.enum(["auto","transparent","opaque"]).optional().meta({
-    title: "背景透明度"
-  }),
-  "moderation": z.enum(["auto","low"]).optional().meta({
-    title: "图片审查级别"
-  })
+const imgGenerationInputSchema = defineInputSchema({
+  prompt: {
+    type: z.string(),
+    title: { en: "Image description", "zh-CN": "图像描述" },
+    description: {
+      en: "Describe the image you want to generate in detail.",
+      "zh-CN": "详细描述要生成的图像内容。",
+    },
+    isToolParam: true,
+  },
+  size: {
+    type: z.enum(["1024x1024", "1024x1536", "1536x1024"]).optional(),
+    title: { en: "Image size", "zh-CN": "图片尺寸" },
+    isToolParam: true,
+  },
+  quality: {
+    type: z.enum(["medium", "high", "low"]).optional(),
+    title: { en: "Image quality", "zh-CN": "图片质量" },
+    isToolParam: true,
+  },
+  background: {
+    type: z.enum(["auto", "transparent", "opaque"]).optional(),
+    title: { en: "Background", "zh-CN": "背景透明度" },
+    isToolParam: true,
+  },
+  moderation: {
+    type: z.enum(["auto", "low"]).optional(),
+    title: { en: "Moderation level", "zh-CN": "图片审查级别" },
+    isToolParam: true,
+  },
 });
-const imgGenerationOutputSchema = z.object({
-  "imageUrl": z.string().meta({
-    title: "图片链接",
-    description: "生成的图片文件链接"
-  })
+const imgGenerationOutputSchema = defineOutputSchema({
+  imageUrl: {
+    type: z.string(),
+    title: { en: "Image URL", "zh-CN": "图片链接" },
+    description: {
+      en: "URL of the generated image file.",
+      "zh-CN": "生成的图片文件链接。",
+    },
+  },
 });
 const imgGenerationHandler = createToolHandler({
   inputSchema: imgGenerationInputSchema,
@@ -94,7 +150,7 @@ const imgGenerationHandler = createToolHandler({
   handler: async (input, ctx) => {
     const parsedInput = await imgGenerationInputType.parseAsync({
       ...input,
-      ...ctx.secrets
+      ...ctx.secrets,
     });
     const output = await imgGenerationTool(parsedInput, ctx);
     return imgGenerationOutputType.parseAsync(output);
@@ -109,15 +165,11 @@ const toolSet = defineToolSet({
       "zh-CN": "gpt-image 绘图",
     },
     description: {
-      en: "This is a gpt-image image generation tool set",
-      "zh-CN": "这是一个gpt-image 绘图工具集",
+      en: "Generate and edit images using the gpt-image-1 model.",
+      "zh-CN": "使用 gpt-image-1 模型生成和编辑图像。",
     },
     version: "0.0.1",
-    versionDescription: {
-      en: "Initial version",
-      "zh-CN": "Initial version",
-    },
-    toolDescription: "gpt-image image generation tool set",
+    versionDescription: { en: "Initial version", "zh-CN": "初始版本" },
     tags: ["multimodal"],
     permission: ["file-upload:allow"],
   },
@@ -125,30 +177,20 @@ const toolSet = defineToolSet({
   children: [
     {
       id: "imgEditing",
-      name: {
-        en: "gpt-image Image Editing",
-        "zh-CN": "gpt-image 图像编辑",
-      },
+      name: { en: "gpt-image Image Editing", "zh-CN": "gpt-image 图像编辑" },
       description: {
-        en: "Edit and modify existing images using gpt-image-1 model",
-        "zh-CN": "使用gpt-image-1模型对现有图像进行编辑和修改",
+        en: "Edit existing images with gpt-image-1, with optional masking for precise changes.",
+        "zh-CN": "使用 gpt-image-1 编辑现有图像，并可通过蒙版进行精确修改。",
       },
-      toolDescription:
-        "Edit existing images using gpt-image-1 AI model. Supports image modification with optional mask for precise editing.",
       handler: imgEditingHandler,
     },
     {
       id: "imgGeneration",
-      name: {
-        en: "gpt-image Image Generation",
-        "zh-CN": "gpt-image 图像生成",
-      },
+      name: { en: "gpt-image Image Generation", "zh-CN": "gpt-image 图像生成" },
       description: {
-        en: "Generate high-quality images from text descriptions using gpt-image-1 model",
-        "zh-CN": "使用gpt-image-1模型根据文本描述生成高质量图像",
+        en: "Generate images from text prompts with gpt-image-1 and configurable size and quality.",
+        "zh-CN": "使用 gpt-image-1 根据文本提示生成图像，并可配置尺寸和质量。",
       },
-      toolDescription:
-        "Generate images from text prompts using gpt-image-1 AI model. Supports various sizes and quality settings.",
       handler: imgGenerationHandler,
     },
   ],

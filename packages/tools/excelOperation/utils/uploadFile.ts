@@ -1,3 +1,5 @@
+import type { ToolHandlerContext } from "@fastgpt-plugin/sdk-factory";
+
 type UploadInput = {
   url?: string;
   buffer?: Buffer | Uint8Array;
@@ -7,22 +9,8 @@ type UploadInput = {
   contentType?: string;
 };
 
-type UploadResult = {
-  accessUrl?: string | undefined;
-  accessURL?: string | undefined;
-  fileName?: string | undefined;
-  contentType?: string | undefined;
-  etag?: string | undefined;
-  size?: number | undefined;
-  createTime?: Date | undefined;
-  [key: string]: unknown;
-};
-
-export type UploadContext = {
-  invoke?: {
-    uploadFile(input: any): Promise<[UploadResult | null, unknown]>;
-  };
-};
+export type UploadContext = Pick<ToolHandlerContext<undefined>, "invoke">;
+type UploadFileInput = Parameters<UploadContext["invoke"]["uploadFile"]>[0];
 
 export async function uploadFile(input: UploadInput, ctx?: UploadContext) {
   const file = await normalizeInput(input);
@@ -30,16 +18,13 @@ export async function uploadFile(input: UploadInput, ctx?: UploadContext) {
     const [result, error] = await ctx.invoke.uploadFile({
       file: file.data,
       fileName: file.fileName,
-      contentType: file.contentType,
+      contentType: file.contentType as UploadFileInput["contentType"],
     });
 
-    if (error || !result) {
-      throw new Error(getUploadErrorMessage(error));
-    }
+    if (error) throw error;
+    if (!result) throw new Error("Failed to upload file");
 
-    const accessUrl = (result.accessUrl ?? result.accessURL) as
-      | string
-      | undefined;
+    const accessUrl = result.accessURL;
     return { ...result, accessUrl, accessURL: accessUrl };
   }
 
@@ -50,18 +35,6 @@ export async function uploadFile(input: UploadInput, ctx?: UploadContext) {
     fileName: file.fileName,
     contentType: file.contentType,
   };
-}
-
-function getUploadErrorMessage(error: unknown) {
-  if (!error) return "Failed to upload file";
-  if (error instanceof Error) return error.message;
-  if (typeof error === "string") return error;
-  if (typeof error === "object" && "reason" in error) {
-    const reason = (error as { reason?: { "zh-CN"?: string; en?: string } })
-      .reason;
-    return reason?.["zh-CN"] ?? reason?.en ?? "Failed to upload file";
-  }
-  return "Failed to upload file";
 }
 
 async function normalizeInput(input: UploadInput) {

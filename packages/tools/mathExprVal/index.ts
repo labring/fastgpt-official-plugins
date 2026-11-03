@@ -1,20 +1,33 @@
-import { createToolHandler, defineTool } from "@fastgpt-plugin/sdk-factory";
-import { InputType, OutputType, tool as toolCb } from "./src";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineTool,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
+import { InputType, OutputType, tool as toolCb } from "./src";
 
 const secretSchema = z.object({});
-const inputSchema = z.object({
-  "expr": z.string().meta({
-    title: "数学表达式",
-    description: "需要执行的数学表达式",
-    toolDescription: "需要执行的数学表达式"
-  })
+const inputSchema = defineInputSchema({
+  expr: {
+    type: z.string(),
+    title: { en: "Math expression", "zh-CN": "数学表达式" },
+    description: {
+      en: "Mathematical expression to evaluate.",
+      "zh-CN": "需要执行的数学表达式",
+    },
+    isToolParam: true,
+  },
 });
-const outputSchema = z.object({
-  "result": z.string().meta({
-    title: "result",
-    description: "返回的数学表达式结果"
-  })
+const outputSchema = defineOutputSchema({
+  result: {
+    type: z.union([z.string(), z.number()]),
+    title: { en: "Result", "zh-CN": "计算结果" },
+    description: {
+      en: "Result of the evaluated expression.",
+      "zh-CN": "数学表达式的计算结果",
+    },
+  },
 });
 const handler = createToolHandler({
   inputSchema,
@@ -22,7 +35,7 @@ const handler = createToolHandler({
   secretSchema,
   handler: async (input, ctx) => {
     const parsedInput = await InputType.parseAsync(input);
-    const output = await toolCb(parsedInput, ctx);
+    const output = await toolCb(parsedInput);
     return OutputType.parseAsync(output);
   },
 });
@@ -42,11 +55,10 @@ const tool = defineTool({
     version: "0.1.1",
     versionDescription: {
       en: "Default version",
-      "zh-CN": "Default version",
+      "zh-CN": "默认版本",
     },
     tags: ["scientific"],
   },
-  secretSchema,
   handler,
 });
 

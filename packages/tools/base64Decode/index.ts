@@ -1,4 +1,9 @@
-import { createToolHandler, defineToolSet } from "@fastgpt-plugin/sdk-factory";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineToolSet,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import {
   InputType as toFileInputType,
@@ -18,15 +23,35 @@ import {
 
 const secretSchema = z.object({});
 const toFileSecretSchema = z.object({});
-const toFileInputSchema = z.object({
-  base64: z.string(),
-  fileName: z.string().optional().meta({
-    title: "文件名",
-    description: "可选。自定义上传文件名；不含扩展名时会自动补全。",
-  }),
+const toFileInputSchema = defineInputSchema({
+  base64: {
+    type: z.string(),
+    title: { en: "Base64 data", "zh-CN": "Base64 字符串" },
+    description: {
+      en: "Base64-encoded content to upload as a file.",
+      "zh-CN": "要上传为文件的 Base64 编码内容。",
+    },
+    isToolParam: true,
+  },
+  fileName: {
+    type: z.string().optional(),
+    title: { en: "File name", "zh-CN": "文件名" },
+    description: {
+      en: "Optional custom upload filename; the extension is added automatically if omitted.",
+      "zh-CN": "可选。自定义上传文件名；不含扩展名时会自动补全。",
+    },
+    isToolParam: true,
+  },
 });
-const toFileOutputSchema = z.object({
-  url: z.string(),
+const toFileOutputSchema = defineOutputSchema({
+  url: {
+    type: z.string(),
+    title: { en: "File URL", "zh-CN": "文件 URL" },
+    description: {
+      en: "URL of the uploaded file.",
+      "zh-CN": "上传后文件的访问地址。",
+    },
+  },
 });
 
 const toFileHandler = createToolHandler({
@@ -41,20 +66,35 @@ const toFileHandler = createToolHandler({
 });
 
 const toImageSecretSchema = z.object({});
-const toImageInputSchema = z.object({
-  base64: z.string().meta({
-    title: "Base64 字符串",
-  }),
-  fileName: z.string().optional().meta({
-    title: "文件名",
-    description: "可选。自定义上传文件名；不含扩展名时会自动补全。",
-  }),
+const toImageInputSchema = defineInputSchema({
+  base64: {
+    type: z.string(),
+    title: { en: "Base64 data", "zh-CN": "Base64 字符串" },
+    description: {
+      en: "Base64-encoded image content to upload.",
+      "zh-CN": "要上传的 Base64 编码图片内容。",
+    },
+    isToolParam: true,
+  },
+  fileName: {
+    type: z.string().optional(),
+    title: { en: "File name", "zh-CN": "文件名" },
+    description: {
+      en: "Optional custom upload filename; the extension is added automatically if omitted.",
+      "zh-CN": "可选。自定义上传文件名；不含扩展名时会自动补全。",
+    },
+    isToolParam: true,
+  },
 });
-const toImageOutputSchema = z.object({
-  url: z.string().meta({
-    title: "图片 URL",
-    description: "可访问的图片地址: http://example.com",
-  }),
+const toImageOutputSchema = defineOutputSchema({
+  url: {
+    type: z.string(),
+    title: { en: "Image URL", "zh-CN": "图片 URL" },
+    description: {
+      en: "Accessible URL of the image, e.g. http://example.com.",
+      "zh-CN": "可访问的图片地址，例如：http://example.com。",
+    },
+  },
 });
 const toImageHandler = createToolHandler({
   inputSchema: toImageInputSchema,
@@ -68,23 +108,40 @@ const toImageHandler = createToolHandler({
 });
 
 const toTextSecretSchema = z.object({});
-const toTextInputSchema = z.object({
-  base64: z.string().meta({
-    title: "Base64 字符串",
-  }),
-  fileName: z.string().optional().meta({
-    title: "文件名",
-    description: "可选。填写后会将解码文本同时上传为文件。",
-  }),
+const toTextInputSchema = defineInputSchema({
+  base64: {
+    type: z.string(),
+    title: { en: "Base64 data", "zh-CN": "Base64 字符串" },
+    description: {
+      en: "Base64-encoded content to decode as text.",
+      "zh-CN": "要解码为文本的 Base64 编码内容。",
+    },
+    isToolParam: true,
+  },
+  fileName: {
+    type: z.string().optional(),
+    title: { en: "File name", "zh-CN": "文件名" },
+    description: {
+      en: "Optional filename; when supplied, the decoded text is also uploaded as a file.",
+      "zh-CN": "可选。填写后会将解码文本同时上传为文件。",
+    },
+    isToolParam: true,
+  },
 });
-const toTextOutputSchema = z.object({
-  text: z.string().meta({
-    title: "文本",
-  }),
-  url: z.string().optional().meta({
-    title: "文件 URL",
-    description: "填写文件名后返回的文本文件地址。",
-  }),
+const toTextOutputSchema = defineOutputSchema({
+  text: {
+    type: z.string(),
+    title: { en: "Text", "zh-CN": "文本" },
+    description: { en: "Decoded text content.", "zh-CN": "解码后的文本内容。" },
+  },
+  url: {
+    type: z.string().optional(),
+    title: { en: "File URL", "zh-CN": "文件 URL" },
+    description: {
+      en: "URL of the text file returned when a filename is provided.",
+      "zh-CN": "填写文件名后返回的文本文件地址。",
+    },
+  },
 });
 const toTextHandler = createToolHandler({
   inputSchema: toTextInputSchema,
@@ -128,7 +185,6 @@ const toolSet = defineToolSet({
         en: "Enter a Base64-encoded string and get a file.",
         "zh-CN": "将 Base64 编码的字符串转换为文件。",
       },
-      toolDescription: "Base64-encoded to file",
       handler: toFileHandler,
     },
     {
@@ -141,7 +197,6 @@ const toolSet = defineToolSet({
         en: "Enter a Base64-encoded string and get a image.",
         "zh-CN": "将 Base64 编码的字符串转换为图片。",
       },
-      toolDescription: "Base64-encoded to image",
       handler: toImageHandler,
     },
     {
@@ -154,7 +209,6 @@ const toolSet = defineToolSet({
         en: "Enter a Base64-encoded string and get a text.",
         "zh-CN": "将 Base64 编码的字符串转换为文本。",
       },
-      toolDescription: "Base64-encoded to text",
       handler: toTextHandler,
     },
   ],

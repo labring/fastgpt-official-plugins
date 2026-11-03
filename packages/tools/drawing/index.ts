@@ -1,4 +1,9 @@
-import { createToolHandler, defineToolSet } from "@fastgpt-plugin/sdk-factory";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineToolSet,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import {
   InputType as baseChartInputType,
@@ -8,33 +13,53 @@ import {
 
 const secretSchema = z.object({});
 const baseChartSecretSchema = z.object({});
-const baseChartInputSchema = z.object({
-  title: z.string().optional().meta({
-    title: "title",
-    description: "BI图表的标题",
-    toolDescription: "BI图表的标题",
-  }),
-  xAxis: z.array(z.string()).meta({
-    title: "xAxis",
-    description: 'x轴数据，例如：["A", "B", "C"]',
-    toolDescription: 'x轴数据，例如：["A", "B", "C"]',
-  }),
-  yAxis: z.array(z.string()).meta({
-    title: "yAxis",
-    description: "y轴数据，例如：[1,2,3]",
-    toolDescription: "y轴数据，例如：[1,2,3]",
-  }),
-  chartType: z.enum(["折线图", "柱状图", "饼图"]).meta({
-    title: "chartType",
-    description: "图表类型：柱状图，折线图，饼图",
-    toolDescription: "图表类型：柱状图，折线图，饼图",
-  }),
+const baseChartInputSchema = defineInputSchema({
+  title: {
+    type: z.string().optional(),
+    title: { en: "Chart title", "zh-CN": "图表标题" },
+    description: {
+      en: "Optional title for the BI chart.",
+      "zh-CN": "BI 图表的可选标题。",
+    },
+    isToolParam: true,
+  },
+  xAxis: {
+    type: z.array(z.string()),
+    title: { en: "X-axis data", "zh-CN": "X 轴数据" },
+    description: {
+      en: 'X-axis values, for example ["A", "B", "C"].',
+      "zh-CN": 'X 轴数据，例如：["A", "B", "C"]。',
+    },
+    isToolParam: true,
+  },
+  yAxis: {
+    type: z.array(z.string()),
+    title: { en: "Y-axis data", "zh-CN": "Y 轴数据" },
+    description: {
+      en: "Y-axis values, for example [1, 2, 3].",
+      "zh-CN": "Y 轴数据，例如：[1, 2, 3]。",
+    },
+    isToolParam: true,
+  },
+  chartType: {
+    type: z.enum(["折线图", "柱状图", "饼图"]),
+    title: { en: "Chart type", "zh-CN": "图表类型" },
+    description: {
+      en: "Chart type: bar, line, or pie chart.",
+      "zh-CN": "图表类型：柱状图、折线图或饼图。",
+    },
+    isToolParam: true,
+  },
 });
-const baseChartOutputSchema = z.object({
-  chartUrl: z.string().optional().meta({
-    title: "图表 url",
-    description: "可用使用markdown格式展示图片，如：![图片](url)",
-  }),
+const baseChartOutputSchema = defineOutputSchema({
+  chartUrl: {
+    type: z.string().optional(),
+    title: { en: "Chart URL", "zh-CN": "图表链接" },
+    description: {
+      en: "Chart image URL; it can be displayed using Markdown, for example ![image](url).",
+      "zh-CN": "图表图片链接，可使用 Markdown 展示，例如：![图片](url)。",
+    },
+  },
 });
 const baseChartHandler = createToolHandler({
   inputSchema: baseChartInputSchema,
@@ -62,7 +87,7 @@ const toolSet = defineToolSet({
     version: "0.0.1",
     versionDescription: {
       en: "Initial version",
-      "zh-CN": "Initial version",
+      "zh-CN": "初始版本",
     },
     tags: ["tools"],
   },

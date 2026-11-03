@@ -1,14 +1,20 @@
-import { createToolHandler, defineTool } from "@fastgpt-plugin/sdk-factory";
-import { InputType, OutputType, tool as toolCb } from "./src";
+import {
+  createToolHandler,
+  defineInputSchema,
+  defineOutputSchema,
+  defineTool,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
+import { InputType, OutputType, tool as toolCb } from "./src";
 
 const secretSchema = z.object({});
-const inputSchema = z.object({});
-const outputSchema = z.object({
-  "time": z.string().meta({
-    title: "时间",
-    description: "当前时间"
-  })
+const inputSchema = defineInputSchema({});
+const outputSchema = defineOutputSchema({
+  time: {
+    type: z.string(),
+    title: { en: "Current time", "zh-CN": "时间" },
+    description: { en: "The current time.", "zh-CN": "当前时间。" },
+  },
 });
 const handler = createToolHandler({
   inputSchema,
@@ -35,11 +41,10 @@ const tool = defineTool({
     version: "0.1.1",
     versionDescription: {
       en: "Default version",
-      "zh-CN": "Default version",
+      "zh-CN": "默认版本",
     },
     tags: ["tools"],
   },
-  secretSchema,
   handler,
 });
 
