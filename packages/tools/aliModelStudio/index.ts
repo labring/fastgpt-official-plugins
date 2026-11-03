@@ -157,12 +157,21 @@ const fluxHandler = createToolHandler({
 
 const qwenTx2ImgSecretSchema = z.object({});
 const qwenTx2ImgInputSchema = defineInputSchema({
+  model: {
+    type: qwenTx2ImgInputType.shape.model,
+    title: { en: "Model", "zh-CN": "模型名称" },
+    description: {
+      en: "Qwen image editing model; defaults to qwen-image-2.0-pro.",
+      "zh-CN": "选择千问图像编辑模型，默认使用 qwen-image-2.0-pro。",
+    },
+    isToolParam: true,
+  },
   prompt: {
     type: z.string(),
     title: { en: "Positive prompt", "zh-CN": "正向提示词" },
     description: {
-      en: "Describe the desired image in Chinese or English, up to 800 characters.",
-      "zh-CN": "描述期望生成的图像内容，支持中英文，长度不超过 800 个字符。",
+      en: "Describe the desired image in Chinese or English, up to 1300 tokens.",
+      "zh-CN": "描述期望生成的图像内容，支持中英文，长度上限为 1300 Token。",
     },
     isToolParam: true,
   },
@@ -370,10 +379,10 @@ const toolSet = defineToolSet({
       "zh-CN":
         "这是一个阿里云百炼工具集，支持调用多种阿里云百炼平台提供的模型服务",
     },
-    version: "0.0.1",
+    version: "0.0.2",
     versionDescription: {
-      en: "Initial version",
-      "zh-CN": "初始版本",
+      en: "Replace the retired Qwen image editing model and support model selection",
+      "zh-CN": "替换已下架的千问图像编辑模型，支持模型选择",
     },
     tags: ["multimodal"],
   },
@@ -399,9 +408,9 @@ const toolSet = defineToolSet({
         "zh-CN": "通义千问图像编辑",
       },
       description: {
-        en: "Qwen-Image-Edit supports multi-image editing, can accurately modify text in the image, add, delete or move objects, change the main action, migrate image style and enhance image details.",
+        en: "Qwen-Image 2.0 supports model selection and multi-image editing to modify text, add, delete or move objects, change actions, transfer styles and enhance details.",
         "zh-CN":
-          "通义千问-图像编辑模型（Qwen-Image-Edit）支持多图编辑，可精确修改图内文字、增删或移动物体、改变主体动作、迁移图片风格及增强画面细节。",
+          "通义千问图像编辑支持选择 Qwen-Image 2.0 系列模型及多图编辑，可精确修改图内文字、增删或移动物体、改变主体动作、迁移图片风格及增强画面细节。",
       },
       handler: qwenTx2ImgHandler,
     },
