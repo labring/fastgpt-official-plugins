@@ -29,7 +29,7 @@ export class AhoCorasick {
   /**
    * 插入敏感词模式
    */
-  addWord(word: string, category = 'other', isBlocked = true): void {
+  addWord(word: string, category = "other", isBlocked = true): void {
     const normalized = word.trim().toLowerCase();
     if (!normalized) return;
 
@@ -48,7 +48,7 @@ export class AhoCorasick {
       curr.outputs.push({
         word: normalized,
         category,
-        isBlocked
+        isBlocked,
       });
     }
 
@@ -58,7 +58,7 @@ export class AhoCorasick {
   /**
    * 批量添加敏感词
    */
-  addWords(words: string[], category = 'other', isBlocked = true): void {
+  addWords(words: string[], category = "other", isBlocked = true): void {
     for (const word of words) {
       this.addWord(word, category, isBlocked);
     }
@@ -78,8 +78,9 @@ export class AhoCorasick {
       queue.push(child);
     }
 
-    while (queue.length > 0) {
-      const curr = queue.shift()!;
+    let head = 0;
+    while (head < queue.length) {
+      const curr = queue[head++]!;
 
       for (const [char, child] of curr.children.entries()) {
         queue.push(child);
@@ -109,7 +110,7 @@ export class AhoCorasick {
     text: string,
     options?: {
       whiteList?: Set<string>;
-    }
+    },
   ): MatchResult[] {
     if (!this.isBuilt) {
       this.build();
@@ -141,7 +142,7 @@ export class AhoCorasick {
             word: item.word,
             category: item.category,
             isBlocked: item.isBlocked,
-            index: i - item.word.length + 1
+            index: i - item.word.length + 1,
           });
         }
       }

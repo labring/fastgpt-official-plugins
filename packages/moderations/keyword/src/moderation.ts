@@ -1,5 +1,8 @@
 import { AhoCorasick } from "./ac/automaton";
-import { defaultCategorizedKeywords } from "./dict/defaultDict";
+import {
+  coreBlockCategorizedKeywords,
+  suspectedCategorizedKeywords,
+} from "./dict/curatedDict";
 
 export type ModerationVerdict = "pass" | "block" | "suspected";
 
@@ -23,9 +26,17 @@ export type KeywordSettings = {
   whiteList?: string | undefined;
   /** 是否启用内置开源基础词库，默认 true */
   enableDefaultDict?: boolean | string | undefined;
-  /** 兼容旧版配置字段 */
-  blockedKeywords?: string | undefined;
-  suspiciousKeywords?: string | undefined;
+
+  /** 分类开关：是否启用涉政敏感词，默认 true */
+  enablePolitics?: boolean | string | undefined;
+  /** 分类开关：是否启用暴恐敏感词，默认 true */
+  enableViolence?: boolean | string | undefined;
+  /** 分类开关：是否启用色情低俗敏感词，默认 true */
+  enablePorn?: boolean | string | undefined;
+  /** 分类开关：是否启用违禁品/毒品敏感词，默认 true */
+  enableContraband?: boolean | string | undefined;
+  /** 分类开关：是否启用广告引流敏感词，默认 false (避免误杀正常商业与联系方式) */
+  enableAd?: boolean | string | undefined;
 };
 
 /**
@@ -40,52 +51,247 @@ function parseKeywordList(value: string | undefined): string[] {
 }
 
 /**
- * 缓存的自动机实例
+ * 常见通用无害白名单词汇（即使文本中包含也绝不判定为敏感词）
+ */
+const BUILTIN_HARMLESS_WHITELIST = new Set([
+  "is",
+  "it",
+  "in",
+  "on",
+  "at",
+  "to",
+  "for",
+  "of",
+  "with",
+  "by",
+  "from",
+  "up",
+  "down",
+  "die",
+  "cs",
+  "bi",
+  "gm",
+  "it",
+  "pc",
+  "app",
+  "api",
+  "url",
+  "web",
+  "doc",
+  "dev",
+  "git",
+  "com",
+  "org",
+  "net",
+  "cn",
+  "top",
+  "vip",
+  "xyz",
+  "cctv",
+  "cdma",
+  "cbd",
+  "10086",
+  "10010",
+  "10000",
+  "189",
+  "中国",
+  "中文",
+  "北京",
+  "上海",
+  "广州",
+  "深圳",
+  "成都",
+  "武汉",
+  "杭州",
+  "南京",
+  "天津",
+  "重庆",
+  "西安",
+  "人民",
+  "国家",
+  "政府",
+  "政治",
+  "改革",
+  "民主",
+  "宪法",
+  "法律",
+  "社会",
+  "经济",
+  "科技",
+  "教育",
+  "文化",
+  "操作",
+  "操场",
+  "操心",
+  "操办",
+  "日本",
+  "日本人",
+  "日本料理",
+  "生日",
+  "向日葵",
+  "白日",
+  "日光",
+  "日常",
+  "免费",
+  "官网",
+  "客服",
+  "电话",
+  "微信",
+  "咨询",
+  "代理",
+  "兼职",
+  "招聘",
+  "购买",
+  "优惠",
+  "折扣",
+  "会员",
+  "医院",
+  "医生",
+  "器官",
+  "受精",
+  "怀孕",
+  "乳腺",
+  "胸部",
+  "妇科",
+  "生殖",
+  "精子",
+  "卵子",
+  "护士",
+  "手术",
+  "发展",
+  "建设",
+  "服务",
+  "管理",
+  "系统",
+  "数据",
+  "平台",
+  "安全",
+  "测试",
+  "代码",
+  "程序",
+  "算法",
+  "函数",
+  "开发",
+  "应用",
+  "接口",
+  "网络",
+  "协议",
+  "配置",
+  "说明",
+  "文档",
+  "项目",
+  "用户",
+  "角色",
+  "权限",
+  "助手",
+  "13亿",
+  "14亿",
+  "24小时",
+  "12月26日",
+  "0投资",
+  "0风险",
+  "80块钱",
+  "100块",
+]);
+
+/**
+ * 缓存的默认自动机实例（默认分类开关配置下的单例）
  */
 let cachedDefaultAutomaton: AhoCorasick | null = null;
+
+function buildAutomatonWithCategories(categoryFilters: {
+  politics: boolean;
+  violence: boolean;
+  porn: boolean;
+  contraband: boolean;
+  ad: boolean;
+}): AhoCorasick {
+  const ac = new AhoCorasick();
+
+  // 1. 高危拦截词 (isBlocked = true)
+  for (const [category, words] of Object.entries(
+    coreBlockCategorizedKeywords,
+  )) {
+    if (!categoryFilters[category as keyof typeof categoryFilters]) continue;
+    ac.addWords(words, category, true);
+  }
+
+  // 2. 疑似风险词 (isBlocked = false)
+  for (const [category, words] of Object.entries(
+    suspectedCategorizedKeywords,
+  )) {
+    if (!categoryFilters[category as keyof typeof categoryFilters]) continue;
+    ac.addWords(words, category, false);
+  }
+
+  ac.build();
+  return ac;
+}
 
 function getDefaultAutomaton(): AhoCorasick {
   if (cachedDefaultAutomaton) {
     return cachedDefaultAutomaton;
   }
 
-  const ac = new AhoCorasick();
-  for (const [category, words] of Object.entries(defaultCategorizedKeywords)) {
-    ac.addWords(words, category, true);
-  }
-  ac.build();
-  cachedDefaultAutomaton = ac;
-  return ac;
+  // 默认启用 politics, violence, porn, contraband；禁用 ad
+  cachedDefaultAutomaton = buildAutomatonWithCategories({
+    politics: true,
+    violence: true,
+    porn: true,
+    contraband: true,
+    ad: false,
+  });
+
+  return cachedDefaultAutomaton;
+}
+
+function parseBool(
+  val: boolean | string | undefined,
+  defaultVal: boolean,
+): boolean {
+  if (val === undefined || val === null || val === "") return defaultVal;
+  return val === true || val === "true";
 }
 
 /**
- * 构建针对特定配置的自动机（如果只有默认词库则直接复用单例）
+ * 构建针对特定配置的自动机
  */
 function getAutomatonForRequest(settings: KeywordSettings): {
   automaton: AhoCorasick;
   whiteListSet: Set<string>;
 } {
-  const whiteListWords = parseKeywordList(settings.whiteList).map((w) =>
+  const userWhiteList = parseKeywordList(settings.whiteList).map((w) =>
     w.toLowerCase(),
   );
-  const whiteListSet = new Set(whiteListWords);
+  const whiteListSet = new Set([
+    ...BUILTIN_HARMLESS_WHITELIST,
+    ...userWhiteList,
+  ]);
 
-  const blockedList = [
-    ...parseKeywordList(settings.customBlockedKeywords),
-    ...parseKeywordList(settings.blockedKeywords),
-  ];
-  const suspiciousList = [
-    ...parseKeywordList(settings.customSuspiciousKeywords),
-    ...parseKeywordList(settings.suspiciousKeywords),
-  ];
+  const blockedList = parseKeywordList(settings.customBlockedKeywords);
+  const suspiciousList = parseKeywordList(settings.customSuspiciousKeywords);
 
-  const enableDefault =
-    settings.enableDefaultDict === undefined ||
-    settings.enableDefaultDict === true ||
-    settings.enableDefaultDict === "true";
+  const enableDefault = parseBool(settings.enableDefaultDict, true);
+  const enablePolitics = parseBool(settings.enablePolitics, true);
+  const enableViolence = parseBool(settings.enableViolence, true);
+  const enablePorn = parseBool(settings.enablePorn, true);
+  const enableContraband = parseBool(settings.enableContraband, true);
+  const enableAd = parseBool(settings.enableAd, false);
 
-  // 如果没有自定义词且启用默认词库，直接复用单例自动机
-  if (blockedList.length === 0 && suspiciousList.length === 0 && enableDefault) {
+  const isDefaultCategories =
+    enablePolitics === true &&
+    enableViolence === true &&
+    enablePorn === true &&
+    enableContraband === true &&
+    enableAd === false;
+
+  // 如果没有自定义词、启用默认词库且分类配置为默认，直接复用单例自动机
+  if (
+    blockedList.length === 0 &&
+    suspiciousList.length === 0 &&
+    enableDefault &&
+    isDefaultCategories
+  ) {
     return {
       automaton: getDefaultAutomaton(),
       whiteListSet,
@@ -96,14 +302,30 @@ function getAutomatonForRequest(settings: KeywordSettings): {
   const ac = new AhoCorasick();
 
   if (enableDefault) {
+    const categoryFilters = {
+      politics: enablePolitics,
+      violence: enableViolence,
+      porn: enablePorn,
+      contraband: enableContraband,
+      ad: enableAd,
+    };
+
     for (const [category, words] of Object.entries(
-      defaultCategorizedKeywords,
+      coreBlockCategorizedKeywords,
     )) {
+      if (!categoryFilters[category as keyof typeof categoryFilters]) continue;
       ac.addWords(words, category, true);
+    }
+
+    for (const [category, words] of Object.entries(
+      suspectedCategorizedKeywords,
+    )) {
+      if (!categoryFilters[category as keyof typeof categoryFilters]) continue;
+      ac.addWords(words, category, false);
     }
   }
 
-  // 添加自定义拦截词
+  // 添加自定义拦截词 (isBlocked = true)
   for (const item of blockedList) {
     const parts = item.split(":");
     const word = parts[0]?.trim();
@@ -113,7 +335,7 @@ function getAutomatonForRequest(settings: KeywordSettings): {
     }
   }
 
-  // 添加自定义疑似词
+  // 添加自定义疑似词 (isBlocked = false)
   for (const item of suspiciousList) {
     const parts = item.split(":");
     const word = parts[0]?.trim();
@@ -130,6 +352,24 @@ function getAutomatonForRequest(settings: KeywordSettings): {
     whiteListSet,
   };
 }
+
+
+const STANDARD_LABELS = new Set([
+  "porn",
+  "politics",
+  "terror",
+  "contraband",
+  "abuse",
+  "hate",
+  "ad",
+  "advertising-law",
+  "privacy",
+  "flood",
+  "self-harm",
+  "violence",
+  "sexual-minors",
+  "other",
+]);
 
 /**
  * 依据配置对文本进行本地多模式敏感词审查
@@ -155,14 +395,14 @@ export function moderateText(
     };
   }
 
-  // 区分 block 和 suspected
+  // 区分 block 和 suspected：只要有 block 命中则裁决为 block，否则为 suspected
   const blockedMatches = matches.filter((m) => m.isBlocked);
-  const suspectedMatches = matches.filter((m) => !m.isBlocked);
 
   const verdict: ModerationVerdict =
     blockedMatches.length > 0 ? "block" : "suspected";
-  const targetMatches =
-    blockedMatches.length > 0 ? blockedMatches : suspectedMatches;
+
+  // 一并输出全部命中的敏感词记录（包含 block 与 suspected 的所有命中文档）
+  const targetMatches = matches;
 
   // 按分类标签聚合 hits
   const categoryKeywordsMap = new Map<string, Set<string>>();
@@ -174,8 +414,9 @@ export function moderateText(
 
   const hits: ModerationHit[] = [];
   for (const [category, wordsSet] of categoryKeywordsMap.entries()) {
+    const label = STANDARD_LABELS.has(category) ? category : "other";
     hits.push({
-      label: category,
+      label,
       providerLabel: `local-keyword:${category}`,
       keywords: Array.from(wordsSet),
     });
