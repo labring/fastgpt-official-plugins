@@ -1,57 +1,133 @@
 import {
   defineModeration,
   defineModerationManifest,
+  defineSecretSchema,
 } from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 import { moderateText } from "./src/moderation";
 
-const secretSchema = z.object({
-  customBlockedKeywords: z.string().optional().meta({
-    title: "自定义拦截词库 (Custom Blocklist)",
-    description:
-      "逗号、分号或换行分隔。命中立即拦截并阻断，支持 '关键词' 或 '关键词:分类' 格式",
+const secretSchema = defineSecretSchema({
+  customBlockedKeywords: {
+    type: z.string().optional(),
+    title: {
+      en: "Custom Blocklist",
+      "zh-CN": "自定义拦截词库",
+    },
+    description: {
+      en: "Comma, semicolon, or newline separated keywords that trigger immediate block. Supports 'keyword' or 'keyword:category'",
+      "zh-CN":
+        "逗号、分号或换行分隔。命中立即拦截并阻断，支持 '关键词' 或 '关键词:分类' 格式",
+    },
     isSecret: false,
-  }),
-  customSuspiciousKeywords: z.string().optional().meta({
-    title: "自定义疑似词库 (Custom Suspected List)",
-    description: "逗号、分号或换行分隔。命中标记为疑似风险",
+  },
+  customSuspiciousKeywords: {
+    type: z.string().optional(),
+    title: {
+      en: "Custom Suspected List",
+      "zh-CN": "自定义疑似词库",
+    },
+    description: {
+      en: "Comma, semicolon, or newline separated keywords marked as suspected risk",
+      "zh-CN": "逗号、分号或换行分隔。命中标记为疑似风险",
+    },
     isSecret: false,
-  }),
-  whiteList: z.string().optional().meta({
-    title: "白名单放行词库 (Whitelist)",
-    description: "逗号、分号或换行分隔。在此列表中的词即便命中敏感词库也会放行",
+  },
+  whiteList: {
+    type: z.string().optional(),
+    title: {
+      en: "Whitelist",
+      "zh-CN": "白名单放行词库",
+    },
+    description: {
+      en: "Comma, semicolon, or newline separated terms exempted even when matching sensitive substrings",
+      "zh-CN": "逗号、分号或换行分隔。在此列表中的词或专有名词即便命中敏感词库也会放行",
+    },
     isSecret: false,
-  }),
-  enableDefaultDict: z.boolean().default(true).optional().meta({
-    title: "启用内置词库",
-    description: "启用内置经过工业级清洗与分级的敏感词库",
+  },
+  enableDefaultDict: {
+    type: z.boolean().default(true).optional(),
+    title: {
+      en: "Enable Built-in Lexicon",
+      "zh-CN": "启用内置词库",
+    },
+    description: {
+      en: "Enable the built-in sanitized and tiered sensitive keyword lexicon",
+      "zh-CN": "启用内置经过工业级清洗与分级的敏感词库",
+    },
     isSecret: false,
-  }),
-  enablePolitics: z.boolean().default(true).optional().meta({
-    title: "启用涉政敏感词",
-    description: "审查涉政反动、极端有害政治言论等",
+  },
+  enablePolitics: {
+    type: z.boolean().default(true).optional(),
+    title: {
+      en: "Enable Politics Category",
+      "zh-CN": "启用涉政敏感词",
+    },
+    description: {
+      en: "Review political and harmful ideological keywords",
+      "zh-CN": "审查涉政反动、极端有害政治言论等",
+    },
     isSecret: false,
-  }),
-  enableViolence: z.boolean().default(true).optional().meta({
-    title: "启用暴恐违规词",
-    description: "审查恐怖主义、暴力血腥、涉枪涉爆等",
+  },
+  enableViolence: {
+    type: z.boolean().default(true).optional(),
+    title: {
+      en: "Enable Violence Category",
+      "zh-CN": "启用暴恐违规词",
+    },
+    description: {
+      en: "Review terrorism, violence, weapons, and explosives keywords",
+      "zh-CN": "审查恐怖主义、暴力血腥、涉枪涉爆等",
+    },
     isSecret: false,
-  }),
-  enablePorn: z.boolean().default(true).optional().meta({
-    title: "启用色情低俗词",
-    description: "审查淫秽色情、卖淫招嫖、低俗文字等",
+  },
+  enablePorn: {
+    type: z.boolean().default(true).optional(),
+    title: {
+      en: "Enable Pornography Category",
+      "zh-CN": "启用色情低俗词",
+    },
+    description: {
+      en: "Review pornography, prostitution, and vulgar keywords",
+      "zh-CN": "审查淫秽色情、卖淫招嫖、低俗文字等",
+    },
     isSecret: false,
-  }),
-  enableContraband: z.boolean().default(true).optional().meta({
-    title: "启用违禁品/毒品词",
-    description: "审查毒品买卖、走私造假、黑产交易等",
+  },
+  enableContraband: {
+    type: z.boolean().default(true).optional(),
+    title: {
+      en: "Enable Contraband Category",
+      "zh-CN": "启用违禁品/毒品词",
+    },
+    description: {
+      en: "Review narcotics, smuggling, counterfeiting, and illicit trade keywords",
+      "zh-CN": "审查毒品买卖、走私造假、黑产交易等",
+    },
     isSecret: false,
-  }),
-  enableAd: z.boolean().default(false).optional().meta({
-    title: "启用广告引流词",
-    description: "审查恶意引流与博彩诈骗网址（默认关闭，避免误杀正常商业信息）",
+  },
+  enableAd: {
+    type: z.boolean().default(false).optional(),
+    title: {
+      en: "Enable Advertising Category",
+      "zh-CN": "启用广告引流词",
+    },
+    description: {
+      en: "Review spam, gambling, and scam promotion terms (disabled by default to avoid false positives)",
+      "zh-CN": "审查恶意引流与博彩诈骗网址（默认关闭，避免误杀正常商业信息）",
+    },
     isSecret: false,
-  }),
+  },
+  enableOther: {
+    type: z.boolean().default(true).optional(),
+    title: {
+      en: "Enable Other Category",
+      "zh-CN": "启用其他综合敏感词",
+    },
+    description: {
+      en: "Review corruption, disciplinary violations, and other general sensitive terms",
+      "zh-CN": "审查贪腐违纪等其他综合敏感词",
+    },
+    isSecret: false,
+  },
 });
 
 const moderation = defineModeration({

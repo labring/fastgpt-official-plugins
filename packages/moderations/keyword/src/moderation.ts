@@ -1,3 +1,7 @@
+import type {
+  ModerationHitType,
+  ModerationLabelType,
+} from "@fastgpt-plugin/sdk-factory";
 import { AhoCorasick } from "./ac/automaton";
 import {
   coreBlockCategorizedKeywords,
@@ -6,9 +10,7 @@ import {
 
 export type ModerationVerdict = "pass" | "block" | "suspected";
 
-export type ModerationHit = {
-  label: string;
-  providerLabel: string;
+export type ModerationHit = ModerationHitType & {
   keywords: string[];
 };
 
@@ -37,6 +39,8 @@ export type KeywordSettings = {
   enableContraband?: boolean | string | undefined;
   /** 分类开关：是否启用广告引流敏感词，默认 false (避免误杀正常商业与联系方式) */
   enableAd?: boolean | string | undefined;
+  /** 分类开关：是否启用其他综合敏感词，默认 true */
+  enableOther?: boolean | string | undefined;
 };
 
 /**
@@ -205,6 +209,7 @@ function buildAutomatonWithCategories(categoryFilters: {
   porn: boolean;
   contraband: boolean;
   ad: boolean;
+  other: boolean;
 }): AhoCorasick {
   const ac = new AhoCorasick();
 
@@ -233,13 +238,14 @@ function getDefaultAutomaton(): AhoCorasick {
     return cachedDefaultAutomaton;
   }
 
-  // 默认启用 politics, violence, porn, contraband；禁用 ad
+  // 默认启用 politics, violence, porn, contraband, other；禁用 ad
   cachedDefaultAutomaton = buildAutomatonWithCategories({
     politics: true,
     violence: true,
     porn: true,
     contraband: true,
     ad: false,
+    other: true,
   });
 
   return cachedDefaultAutomaton;
@@ -277,13 +283,15 @@ function getAutomatonForRequest(settings: KeywordSettings): {
   const enablePorn = parseBool(settings.enablePorn, true);
   const enableContraband = parseBool(settings.enableContraband, true);
   const enableAd = parseBool(settings.enableAd, false);
+  const enableOther = parseBool(settings.enableOther, true);
 
   const isDefaultCategories =
     enablePolitics === true &&
     enableViolence === true &&
     enablePorn === true &&
     enableContraband === true &&
-    enableAd === false;
+    enableAd === false &&
+    enableOther === true;
 
   // 如果没有自定义词、启用默认词库且分类配置为默认，直接复用单例自动机
   if (
@@ -308,6 +316,7 @@ function getAutomatonForRequest(settings: KeywordSettings): {
       porn: enablePorn,
       contraband: enableContraband,
       ad: enableAd,
+      other: enableOther,
     };
 
     for (const [category, words] of Object.entries(
@@ -354,7 +363,7 @@ function getAutomatonForRequest(settings: KeywordSettings): {
 }
 
 
-const STANDARD_LABELS = new Set([
+const STANDARD_LABELS: ReadonlySet<ModerationLabelType> = new Set([
   "porn",
   "politics",
   "terror",
@@ -370,6 +379,12 @@ const STANDARD_LABELS = new Set([
   "sexual-minors",
   "other",
 ]);
+
+function normalizeModerationLabel(category: string): ModerationLabelType {
+  return STANDARD_LABELS.has(category as ModerationLabelType)
+    ? (category as ModerationLabelType)
+    : "other";
+}
 
 /**
  * 依据配置对文本进行本地多模式敏感词审查
@@ -414,7 +429,7 @@ export function moderateText(
 
   const hits: ModerationHit[] = [];
   for (const [category, wordsSet] of categoryKeywordsMap.entries()) {
-    const label = STANDARD_LABELS.has(category) ? category : "other";
+    const label = normalizeModerationLabel(category);
     hits.push({
       label,
       providerLabel: `local-keyword:${category}`,

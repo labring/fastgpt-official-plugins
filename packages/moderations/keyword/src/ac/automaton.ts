@@ -118,6 +118,24 @@ export class AhoCorasick {
 
     const whiteList = options?.whiteList;
     const normalized = text.toLowerCase();
+    // 预计算长白名单覆盖区间，豁免如“弹药库管理系统”内包含的“弹药”等子串命中
+    const coveredWhiteListRanges: Array<{ start: number; end: number }> = [];
+    if (whiteList && whiteList.size > 0) {
+      for (const safeWord of whiteList) {
+        if (!safeWord) continue;
+        let fromIndex = 0;
+        while (fromIndex < normalized.length) {
+          const foundIdx = normalized.indexOf(safeWord, fromIndex);
+          if (foundIdx === -1) break;
+          coveredWhiteListRanges.push({
+            start: foundIdx,
+            end: foundIdx + safeWord.length,
+          });
+          fromIndex = foundIdx + 1;
+        }
+      }
+    }
+
     const results: MatchResult[] = [];
     let curr = this.root;
 
@@ -133,8 +151,16 @@ export class AhoCorasick {
 
       if (curr.outputs.length > 0) {
         for (const item of curr.outputs) {
-          // 白名单过滤
-          if (whiteList && whiteList.has(item.word)) {
+          const startIndex = i - item.word.length + 1;
+          const endIndex = i + 1;
+
+          // 白名单过滤：直接匹配或被更长的白名单专有名词完整包含时豁免
+          if (
+            (whiteList && whiteList.has(item.word)) ||
+            coveredWhiteListRanges.some(
+              (range) => startIndex >= range.start && endIndex <= range.end,
+            )
+          ) {
             continue;
           }
 
@@ -142,7 +168,7 @@ export class AhoCorasick {
             word: item.word,
             category: item.category,
             isBlocked: item.isBlocked,
-            index: i - item.word.length + 1,
+            index: startIndex,
           });
         }
       }

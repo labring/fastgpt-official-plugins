@@ -114,6 +114,28 @@ describe("moderateText with AC automaton and open-source lexicon", () => {
     });
     expect(resWhitelisted.verdict).toBe("pass");
     expect(resWhitelisted.hits).toEqual([]);
+
+    // 长专有名词白名单应豁免其内部包含的敏感子词
+    const resCompoundWhitelisted = moderateText("请登录弹药库管理系统查看库存", {
+      enableDefaultDict: false,
+      customBlockedKeywords: "弹药:violence",
+      whiteList: "弹药库管理系统",
+    });
+    expect(resCompoundWhitelisted.verdict).toBe("pass");
+    expect(resCompoundWhitelisted.hits).toEqual([]);
+  });
+
+  it("supports built-in other category and its toggle", () => {
+    const resEnabled = moderateText("某官员因严重违纪被立案调查", {
+      enableOther: true,
+    });
+    expect(resEnabled.verdict).toBe("suspected");
+    expect(resEnabled.hits.some((h) => h.label === "other")).toBe(true);
+
+    const resDisabled = moderateText("某官员因严重违纪被立案调查", {
+      enableOther: false,
+    });
+    expect(resDisabled.verdict).toBe("pass");
   });
 
   it("executes sub-millisecond on long texts (performance benchmark)", () => {
