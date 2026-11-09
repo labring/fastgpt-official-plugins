@@ -1,3 +1,0 @@
-# getTime
-
-Get current time
