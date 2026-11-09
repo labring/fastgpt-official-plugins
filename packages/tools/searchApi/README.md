@@ -1,3 +1,0 @@
-# searchApi
-
-SearchApi Service
