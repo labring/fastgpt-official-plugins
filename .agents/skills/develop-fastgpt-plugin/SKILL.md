@@ -1,6 +1,6 @@
 ---
 name: develop-fastgpt-plugin
-description: 指导 Codex 或开发者从零准备环境并开发 FastGPT 官方插件。Use when the user asks to set up, fork, clone, install dependencies, create, scaffold, implement, test, build, check, or package a FastGPT plugin/tool/tool-suite in labring/fastgpt-official-plugins, especially under packages/tools, and when an agent may only have this raw SKILL.md text as onboarding context.
+description: 指导 Codex 或开发者从零准备环境并开发 FastGPT 官方插件。Use when the user asks to set up, fork, clone, install dependencies, create, scaffold, implement, test, build, check, or package a FastGPT plugin/tool/tool-suite/moderation in labring/fastgpt-official-plugins, especially under packages/tools or packages/moderations, and when an agent may only have this raw SKILL.md text as onboarding context.
 ---
 
 # Develop FastGPT Plugin
@@ -116,9 +116,9 @@ Start here whenever the current machine may not already have this repo ready.
 ## Plugin Workflow
 
 1. Collect just enough requirements:
-   - plugin name and target directory
-   - plugin type: `tool` or `tool-suite`
-   - Chinese and English name/description
+   - plugin name and target directory (`packages/tools/<plugin-name>` for tools/tool-suites, `packages/moderations/<plugin-name>` for moderation plugins)
+   - plugin type: `tool`, `tool-suite`, or `moderation`
+   - Chinese and English name/description (and localized README files: `README.en.md`, `README.zh-CN.md`)
    - inputs, outputs, secrets, and external APIs
    - expected behavior, errors, and 1-3 test examples
 
@@ -150,6 +150,12 @@ Start here whenever the current machine may not already have this repo ready.
    pnpm fastgpt-plugin create <plugin-name> --type tool-suite --cwd packages/tools --description "<description>"
    ```
 
+   For a moderation plugin:
+
+   ```bash
+   pnpm fastgpt-plugin create <plugin-name> --type moderation --cwd packages/moderations --description "<description>"
+   ```
+
 5. Resolve and read the SDK-shipped development skills from the generated plugin directory. These SDK skills are the source of truth for plugin implementation rules.
 
    ```bash
@@ -175,13 +181,14 @@ Start here whenever the current machine may not already have this repo ready.
    )
    sed -n '1,220p' "$SDK_FACTORY_ROOT/skills/fastgpt-plugin-development/SKILL.md"
    sed -n '1,320p' "$SDK_FACTORY_ROOT/skills/fastgpt-system-tool-development/SKILL.md"
+   sed -n '1,320p' "$SDK_FACTORY_ROOT/skills/fastgpt-moderation-development/SKILL.md"
    sed -n '1,320p' "$SDK_FACTORY_ROOT/skills/fastgpt-sdk-factory/SKILL.md"
    cd -
    ```
 
    If the generated plugin cannot resolve `@fastgpt-plugin/sdk-factory` yet, run `pnpm install` from the repository root to link the new workspace package, then retry this step.
 
-   Use the SDK-shipped skills for `defineTool()`, `defineToolSet()`, `createToolHandler()`, Zod schemas, secrets, host invocation, streaming, required files, avatar naming, and build/check/pack expectations. If this repository skill conflicts with SDK-shipped skills, follow the SDK-shipped skills for implementation details and this skill for repository setup and workflow.
+   Use the SDK-shipped skills for `defineTool()`, `defineToolSet()`, `defineModeration()`, `createToolHandler()`, `createModerationHandler()`, Zod schemas, `SecretField`, secrets, host invocation, streaming, localized READMEs (`README.en.md`, `README.zh-CN.md`), required files, avatar naming, and build/check/pack expectations. If this repository skill conflicts with SDK-shipped skills, follow the SDK-shipped skills for implementation details and this skill for repository setup and workflow.
 
 6. Inspect generated files before editing. Match existing project patterns from nearby plugins and the SDK-shipped skills.
 

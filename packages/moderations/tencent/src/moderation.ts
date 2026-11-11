@@ -1,27 +1,44 @@
+import { defineSecretSchema } from "@fastgpt-plugin/sdk-factory";
 import { tms } from "tencentcloud-sdk-nodejs-tms";
 import z from "zod";
 
-export const secretSchema = z.object({
-  secretId: z
-    .string()
-    .trim()
-    .min(1)
-    .meta({ title: "SecretId", isSecret: true }),
-  secretKey: z
-    .string()
-    .trim()
-    .min(1)
-    .meta({ title: "SecretKey", isSecret: true }),
-  region: z.string().trim().min(1).default("ap-guangzhou").meta({
-    title: "地域 (Region)",
-    description: "腾讯云 TMS 接入地域，例如 ap-guangzhou",
+export const secretSchema = defineSecretSchema({
+  secretId: {
+    type: z.string().trim().min(1),
+    title: { en: "SecretId", "zh-CN": "SecretId" },
+    description: {
+      en: "Tencent Cloud CAM SecretId with TMS text moderation permission",
+      "zh-CN": "具有 TMS 文本审核权限的腾讯云 CAM SecretId",
+    },
+    isSecret: true,
+  },
+  secretKey: {
+    type: z.string().trim().min(1),
+    title: { en: "SecretKey", "zh-CN": "SecretKey" },
+    description: {
+      en: "Tencent Cloud CAM SecretKey",
+      "zh-CN": "腾讯云 CAM SecretKey",
+    },
+    isSecret: true,
+  },
+  region: {
+    type: z.string().trim().min(1).default("ap-guangzhou"),
+    title: { en: "Region", "zh-CN": "地域 (Region)" },
+    description: {
+      en: "Tencent Cloud TMS region, e.g. ap-guangzhou",
+      "zh-CN": "腾讯云 TMS 接入地域，例如 ap-guangzhou",
+    },
     isSecret: false,
-  }),
-  bizType: z.string().trim().optional().meta({
-    title: "审核策略 (BizType)",
-    description: "腾讯云内容安全控制台配置的策略编号，留空使用腾讯云默认策略",
+  },
+  bizType: {
+    type: z.string().trim().optional(),
+    title: { en: "BizType", "zh-CN": "审核策略 (BizType)" },
+    description: {
+      en: "Optional policy ID configured in the Tencent Cloud content safety console; leave blank for the default policy",
+      "zh-CN": "腾讯云内容安全控制台配置的策略编号，留空使用腾讯云默认策略",
+    },
     isSecret: false,
-  }),
+  },
 });
 
 const inputSchema = z.object({

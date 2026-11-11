@@ -3,32 +3,58 @@ import GreenClient, {
 } from "@alicloud/green20220302";
 import { $OpenApiUtil } from "@alicloud/openapi-core";
 import { RuntimeOptions } from "@darabonba/typescript";
+import { defineSecretSchema } from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 
-export const secretSchema = z.object({
-  accessKeyId: z
-    .string()
-    .trim()
-    .min(1)
-    .meta({ title: "AccessKey ID", isSecret: true }),
-  accessKeySecret: z
-    .string()
-    .min(1)
-    .meta({ title: "AccessKey Secret", isSecret: true }),
-  securityToken: z
-    .string()
-    .optional()
-    .meta({ title: "STS Security Token", isSecret: true }),
-  regionId: z
-    .enum(["cn-shanghai", "cn-beijing", "cn-shenzhen", "ap-southeast-1"])
-    .default("cn-shanghai")
-    .meta({ title: "Region", isSecret: false }),
-  service: z.string().trim().min(1).default("llm_query_moderation").meta({
-    title: "Service",
-    description:
-      "Use a TextModerationPlus content safety service configured in Alibaba Cloud.",
+export const secretSchema = defineSecretSchema({
+  accessKeyId: {
+    type: z.string().trim().min(1),
+    title: { en: "AccessKey ID", "zh-CN": "AccessKey ID" },
+    description: {
+      en: "Alibaba Cloud RAM AccessKey ID with green:TextModerationPlus permission",
+      "zh-CN": "具有 green:TextModerationPlus 权限的阿里云 RAM AccessKey ID",
+    },
+    isSecret: true,
+  },
+  accessKeySecret: {
+    type: z.string().min(1),
+    title: { en: "AccessKey Secret", "zh-CN": "AccessKey Secret" },
+    description: {
+      en: "Alibaba Cloud RAM AccessKey Secret",
+      "zh-CN": "阿里云 RAM AccessKey Secret",
+    },
+    isSecret: true,
+  },
+  securityToken: {
+    type: z.string().optional(),
+    title: { en: "STS Security Token", "zh-CN": "STS 安全令牌" },
+    description: {
+      en: "Optional temporary STS token",
+      "zh-CN": "可选，临时 STS 安全令牌",
+    },
+    isSecret: true,
+  },
+  regionId: {
+    type: z
+      .enum(["cn-shanghai", "cn-beijing", "cn-shenzhen", "ap-southeast-1"])
+      .default("cn-shanghai"),
+    title: { en: "Region", "zh-CN": "接入地域" },
+    description: {
+      en: "Alibaba Cloud content safety region (default: cn-shanghai)",
+      "zh-CN": "阿里云内容安全接入地域（默认 cn-shanghai）",
+    },
     isSecret: false,
-  }),
+  },
+  service: {
+    type: z.string().trim().min(1).default("llm_query_moderation"),
+    title: { en: "Service", "zh-CN": "检测服务 (Service)" },
+    description: {
+      en: "Use a TextModerationPlus content safety service configured in Alibaba Cloud.",
+      "zh-CN":
+        "阿里云内容安全增强版 TextModerationPlus 服务编码（如 llm_query_moderation 或 llm_response_moderation）",
+    },
+    isSecret: false,
+  },
 });
 
 const responseSchema = z.object({

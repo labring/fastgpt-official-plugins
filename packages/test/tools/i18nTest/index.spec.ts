@@ -31,8 +31,8 @@ describe("i18n metadata test tool", () => {
     const inputJsonSchema = z.toJSONSchema(handler.inputSchema);
 
     expect(inputJsonSchema.properties?.text).toMatchObject({
-      title: "回显文本",
-      description: "输入一段文本，插件会原样回显提供的内容。",
+      title: "Text to echo",
+      description: "Enter text and the plugin echoes the supplied value unchanged.",
       placeholder: "请输入要回显的内容",
       isToolParam: true,
       "x-i18n": {
@@ -80,7 +80,7 @@ describe("i18n metadata test tool", () => {
     const secretJsonSchema = z.toJSONSchema(plugin.getSecretSchema());
 
     expect(outputJsonSchema.properties?.fallbackEcho).toMatchObject({
-      title: "回退字段结果",
+      title: "Fallback field result",
       "x-i18n": {
         title: { en: "Fallback field result", "zh-CN": "回退字段结果" },
         description: {

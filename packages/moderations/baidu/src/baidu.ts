@@ -1,4 +1,7 @@
-import type { ModerationProviderResultType } from "@fastgpt-plugin/sdk-factory";
+import {
+  defineSecretSchema,
+  type ModerationProviderResultType,
+} from "@fastgpt-plugin/sdk-factory";
 import z from "zod";
 
 const HitSchema = z.object({
@@ -36,18 +39,34 @@ const TokenSchema = z.object({
   expires_in: z.number().positive(),
 });
 
-export const secretSchema = z.object({
-  apiKey: z.string().trim().min(1).meta({ title: "API Key", isSecret: true }),
-  secretKey: z
-    .string()
-    .trim()
-    .min(1)
-    .meta({ title: "Secret Key", isSecret: true }),
-  strategyId: z.number().int().positive().optional().meta({
-    title: "策略 ID (Strategy ID)",
-    description: "可选，在百度内容审核控制台配置审核策略；不填使用默认策略",
+export const secretSchema = defineSecretSchema({
+  apiKey: {
+    type: z.string().trim().min(1),
+    title: { en: "API Key", "zh-CN": "API Key" },
+    description: {
+      en: "API Key of a Baidu application with text moderation enabled",
+      "zh-CN": "已开通文本内容审核的百度应用 API Key",
+    },
+    isSecret: true,
+  },
+  secretKey: {
+    type: z.string().trim().min(1),
+    title: { en: "Secret Key", "zh-CN": "Secret Key" },
+    description: {
+      en: "Application Secret Key",
+      "zh-CN": "百度应用 Secret Key",
+    },
+    isSecret: true,
+  },
+  strategyId: {
+    type: z.number().int().positive().optional(),
+    title: { en: "Strategy ID", "zh-CN": "策略 ID (Strategy ID)" },
+    description: {
+      en: "Optional custom moderation strategy ID configured in the Baidu console; leave blank for the default policy",
+      "zh-CN": "可选，在百度内容审核控制台配置审核策略；不填使用默认策略",
+    },
     isSecret: false,
-  }),
+  },
 });
 type Settings = z.infer<typeof secretSchema>;
 type Result = ModerationProviderResultType;
