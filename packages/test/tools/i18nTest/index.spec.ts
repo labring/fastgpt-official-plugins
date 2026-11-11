@@ -32,7 +32,8 @@ describe("i18n metadata test tool", () => {
 
     expect(inputJsonSchema.properties?.text).toMatchObject({
       title: "Text to echo",
-      description: "Enter text and the plugin echoes the supplied value unchanged.",
+      description:
+        "Enter text and the plugin echoes the supplied value unchanged.",
       placeholder: "请输入要回显的内容",
       isToolParam: true,
       "x-i18n": {
