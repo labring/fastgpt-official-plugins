@@ -9,29 +9,13 @@
 ## 核心特性
 
 - **极致性能**：基于 AC 自动机实现，多模式匹配时间复杂度为 $O(N + M)$，扫描性能与词库大小解耦，7,000 字长文本可在 1~2ms 内完成审查。
-- **开箱即用分级开源词库**：对开源词库做去噪清洗并拆分为 `block`（高危拦截）与 `suspected`（疑似风险）两档，覆盖六大分类（默认启用除 `ad` 外的五大分类）：
-  - `politics`（涉政/反动/敏感人物与历史事件）
-  - `violence`（暴恐/涉枪涉爆）
-  - `porn`（色情低俗）
-  - `contraband`（违禁品/毒品/黑产交易）
-  - `ad`（高风险广告/引流/非法博彩诈骗网址，默认关闭以避免误杀正常商业信息）
-  - `other`（贪腐/违纪违规等其他综合敏感词）
-- **灵活自定义配置**：支持在 FastGPT 插件配置界面动态配置自定义黑名单、自定义疑似词、业务白名单豁免词（支持长专有名词豁免内部敏感子串）及各分类独立开关。
+- **开箱即用分级开源词库**：基于 `konsheng/Sensitive-lexicon` 词库构建并剔除高频日常误杀词，保留涉政与色情两类词库，拆分为 `block`（高危拦截）与 `suspected`（疑似风险）两档（默认全部开启，无需额外配置）：
+  - `politics`（涉政：反动词库 + 政治类型）
+  - `porn`（色情：色情词库）
 
-## 配置项 (`secretSchema`)
+## 配置说明
 
-| 字段 | 类型 | 默认值 | 说明 |
-| --- | --- | --- | --- |
-| `customBlockedKeywords` | `string` | - | 自定义拦截词库（逗号/分号/换行分隔，命中立即判定为 `block`，支持 `词` 或 `词:分类`） |
-| `customSuspiciousKeywords` | `string` | - | 自定义疑似词库（命中标记为 `suspected`） |
-| `whiteList` | `string` | - | 白名单豁免词库（防止业务专有名词被误拦截，支持豁免长词内部的敏感子词） |
-| `enableDefaultDict` | `boolean` | `true` | 是否启用内置开源词库 |
-| `enablePolitics` | `boolean` | `true` | 是否启用涉政敏感词分类 |
-| `enableViolence` | `boolean` | `true` | 是否启用暴恐违规词分类 |
-| `enablePorn` | `boolean` | `true` | 是否启用色情低俗词分类 |
-| `enableContraband` | `boolean` | `true` | 是否启用违禁品/毒品词分类 |
-| `enableAd` | `boolean` | `false` | 是否启用广告引流词分类 |
-| `enableOther` | `boolean` | `true` | 是否启用其他综合敏感词分类 |
+本插件无需配置密钥或开关参数，安装启用后默认同时开启涉政与色情词库审查。
 
 ## 本地开发与构建
 

@@ -80,7 +80,8 @@ export class AhoCorasick {
 
     let head = 0;
     while (head < queue.length) {
-      const curr = queue[head++]!;
+      const curr = queue[head++];
+      if (!curr) continue;
 
       for (const [char, child] of curr.children.entries()) {
         queue.push(child);
@@ -91,7 +92,7 @@ export class AhoCorasick {
           failNode = failNode.fail;
         }
 
-        child.fail = failNode ? failNode.children.get(char)! : this.root;
+        child.fail = failNode?.children.get(char) ?? this.root;
 
         // 继承 fail 节点的 outputs 模式串
         if (child.fail.outputs.length > 0) {
@@ -106,36 +107,12 @@ export class AhoCorasick {
   /**
    * 扫描文本并返回命中项
    */
-  search(
-    text: string,
-    options?: {
-      whiteList?: Set<string>;
-    },
-  ): MatchResult[] {
+  search(text: string): MatchResult[] {
     if (!this.isBuilt) {
       this.build();
     }
 
-    const whiteList = options?.whiteList;
     const normalized = text.toLowerCase();
-    // 预计算长白名单覆盖区间，豁免如“弹药库管理系统”内包含的“弹药”等子串命中
-    const coveredWhiteListRanges: Array<{ start: number; end: number }> = [];
-    if (whiteList && whiteList.size > 0) {
-      for (const safeWord of whiteList) {
-        if (!safeWord) continue;
-        let fromIndex = 0;
-        while (fromIndex < normalized.length) {
-          const foundIdx = normalized.indexOf(safeWord, fromIndex);
-          if (foundIdx === -1) break;
-          coveredWhiteListRanges.push({
-            start: foundIdx,
-            end: foundIdx + safeWord.length,
-          });
-          fromIndex = foundIdx + 1;
-        }
-      }
-    }
-
     const results: MatchResult[] = [];
     let curr = this.root;
 
@@ -151,24 +128,11 @@ export class AhoCorasick {
 
       if (curr.outputs.length > 0) {
         for (const item of curr.outputs) {
-          const startIndex = i - item.word.length + 1;
-          const endIndex = i + 1;
-
-          // 白名单过滤：直接匹配或被更长的白名单专有名词完整包含时豁免
-          if (
-            (whiteList && whiteList.has(item.word)) ||
-            coveredWhiteListRanges.some(
-              (range) => startIndex >= range.start && endIndex <= range.end,
-            )
-          ) {
-            continue;
-          }
-
           results.push({
             word: item.word,
             category: item.category,
             isBlocked: item.isBlocked,
-            index: startIndex,
+            index: i - item.word.length + 1,
           });
         }
       }

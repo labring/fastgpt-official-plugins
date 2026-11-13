@@ -1,141 +1,75 @@
 import { describe, expect, it } from "vitest";
+import moderation from "../index";
 import { moderateText } from "../src/moderation";
 
-describe("moderateText with AC automaton and open-source lexicon", () => {
-  it("blocks content matching built-in open-source lexicon with correct category", () => {
-    // 涉枪涉爆测试
-    const resWeapons = moderateText("非法炸弹制作技术交流与扩散");
-    expect(resWeapons.verdict).toBe("block");
-    expect(resWeapons.hits.some((h) => h.label === "violence")).toBe(true);
-
+describe("moderateText with AC automaton and politics/porn built-in lexicons", () => {
+  it("blocks content matching politics and porn lexicons with correct category", () => {
     // 色情测试
-    const resPorn = moderateText("点击浏览色情网站与做爱视频");
+    const resPorn = moderateText("点击浏览色情网站与性交视频");
     expect(resPorn.verdict).toBe("block");
     expect(resPorn.hits.some((h) => h.label === "porn")).toBe(true);
-  });
 
-  it("passes completely normal text", () => {
-    const res = moderateText(
-      "今天天气真好，我们一起去公园跑步吧。FastGPT 是一个优秀的 AI Agent 平台。",
+    // 涉政高危测试
+    const resPolitics = moderateText("宣传法轮功与天灭中共等违禁言论");
+    expect(resPolitics.verdict).toBe("block");
+    expect(resPolitics.hits.some((h) => h.label === "politics")).toBe(true);
+
+    // 涉政疑似测试
+    const resPoliticsSuspected = moderateText("关于中南海政治架构的讨论");
+    expect(resPoliticsSuspected.verdict).toBe("suspected");
+    expect(resPoliticsSuspected.hits.some((h) => h.label === "politics")).toBe(
+      true,
     );
-    expect(res.verdict).toBe("pass");
-    expect(res.hits).toEqual([]);
   });
 
-  it("does not false-positive on common English words, numbers, or harmless daily terms", () => {
-    // 1. 常见英文句子，不能因包含 'is' 被误杀
-    const resIs = moderateText("This is FastGPT AI assistant.");
-    expect(resIs.verdict).toBe("pass");
-
-    // 2. 包含数字 24 或 10086 或客服，不能被误杀
-    const res24 = moderateText("提供 24 小时在线客服，咨询电话 10086。");
-    expect(res24.verdict).toBe("pass");
-
-    // 3. 常见计算机与商业缩写，不能因包含 'CS' 或 'BI' 被误杀
-    const resCS = moderateText("我是 CS 专业的学生，正在学习 PowerBI 数据分析。");
-    expect(resCS.verdict).toBe("pass");
-
-    // 4. 常见操作与日常动词，不能因包含 '操' 或 '日' 被误杀
-    const resOperate = moderateText("这是一份系统操作手册，明天是星期日，大家生日快乐。");
-    expect(resOperate.verdict).toBe("pass");
-
-    // 5. 常见人口与统计数字，不能被误杀
-    const resPop = moderateText("中国有 14 亿人口，经济蓬勃发展。");
-    expect(resPop.verdict).toBe("pass");
+  it("exposes no secret schema fields and enables both lexicons by default", () => {
+    const schema = moderation.getSecretSchema();
+    const parsed = schema.safeParse({});
+    expect(parsed.success).toBe(true);
+    expect(moderateText("反对台湾独立与疆独分子的分裂行径").verdict).toBe(
+      "block",
+    );
+    expect(moderateText("点击浏览色情网站与性交视频").verdict).toBe("block");
   });
 
-  it("supports category toggles to selectively disable categories", () => {
-    // 涉暴测试
-    const text = "非法制造炸药和雷管引爆技术";
-    const resBlocked = moderateText(text, { enableViolence: true });
-    expect(resBlocked.verdict).toBe("block");
+  it("passes completely normal text and avoids high-frequency false positives", () => {
+    const normalSamples = [
+      "今天天气真好，我们一起去公园跑步吧。FastGPT 是一个优秀的 AI Agent 平台。",
+      "This is FastGPT AI assistant.",
+      "提供 24 小时在线客服，咨询电话 10086。",
+      "我是 CS 专业的学生，正在学习 PowerBI 数据分析。",
+      "这是一份系统操作手册，明天是星期日，大家生日快乐。",
+      "中国有 14 亿人口，经济蓬勃发展。",
+      "我们需要保持独立思考，并支持前后端独立部署，后台独立运行与平台独立架构。",
+      "隐藏独立窗口后即可在 Excel 数据透视表中查看统计结果。",
+      "请帮我修改一下我的简历，我有三年独立开发经验。",
+      "今天去政务大厅办证，办理身份证的流程非常顺利。",
+      "政府工作报告强调数字经济发展，维护国家主权与网络安全。",
+      "Java 集合框架和 TypeScript 数组操作是编程基础。",
+      "周末给家人做爱吃的菜，遇到了一点大麻烦但很快解决了。",
+      "使用 small 组件和 usb 接口，避免形形色色的问题。",
+      "武汉人喜欢去清真餐厅，阿拉伯数字在全世界广泛使用。",
+      "明天就去日本出差，记得把插头拔出来，我干了一天活需要休息。",
+      "今天不穿外套，手机铃声响了一大波，去拍毕业写真并参加兼职招聘。",
+      "AI 模型调教与提示词工程能显著提升问答质量，剧情迎来高潮。",
+      "不要搞形式主义，大家在官网查看公开信和限量版产品信息。",
+      "历史课上学习了鸦片战争，严守禁毒宣传教育与预防自杀热线。",
+    ];
 
-    // 禁用暴恐分类后，该项不再被拦截
-    const resDisabled = moderateText(text, { enableViolence: false });
-    expect(resDisabled.verdict).toBe("pass");
+    for (const sample of normalSamples) {
+      const res = moderateText(sample);
+      expect(res, `Expected pass for: ${sample}`).toEqual({
+        verdict: "pass",
+        hits: [],
+      });
+    }
   });
 
-  it("supports custom blocked keywords with custom category mapping", () => {
-    const res = moderateText("本平台禁止讨论竞品名称 secretProduct", {
-      customBlockedKeywords: "secretProduct:competitor, anotherBadWord",
-      enableDefaultDict: false,
-    });
-
+  it("prioritizes block over suspected while recording all matched hits", () => {
+    const res = moderateText("在色情网站讨论中南海政治话题");
     expect(res.verdict).toBe("block");
-    expect(res.hits).toEqual([
-      {
-        label: "other",
-        providerLabel: "local-keyword:competitor",
-        keywords: ["secretproduct"],
-      },
-    ]);
-  });
-
-  it("records all hits when text contains both block and suspected keywords", () => {
-    const res = moderateText("这是一段同时包含高危违禁词炸药和人工审核词的内容", {
-      enableDefaultDict: false,
-      customBlockedKeywords: "炸药:violence",
-      customSuspiciousKeywords: "人工审核:custom_suspected",
-    });
-
-    // 只要有 block 词，整体裁决为 block
-    expect(res.verdict).toBe("block");
-    // 一并输出全部命中的敏感词（包含 block 词和 suspected 词）
-    expect(res.hits.some((h) => h.keywords.includes("炸药"))).toBe(true);
-    expect(res.hits.some((h) => h.keywords.includes("人工审核"))).toBe(true);
-  });
-
-  it("detects contraband, ad, and violence from the full open-source lexicon", () => {
-    // 违禁品测试
-    const resDrugs = moderateText("高纯度甲基苯丙胺合成方法交流");
-    expect(resDrugs.verdict).toBe("block");
-    expect(resDrugs.hits.some((h) => h.label === "contraband" || h.label === "violence")).toBe(true);
-
-    // 广告分类测试（启用广告分类时检测为 suspected 疑似）
-    const resAd = moderateText("欢迎访问 www.97cao97gan.cn 获取更多资讯", {
-      enableAd: true,
-    });
-    expect(resAd.verdict).toBe("suspected");
-    expect(resAd.hits.some((h) => h.label === "ad" || h.label === "porn")).toBe(true);
-  });
-
-  it("whitelists false-positive keywords", () => {
-    // 假设某词在内置词库命中，但加入白名单后放行
-    const resBlocked = moderateText("测试枪支弹药", {
-      enableDefaultDict: false,
-      customBlockedKeywords: "枪支弹药",
-    });
-    expect(resBlocked.verdict).toBe("block");
-
-    const resWhitelisted = moderateText("测试枪支弹药", {
-      enableDefaultDict: false,
-      customBlockedKeywords: "枪支弹药",
-      whiteList: "枪支弹药",
-    });
-    expect(resWhitelisted.verdict).toBe("pass");
-    expect(resWhitelisted.hits).toEqual([]);
-
-    // 长专有名词白名单应豁免其内部包含的敏感子词
-    const resCompoundWhitelisted = moderateText("请登录弹药库管理系统查看库存", {
-      enableDefaultDict: false,
-      customBlockedKeywords: "弹药:violence",
-      whiteList: "弹药库管理系统",
-    });
-    expect(resCompoundWhitelisted.verdict).toBe("pass");
-    expect(resCompoundWhitelisted.hits).toEqual([]);
-  });
-
-  it("supports built-in other category and its toggle", () => {
-    const resEnabled = moderateText("某官员因严重违纪被立案调查", {
-      enableOther: true,
-    });
-    expect(resEnabled.verdict).toBe("suspected");
-    expect(resEnabled.hits.some((h) => h.label === "other")).toBe(true);
-
-    const resDisabled = moderateText("某官员因严重违纪被立案调查", {
-      enableOther: false,
-    });
-    expect(resDisabled.verdict).toBe("pass");
+    expect(res.hits.some((h) => h.label === "porn")).toBe(true);
+    expect(res.hits.some((h) => h.label === "politics")).toBe(true);
   });
 
   it("executes sub-millisecond on long texts (performance benchmark)", () => {
@@ -148,7 +82,6 @@ describe("moderateText with AC automaton and open-source lexicon", () => {
     const duration = performance.now() - start;
 
     expect(res.verdict).toBe("pass");
-    // 7,000 字扫描通常在 1~3ms 内完成
     expect(duration).toBeLessThan(15);
   });
 });

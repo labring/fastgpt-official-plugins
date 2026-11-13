@@ -10,7 +10,7 @@
     "build:dev": "npx @fastgpt-plugin/cli build",
     "check": "npx @fastgpt-plugin/cli check --entry . --output ./dist",
     "debug": "npx @fastgpt-plugin/cli debug .",
-    "debug:run": "npx @fastgpt-plugin/cli debug . --run --input '{\"content\":\"blocked phrase\"}' --secrets '{\"blockedKeywords\":\"blocked phrase\"}'",
+    "debug:run": "npx @fastgpt-plugin/cli debug . --run --input '{\"content\":\"点击浏览色情网站\"}'",
     "pack": "npx @fastgpt-plugin/cli pack",
     "pack:moderation": "npx @fastgpt-plugin/cli pack",
     "test": "vitest run",

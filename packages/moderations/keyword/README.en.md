@@ -9,29 +9,13 @@ It runs **100% locally with zero external network calls** and sub-millisecond la
 ## Key Features
 
 - **High Performance**: $O(N + M)$ Aho-Corasick automaton scanning decouples latency from dictionary size; 7,000-character texts are reviewed in 1–2 ms.
-- **Built-in Tiered Lexicon**: Sanitized into `block` (high-risk) and `suspected` (review) tiers across six categories (all enabled by default except `ad`):
-  - `politics`: political and harmful ideological terms
-  - `violence`: terrorism, violence, firearms, and explosives
-  - `porn`: pornography, prostitution, and vulgarity
-  - `contraband`: narcotics, smuggling, counterfeiting, and illicit trade
-  - `ad`: spam, gambling, and scam promotion URLs (disabled by default to avoid false positives)
-  - `other`: corruption, disciplinary violations, and general sensitive terms
-- **Flexible Customization**: Configure custom blocklists, custom suspected lists, domain whitelists (exempting longer compound terms containing sensitive substrings), and per-category toggles directly in the FastGPT UI.
+- **Built-in Tiered Lexicon**: Built directly from `konsheng/Sensitive-lexicon` (`反动词库.txt`, `政治类型.txt`, `色情词库.txt`) with high-frequency false-positive terms removed, separated into `block` (high-risk) and `suspected` (review) tiers across two categories (both always enabled out of the box):
+  - `politics`: political and reactionary lexicon
+  - `porn`: pornography and vulgarity lexicon
 
-## Configuration (`secretSchema`)
+## Configuration
 
-| Field | Type | Default | Description |
-| --- | --- | --- | --- |
-| `customBlockedKeywords` | `string` | - | Comma/semicolon/newline separated keywords that immediately trigger `block` (supports `keyword` or `keyword:category`) |
-| `customSuspiciousKeywords` | `string` | - | Comma/semicolon/newline separated keywords marked as `suspected` |
-| `whiteList` | `string` | - | Comma/semicolon/newline separated exempted terms (prevents false positives on compound domain nouns) |
-| `enableDefaultDict` | `boolean` | `true` | Enable the built-in open-source lexicon |
-| `enablePolitics` | `boolean` | `true` | Enable politics category |
-| `enableViolence` | `boolean` | `true` | Enable violence/terrorism category |
-| `enablePorn` | `boolean` | `true` | Enable pornography category |
-| `enableContraband` | `boolean` | `true` | Enable contraband/narcotics category |
-| `enableAd` | `boolean` | `false` | Enable advertising/spam category |
-| `enableOther` | `boolean` | `true` | Enable other general sensitive category |
+No configuration or API credentials are required. Both `politics` and `porn` lexicons are enabled automatically.
 
 ## Development
 
