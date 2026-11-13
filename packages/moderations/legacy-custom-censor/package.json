@@ -1,0 +1,28 @@
+{
+  "name": "fastgpt-moderation-legacy-custom-censor",
+  "version": "1.0.0",
+  "description": "Compatibility adapter for legacy custom censor endpoints",
+  "type": "module",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx @fastgpt-plugin/cli build --minify",
+    "build:dev": "npx @fastgpt-plugin/cli build",
+    "check": "npx @fastgpt-plugin/cli check --entry . --output ./dist",
+    "dev": "fastgpt-plugin dev . --watch",
+    "debug": "npx @fastgpt-plugin/cli debug .",
+    "debug:run": "npx @fastgpt-plugin/cli debug . --run --input '{\"content\":\"hello world\"}'",
+    "pack": "npx @fastgpt-plugin/cli pack",
+    "test": "vitest run",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@fastgpt-plugin/cli": "catalog:",
+    "@fastgpt-plugin/sdk-factory": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "zod": "catalog:",
+    "@types/node": "catalog:"
+  },
+  "private": true
+}

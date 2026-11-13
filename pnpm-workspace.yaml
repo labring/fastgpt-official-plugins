@@ -1,11 +1,13 @@
 packages:
   - packages/tools/*
+  - packages/moderations/*
   - packages/test/tools/*
+  - packages/test/moderations/*
 
 catalog:
   "@biomejs/biome": 2.3.13
   "@fastgpt-plugin/cli": 0.2.2-alpha.6
-  "@fastgpt-plugin/sdk-factory": 1.2.0-alpha.5
+  "@fastgpt-plugin/sdk-factory": 1.2.0-beta.1
   "@types/node": ^22
   lefthook: ^2.1.0
   tsx: ^4.21.0

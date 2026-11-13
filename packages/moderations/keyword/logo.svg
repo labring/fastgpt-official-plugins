@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="Keyword moderation test">
+  <rect width="128" height="128" rx="24" fill="#1f2937"/>
+  <path d="M36 30h56a10 10 0 0 1 10 10v38a10 10 0 0 1-10 10H65L43 108V88h-7a10 10 0 0 1-10-10V40a10 10 0 0 1 10-10Z" fill="#fff"/>
+  <path d="M43 52h42M43 64h30M43 76h20" stroke="#2563eb" stroke-width="6" stroke-linecap="round"/>
+</svg>
